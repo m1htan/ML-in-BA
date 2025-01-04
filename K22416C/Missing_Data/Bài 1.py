@@ -33,11 +33,11 @@ print(cleaned6)
 print("-"*10)
 
 data_filled = data.fillna(0)  # Thay NA bằng 0
-cleaned7 = data_filled[data_filled[0] != 0]  # Lọc giá trị không phải 0
+cleaned7 = data_filled[data_filled[0] != 0]  # Lọc giá trị mà cột đầu tiên không phải 0
 print(cleaned7)
 print("-"*10)
 
-cleaned8 = data[data[1].isna()]  # Chỉ lấy các hàng mà cột thứ 1 bị thiếu
+cleaned8 = data[data[1].isna()]  # Chỉ lấy các hàng mà cột thứ 2 (cột số 1) bị thiếu
 print(cleaned8)
 print("-"*10)
 

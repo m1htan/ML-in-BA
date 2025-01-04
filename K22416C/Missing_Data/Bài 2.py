@@ -9,10 +9,6 @@ data = pd.DataFrame([[1., 6.5, 3.],
 print(data)
 print("-"*10)
 
-cleaned=data.fillna(data.mean())
-print(cleaned)
-print("-"*10)
-
 cleaned1 = data.fillna(0)  # Điền giá trị thiếu bằng 0
 print(cleaned1)
 print("-"*10)
@@ -41,7 +37,7 @@ cleaned7 = data.interpolate(method='linear')  # Nội suy tuyến tính
 print(cleaned7)
 print("-"*10)
 
-cleaned8 = data.interpolate(method='polynomial', order=2)  # Nội suy bậc 2
+cleaned8 = cleaned1.interpolate(method='polynomial', order=2)  # Nội suy bậc 2
 print(cleaned8)
 print("-"*10)
 
