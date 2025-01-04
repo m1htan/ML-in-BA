@@ -45,6 +45,6 @@ cleaned9 = data[data[1] == 1]  # Lọc các hàng mà cột 1 không bị thiế
 print(cleaned9)
 print("-"*10)
 
-cleaned10=data.dropna(how='any') # Xóa chỉ khi tất cả giá trị trong hàng đều bị thiếu.
+cleaned10=data.dropna(how='any')
 print(cleaned10)
 print("-"*10)
