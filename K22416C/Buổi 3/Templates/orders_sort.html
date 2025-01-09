@@ -9,18 +9,26 @@
         <table border="1">
             <tr>
                 <td>min_value:</td>
-                <td><input type="text" name="min_value" id="min_value" size="15" /></td>
+                <td>
+                    <input type="text" name="min_value" id="min_value" size="15"
+                           value="{{ min_value }}" />
+                </td>
             </tr>
             <tr>
                 <td>max_value:</td>
-                <td><input type="text" name="max_value" id="max_value" size="15" /></td>
+                <td>
+                    <input type="text" name="max_value" id="max_value" size="15"
+                           value="{{ max_value }}" />
+                </td>
             </tr>
             <tr>
                 <td>Sort Order:</td>
                 <td>
-                    <input type="radio" id="ascending" name="sort_order" value="ascending" checked>
+                    <input type="radio" id="ascending" name="sort_order" value="ascending"
+                           {% if sort_order == "ascending" %} checked {% endif %}>
                     <label for="ascending">Ascending</label>
-                    <input type="radio" id="descending" name="sort_order" value="descending">
+                    <input type="radio" id="descending" name="sort_order" value="descending"
+                           {% if sort_order == "descending" %} checked {% endif %}>
                     <label for="descending">Descending</label>
                 </td>
             </tr>
@@ -30,10 +38,14 @@
                 </td>
             </tr>
         </table>
-        {% for table in tables %}
-            {{titles[loop.index]}}
-            {{ table|safe }}
-        {% endfor %}
+
+        {% if tables %}
+            <h2>Sorted Orders:</h2>
+            {% for table in tables %}
+                {{ titles[loop.index] }}
+                {{ table|safe }}
+            {% endfor %}
+        {% endif %}
     </form>
 </body>
 </html>
