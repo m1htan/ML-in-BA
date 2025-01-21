@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QMessageBox
-from PyQt6.QtWidgets.QWidget import setWindowTitle
+from PyQt6.QtWidgets import QWidget
 
 from SalesManagement.UI.LoginMainWindow import Ui_MainWindow
 
@@ -12,10 +12,10 @@ class LoginMainWindowExt(Ui_MainWindow):
         self.MainWindow.show()
 
     def setupSignalAndSlot(self):
-        self.pushButton2.clicked.connect(self.xuly_dangnhap)
+        self.pushButton_2.clicked.connect(self.xuly_dangnhap)
 
     def xuly_dangnhap(self):
-        username=self.lineeidtusername.text()
+        username=self.lineidtusername.text()
         password=self.lineEditpassword.text()
 
         # Giả lập đăng nhập (Hôm sau truy vấn thật trong CSDL)
@@ -24,8 +24,9 @@ class LoginMainWindowExt(Ui_MainWindow):
             pass
         else:
             self.msg=QMessageBox()
-            self.msg=setWindowTitle("Login thất bại")
-            self.msg=setText("Bạn đăng nhập thất bại.\nKiểm tra lại thông tin đăng nhập")
+            self.widget = QWidget()
+            self.widget.setWindowTitle("Login thất bại")
+            self.widget.setWindowTitle("Bạn đăng nhập thất bại.\nKiểm tra lại thông tin đăng nhập")
             self.msg.setIcon(QMessageBox.Icon.Critial)
             self.msg.show()
 
