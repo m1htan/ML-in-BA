@@ -92,6 +92,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.pushButton_2.clicked['bool'].connect(MainWindow.close) # type: ignore
+        self.pushButton.clicked['bool'].connect(MainWindow.show) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
