@@ -1,6 +1,6 @@
 import sys
 
-from SalesManagement.UI.MainProgramMainWindow import Ui_MainWindow
+from K22416C.SalesManagement.UI.MainProgramMainWindow import Ui_MainWindow
 
 class MainProgramMainWindowExt(Ui_MainWindow):
     def setupUi(self, MainWindow):

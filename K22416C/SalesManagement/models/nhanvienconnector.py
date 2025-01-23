@@ -1,5 +1,5 @@
-from SalesManagement.libs.connector import MySQLConnector
-from SalesManagement.models.nhanvien import NhanVien
+from K22416C.SalesManagement.libs.connector import MySQLConnector
+from K22416C.SalesManagement.models.nhanvien import NhanVien
 
 
 class NhanVienConnector(MySQLConnector):
