@@ -42,8 +42,44 @@
      <height>24</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuH_th_ng">
+    <property name="title">
+     <string>Hệ thống</string>
+    </property>
+    <addaction name="actionthongtintaikhoan"/>
+    <addaction name="actiondoimatkhau"/>
+    <addaction name="actioncauhinhhethong"/>
+    <addaction name="actionthoatphanmem"/>
+   </widget>
+   <addaction name="menuH_th_ng"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionthongtintaikhoan">
+   <property name="text">
+    <string>Thông tin tài khoản</string>
+   </property>
+   <property name="shortcut">
+    <string/>
+   </property>
+  </action>
+  <action name="actiondoimatkhau">
+   <property name="text">
+    <string>Đổi mật khẩu</string>
+   </property>
+  </action>
+  <action name="actioncauhinhhethong">
+   <property name="text">
+    <string>Cấu hình hệ thống</string>
+   </property>
+  </action>
+  <action name="actionthoatphanmem">
+   <property name="text">
+    <string>Thoát phần mềm</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
