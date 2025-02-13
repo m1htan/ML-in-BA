@@ -42,7 +42,7 @@ class ProductMainWindowExt(Ui_MainWindow):
     def setupSignalAndSlot(self):
         self.listWidgetDanhMuc.itemSelectionChanged.connect(self.tai_danhsach_sanpham)
         self.tableWidgetSanPham.itemSelectionChanged.connect(self.xem_chitiet_sanpham)
-        self.pushButtonXoa.clicked.connect(self.pushButtonXoa)
+        self.pushButtonXoa.clicked.connect(self.Xuly_xoa())
 
     def tai_danhsach_sanpham(self):
         selected_index=self.listWidgetDanhMuc.currentRow()
