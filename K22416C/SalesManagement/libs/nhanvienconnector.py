@@ -1,7 +1,6 @@
 from K22416C.SalesManagement.libs.connector import MySQLConnector
 from K22416C.SalesManagement.models.nhanvien import NhanVien
 
-
 class NhanVienConnector(MySQLConnector):
     def dang_nhap(self, username, password):
         cursor=self.conn.cursor()

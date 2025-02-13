@@ -50,8 +50,18 @@
     <addaction name="actiondoimatkhau"/>
     <addaction name="actioncauhinhhethong"/>
     <addaction name="actionthoatphanmem"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuQuanly">
+    <property name="title">
+     <string>Quản lý</string>
+    </property>
+    <addaction name="actionQuanlydanhmucsanpham"/>
+    <addaction name="actionQuanlydonhang"/>
+    <addaction name="actionQuanlynhanvien"/>
    </widget>
    <addaction name="menuH_th_ng"/>
+   <addaction name="menuQuanly"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionthongtintaikhoan">
@@ -80,7 +90,61 @@
     <string>Esc</string>
    </property>
   </action>
+  <action name="actionQuanlydanhmucsanpham">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Quản lý danh mục sản phẩm</string>
+   </property>
+  </action>
+  <action name="actionQuanlydonhang">
+   <property name="text">
+    <string>Quản lý đơn hàng</string>
+   </property>
+  </action>
+  <action name="actionQuanlynhanvien">
+   <property name="text">
+    <string>Quản lý nhân viên</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionthoatphanmem</sender>
+   <signal>changed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionQuanlydanhmucsanpham</sender>
+   <signal>changed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

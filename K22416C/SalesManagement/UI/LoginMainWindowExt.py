@@ -1,9 +1,8 @@
 from PyQt6.QtWidgets import QMessageBox, QMainWindow
-from PyQt6.QtWidgets import QWidget
 
 from K22416C.SalesManagement.UI.LoginMainWindow import Ui_MainWindow
 from K22416C.SalesManagement.UI.MainProgramMainWindowExt import MainProgramMainWindowExt
-from K22416C.SalesManagement.models.nhanvienconnector import NhanVienConnector
+from K22416C.SalesManagement.libs.nhanvienconnector import NhanVienConnector
 
 
 class LoginMainWindowExt(Ui_MainWindow):
