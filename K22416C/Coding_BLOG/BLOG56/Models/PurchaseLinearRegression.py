@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from matplotlib import pyplot as plt
 
 from sklearn.model_selection import train_test_split
@@ -46,13 +47,14 @@ class PurchaseLinearRegression(PurchaseMLModel):
         plt.xlabel('Predicted value of Y')
         plt.ylabel('Real value of Y')
         plt.show()
+
     def evaluate(self):
         pred = self.model.predict(self.X_test)
-        mae=mean_absolute_error(self.y_test, pred)
-        mse = mean_squared_error(self.y_test, pred, squared=True)
-        rmse = mean_squared_error(self.y_test, pred, squared=False)
-        r2score=r2_score(self.y_test, pred)
-        return MetricsResult(mae,mse,rmse,r2score)
+        mae = mean_absolute_error(self.y_test, pred)
+        mse = mean_squared_error(self.y_test, pred)
+        rmse = np.sqrt(mse)
+        r2score = r2_score(self.y_test, pred)
+        return MetricsResult(mae, mse, rmse, r2score)
     def predictPriceFromGenderAndAge(self,gender,age):
         data_gender = {'gender': ["Male", "Female"]}
         df_gender = pd.DataFrame(data=data_gender)
