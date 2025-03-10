@@ -4,7 +4,7 @@ server="localhost"
 port=3306
 database="studentmanagement"
 username="root"
-password="minhtan0410"
+password="Minhtan0410@"
 
 conn = mysql.connector.connect(
                 host=server,

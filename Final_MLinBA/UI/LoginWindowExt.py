@@ -6,12 +6,13 @@ from PyQt6.QtWidgets import QMessageBox
 from MLinBA.Final_MLinBA.UI.LoginWindow import Ui_MainWindow
 from MLinBA.Final_MLinBA.Connectors.Connector import Connector
 
-
 class LoginWindowExt(Ui_MainWindow):
+
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         self.MainWindow=MainWindow
-        self.pushButton_connect.clicked.connect(self.connectDatabase)
+        self.pushButtonConnect.clicked.connect(self.connectDatabase)
+
     def connectDatabase(self):
         try:
             self.connector=Connector()
@@ -34,6 +35,7 @@ class LoginWindowExt(Ui_MainWindow):
             self.msg.setText("Connect database failed")
             self.msg.setWindowTitle("Info")
             self.msg.show()
+
     def show(self):
         self.MainWindow.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.MainWindow.show()

@@ -46,6 +46,7 @@ class Connector:
         except:
             traceback.print_exc()
         return None
+
     def getTablesName(self):
         cursor = self.conn.cursor()
         cursor.execute("Show tables;")

@@ -3,14 +3,14 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
-   <enum>Qt::WindowModality::ApplicationModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1446</width>
-    <height>1024</height>
+    <width>1408</width>
+    <height>1022</height>
    </rect>
   </property>
   <property name="palette">
@@ -246,6 +246,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>36</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -253,13 +254,13 @@
      <bool>true</bool>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::NoFrame</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>CONNECTION SETTING</string>
     </property>
     <property name="textFormat">
-     <enum>Qt::TextFormat::AutoText</enum>
+     <enum>Qt::PlainText</enum>
     </property>
     <property name="wordWrap">
      <bool>false</bool>
@@ -278,6 +279,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -298,6 +300,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -318,6 +321,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -338,6 +342,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -358,6 +363,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -378,6 +384,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -398,6 +405,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -418,6 +426,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -438,6 +447,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -458,6 +468,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>29</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -541,7 +552,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_connect">
+   <widget class="QPushButton" name="pushButtonConnect">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -654,6 +665,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>23</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -708,7 +720,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_exit">
+   <widget class="QPushButton" name="pushButtoExit">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -821,6 +833,7 @@
      <font>
       <family>Segoe UI</family>
       <pointsize>23</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -877,9 +890,6 @@
     <property name="frame">
      <bool>false</bool>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
     <property name="clearButtonEnabled">
      <bool>false</bool>
     </property>
@@ -910,9 +920,6 @@
     </property>
     <property name="frame">
      <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
     <property name="clearButtonEnabled">
      <bool>false</bool>
@@ -945,9 +952,6 @@
     <property name="frame">
      <bool>false</bool>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
     <property name="clearButtonEnabled">
      <bool>false</bool>
     </property>
@@ -978,9 +982,6 @@
     </property>
     <property name="frame">
      <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
     <property name="clearButtonEnabled">
      <bool>false</bool>
@@ -1014,10 +1015,7 @@
      <bool>false</bool>
     </property>
     <property name="echoMode">
-     <enum>QLineEdit::EchoMode::PasswordEchoOnEdit</enum>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     <enum>QLineEdit::Normal</enum>
     </property>
     <property name="readOnly">
      <bool>false</bool>
@@ -1043,9 +1041,9 @@
    <zorder>frame_databaseinput</zorder>
    <zorder>frame_userinput</zorder>
    <zorder>frame_passwordinput</zorder>
-   <zorder>pushButton_connect</zorder>
+   <zorder>pushButtonConnect</zorder>
    <zorder>frame_connectbutton_2</zorder>
-   <zorder>pushButton_exit</zorder>
+   <zorder>pushButtoExit</zorder>
    <zorder>frame_serverinput</zorder>
    <zorder>lineEditServer</zorder>
    <zorder>lineEditPort</zorder>
@@ -1057,7 +1055,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_exit</sender>
+   <sender>pushButtoExit</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
