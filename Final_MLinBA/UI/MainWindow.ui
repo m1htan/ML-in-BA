@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1680</width>
+    <height>1050</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1440</width>
+      <height>1024</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab_Statistics">
+     <attribute name="title">
+      <string>Statistics</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1431</width>
+        <height>991</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="geometry">
+           <rect>
+            <x>310</x>
+            <y>20</y>
+            <width>1121</width>
+            <height>361</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>List of data:</string>
+          </property>
+          <widget class="QTableWidget" name="tableWidget_ListOfData">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>30</y>
+             <width>1121</width>
+             <height>331</height>
+            </rect>
+           </property>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="geometry">
+           <rect>
+            <x>310</x>
+            <y>380</y>
+            <width>1121</width>
+            <height>611</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Chart Visualization:</string>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>30</y>
+             <width>1121</width>
+             <height>581</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_ChartVisualization"/>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>311</width>
+            <height>971</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <widget class="QPushButton" name="pushButtonCustomerAge">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>311</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Customer age</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonAnnualPremium">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>60</y>
+             <width>311</width>
+             <height>81</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Annual Premium</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_ResponseRate">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>150</y>
+             <width>301</width>
+             <height>81</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Response rate</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonByVehicleAge">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>580</y>
+             <width>311</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>By Vehicle Age</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonByGenderAndVehicleDamage">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>480</y>
+             <width>311</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>By Gender and Vehicle Damage</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonByAgeGroup">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>530</y>
+             <width>311</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>By Age group</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_ML">
+     <attribute name="title">
+      <string>Machine Learning</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1431</width>
+        <height>991</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>130</y>
+            <width>791</width>
+            <height>101</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Load model</string>
+          </property>
+          <widget class="QLabel" name="label_2">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>40</y>
+             <width>141</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>25</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Load model:</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_LoadModel">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>40</y>
+             <width>431</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_LoadModel">
+           <property name="geometry">
+            <rect>
+             <x>592</x>
+             <y>41</y>
+             <width>131</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Load model</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonLoadPath">
+           <property name="geometry">
+            <rect>
+             <x>730</x>
+             <y>50</y>
+             <width>41</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_7">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>791</width>
+            <height>101</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Save model</string>
+          </property>
+          <widget class="QLabel" name="label_3">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>40</y>
+             <width>141</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>25</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Save model:</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_SaveModel">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>40</y>
+             <width>431</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_SaveModel">
+           <property name="geometry">
+            <rect>
+             <x>592</x>
+             <y>41</y>
+             <width>121</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Save model</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonSavePath">
+           <property name="geometry">
+            <rect>
+             <x>730</x>
+             <y>50</y>
+             <width>41</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_8">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>490</y>
+            <width>741</width>
+            <height>441</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Evaluation</string>
+          </property>
+          <widget class="QLineEdit" name="lineEdit_MAE">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>60</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_MSE">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>130</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_RMSE">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>200</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_RSquare">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>270</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_6">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>70</y>
+             <width>60</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>MAE</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_7">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>140</y>
+             <width>60</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>MSE</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_8">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>210</y>
+             <width>60</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>RMSE</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_9">
+           <property name="geometry">
+            <rect>
+             <x>59</x>
+             <y>280</y>
+             <width>71</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>R-square</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_ROC_AUC">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>340</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_10">
+           <property name="geometry">
+            <rect>
+             <x>19</x>
+             <y>350</y>
+             <width>121</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>ROC-AUC Score</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_9">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>260</y>
+            <width>731</width>
+            <height>191</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Train model</string>
+          </property>
+          <widget class="QLabel" name="label_4">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>50</y>
+             <width>60</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Text size</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_TextSize">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>40</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_5">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>130</y>
+             <width>101</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Random state</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_RandomState">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>120</y>
+             <width>421</width>
+             <height>41</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_TrainModel">
+           <property name="geometry">
+            <rect>
+             <x>590</x>
+             <y>80</y>
+             <width>131</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Train model</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_10">
+          <property name="geometry">
+           <rect>
+            <x>870</x>
+            <y>710</y>
+            <width>411</width>
+            <height>201</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>Prediction:</string>
+          </property>
+          <widget class="QLabel" name="label_12">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>101</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Gender:</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEditGender">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>20</y>
+             <width>241</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEditAge">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>50</y>
+             <width>241</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_13">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>50</y>
+             <width>101</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Age:</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEditPaymentMethod">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>80</y>
+             <width>241</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_14">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>80</y>
+             <width>101</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Payment Method:</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonPredict">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>110</y>
+             <width>111</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Predict</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEditPredictedPrice">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>160</y>
+             <width>241</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_15">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>160</y>
+             <width>101</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Predicted Price:</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1680</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuHome">
+    <property name="title">
+     <string>Home</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionConnect_Database"/>
+    <addaction name="actionSaved_trained_ML_model"/>
+    <addaction name="actionLoad_trained_ML_model"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionInstruction"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuHome"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionConnect_Database">
+   <property name="text">
+    <string>Connect Database</string>
+   </property>
+  </action>
+  <action name="actionInstruction">
+   <property name="text">
+    <string>Instruction</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionSaved_trained_ML_model">
+   <property name="text">
+    <string>Save trained ML Model </string>
+   </property>
+  </action>
+  <action name="actionLoad_trained_ML_model">
+   <property name="text">
+    <string>Load trained ML Model</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>pushButtonCustomerAge</tabstop>
+  <tabstop>pushButtonAnnualPremium</tabstop>
+  <tabstop>pushButtonByGenderAndVehicleDamage</tabstop>
+  <tabstop>pushButtonByAgeGroup</tabstop>
+  <tabstop>pushButtonByVehicleAge</tabstop>
+  <tabstop>tableWidget_ListOfData</tabstop>
+  <tabstop>lineEdit_LoadModel</tabstop>
+  <tabstop>pushButton_LoadModel</tabstop>
+  <tabstop>lineEdit_SaveModel</tabstop>
+  <tabstop>pushButton_SaveModel</tabstop>
+  <tabstop>lineEdit_MAE</tabstop>
+  <tabstop>lineEdit_MSE</tabstop>
+  <tabstop>lineEdit_RMSE</tabstop>
+  <tabstop>lineEdit_RSquare</tabstop>
+  <tabstop>lineEdit_TextSize</tabstop>
+  <tabstop>lineEdit_RandomState</tabstop>
+  <tabstop>lineEdit_ROC_AUC</tabstop>
+  <tabstop>pushButton_TrainModel</tabstop>
+  <tabstop>pushButtonLoadPath</tabstop>
+  <tabstop>pushButtonSavePath</tabstop>
+  <tabstop>lineEditGender</tabstop>
+  <tabstop>lineEditAge</tabstop>
+  <tabstop>lineEditPaymentMethod</tabstop>
+  <tabstop>pushButtonPredict</tabstop>
+  <tabstop>lineEditPredictedPrice</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

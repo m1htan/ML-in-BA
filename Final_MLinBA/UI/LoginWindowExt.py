@@ -3,11 +3,11 @@ import traceback
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMessageBox
 
-from FinalProject.UI.Connection import Ui_MainWindow
-from FinalProject.Connectors.Connector import Connector
+from MLinBA.Final_MLinBA.UI.LoginWindow import Ui_MainWindow
+from MLinBA.Final_MLinBA.Connectors.Connector import Connector
 
 
-class ConnectionExt(Ui_MainWindow):
+class LoginWindowExt(Ui_MainWindow):
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         self.MainWindow=MainWindow

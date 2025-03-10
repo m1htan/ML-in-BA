@@ -1,26 +1,35 @@
+#python -m pip install mysql-connector-python
 import mysql.connector
 import traceback
 import pandas as pd
 class Connector:
-    def __init__(self,server=None, port=None, database=None, username=None, password=None):
-            self.server=server
-            self.port=port
-            self.database=database
-            self.username=username
-            self.password=password
+    def __init__(self, server=None,
+                port=None,
+                database=None,
+                username=None,
+                password=None):
+        if server==None:
+            self.server = "localhost"
+            self.port = 3306
+            self.database = "Final_MLinBA"
+            self.username = "root"
+            self.password = "Minhtan0410@"
+        else:
+            self.server = server
+            self.port = port
+            self.database = database
+            self.username = username
+            self.password = password
+
     def connect(self):
-        try:
-            self.conn = mysql.connector.connect(
-                host=self.server,
-                port=self.port,
-                database=self.database,
-                user=self.username,
-                password=self.password)
-            return self.conn
-        except:
-            self.conn=None
-            traceback.print_exc()
-        return None
+        self.conn = mysql.connector.connect(
+        host=self.server,
+        port=self.port,
+        database=self.database,
+        user=self.username,
+        password=self.password
+        )
+        return self.conn
 
     def disConnect(self):
         if self.conn != None:
