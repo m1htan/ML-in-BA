@@ -190,7 +190,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../Test QtEdu/images/Frame connection.png</pixmap>
+     <pixmap>../Images/Frame connection.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -201,7 +201,7 @@
      <rect>
       <x>326</x>
       <y>109</y>
-      <width>531</width>
+      <width>651</width>
       <height>51</height>
      </rect>
     </property>
