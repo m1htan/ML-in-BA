@@ -1269,13 +1269,13 @@ selection-color: rgb(151, 30, 30);</string>
          <property name="title">
           <string/>
          </property>
-         <widget class="QGroupBox" name="groupBox_6">
+         <widget class="QFrame" name="frame_loadmodel">
           <property name="geometry">
            <rect>
             <x>40</x>
-            <y>30</y>
-            <width>791</width>
-            <height>121</height>
+            <y>60</y>
+            <width>910</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="font">
@@ -1284,18 +1284,31 @@ selection-color: rgb(151, 30, 30);</string>
             <pointsize>15</pointsize>
             <weight>75</weight>
             <bold>true</bold>
+            <kerning>true</kerning>
            </font>
           </property>
-          <property name="title">
-           <string>Load model</string>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::WinPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="midLineWidth">
+           <number>0</number>
           </property>
           <widget class="QLabel" name="label_2">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>40</y>
-             <width>141</width>
-             <height>41</height>
+             <x>20</x>
+             <y>35</y>
+             <width>175</width>
+             <height>31</height>
             </rect>
            </property>
            <property name="font">
@@ -1306,8 +1319,11 @@ selection-color: rgb(151, 30, 30);</string>
              <bold>false</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
+           </property>
            <property name="text">
-            <string>Load model   :</string>
+            <string>Choose model     :</string>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -1316,8 +1332,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QPushButton" name="pushButtonLoadPath">
            <property name="geometry">
             <rect>
-             <x>600</x>
-             <y>50</y>
+             <x>690</x>
+             <y>38</y>
              <width>41</width>
              <height>28</height>
             </rect>
@@ -1329,11 +1345,20 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QComboBox" name="comboBox_LoadModel">
            <property name="geometry">
             <rect>
-             <x>162</x>
-             <y>45</y>
+             <x>240</x>
+             <y>35</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Segoe UI Semibold</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -1362,8 +1387,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QPushButton" name="pushButton_LoadModel">
            <property name="geometry">
             <rect>
-             <x>650</x>
-             <y>40</y>
+             <x>760</x>
+             <y>30</y>
              <width>131</width>
              <height>41</height>
             </rect>
@@ -1640,8 +1665,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLabel" name="label_frame_2">
            <property name="geometry">
             <rect>
-             <x>650</x>
-             <y>40</y>
+             <x>760</x>
+             <y>30</y>
              <width>131</width>
              <height>41</height>
             </rect>
@@ -1668,8 +1693,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLabel" name="label_26">
            <property name="geometry">
             <rect>
-             <x>152</x>
-             <y>40</y>
+             <x>230</x>
+             <y>30</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -1684,20 +1709,20 @@ selection-color: rgb(151, 30, 30);</string>
             <bool>true</bool>
            </property>
           </widget>
-          <zorder>label_26</zorder>
           <zorder>label_frame_2</zorder>
+          <zorder>label_26</zorder>
           <zorder>label_2</zorder>
           <zorder>pushButtonLoadPath</zorder>
-          <zorder>comboBox_LoadModel</zorder>
           <zorder>pushButton_LoadModel</zorder>
+          <zorder>comboBox_LoadModel</zorder>
          </widget>
-         <widget class="QGroupBox" name="groupBox_8">
+         <widget class="QFrame" name="frame_evaluation">
           <property name="geometry">
            <rect>
-            <x>50</x>
-            <y>490</y>
-            <width>781</width>
-            <height>441</height>
+            <x>40</x>
+            <y>570</y>
+            <width>910</width>
+            <height>391</height>
            </rect>
           </property>
           <property name="font">
@@ -1708,17 +1733,23 @@ selection-color: rgb(151, 30, 30);</string>
             <bold>true</bold>
            </font>
           </property>
-          <property name="title">
-           <string>Evaluation</string>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::WinPanel</enum>
           </property>
           <widget class="QLineEdit" name="lineEdit_MAE">
            <property name="geometry">
             <rect>
              <x>240</x>
-             <y>75</y>
+             <y>40</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -1728,10 +1759,13 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>240</x>
-             <y>145</y>
+             <y>110</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -1741,10 +1775,13 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>240</x>
-             <y>215</y>
+             <y>180</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -1754,10 +1791,13 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>240</x>
-             <y>285</y>
+             <y>250</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -1767,7 +1807,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>70</y>
+             <y>35</y>
              <width>175</width>
              <height>31</height>
             </rect>
@@ -1779,6 +1819,9 @@ selection-color: rgb(151, 30, 30);</string>
              <weight>50</weight>
              <bold>false</bold>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>MAE                     :</string>
@@ -1791,7 +1834,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>140</y>
+             <y>105</y>
              <width>175</width>
              <height>31</height>
             </rect>
@@ -1803,6 +1846,9 @@ selection-color: rgb(151, 30, 30);</string>
              <weight>50</weight>
              <bold>false</bold>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>MSE                     :</string>
@@ -1815,7 +1861,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>210</y>
+             <y>175</y>
              <width>175</width>
              <height>31</height>
             </rect>
@@ -1827,6 +1873,9 @@ selection-color: rgb(151, 30, 30);</string>
              <weight>50</weight>
              <bold>false</bold>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>RMSE                   :</string>
@@ -1839,7 +1888,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>280</y>
+             <y>245</y>
              <width>175</width>
              <height>31</height>
             </rect>
@@ -1851,6 +1900,9 @@ selection-color: rgb(151, 30, 30);</string>
              <weight>50</weight>
              <bold>false</bold>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>R-square              :</string>
@@ -1863,10 +1915,13 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>240</x>
-             <y>355</y>
+             <y>320</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -1876,7 +1931,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>350</y>
+             <y>315</y>
              <width>175</width>
              <height>31</height>
             </rect>
@@ -1889,6 +1944,9 @@ selection-color: rgb(151, 30, 30);</string>
              <bold>false</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
+           </property>
            <property name="text">
             <string>ROC-AUC Score    :</string>
            </property>
@@ -1900,7 +1958,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>230</x>
-             <y>70</y>
+             <y>35</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -1919,7 +1977,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>230</x>
-             <y>140</y>
+             <y>105</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -1938,7 +1996,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>230</x>
-             <y>210</y>
+             <y>175</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -1957,7 +2015,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>230</x>
-             <y>280</y>
+             <y>245</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -1976,7 +2034,7 @@ selection-color: rgb(151, 30, 30);</string>
            <property name="geometry">
             <rect>
              <x>230</x>
-             <y>350</y>
+             <y>315</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -2007,13 +2065,13 @@ selection-color: rgb(151, 30, 30);</string>
           <zorder>lineEdit_ROC_AUC</zorder>
           <zorder>label_10</zorder>
          </widget>
-         <widget class="QGroupBox" name="groupBox_9">
+         <widget class="QFrame" name="frame_trainmodel">
           <property name="geometry">
            <rect>
-            <x>50</x>
-            <y>170</y>
-            <width>781</width>
-            <height>191</height>
+            <x>40</x>
+            <y>200</y>
+            <width>910</width>
+            <height>166</height>
            </rect>
           </property>
           <property name="font">
@@ -2024,16 +2082,19 @@ selection-color: rgb(151, 30, 30);</string>
             <bold>true</bold>
            </font>
           </property>
-          <property name="title">
-           <string>Train model</string>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::WinPanel</enum>
           </property>
           <widget class="QLabel" name="label_4">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>50</y>
-             <width>151</width>
-             <height>21</height>
+             <x>20</x>
+             <y>35</y>
+             <width>175</width>
+             <height>31</height>
             </rect>
            </property>
            <property name="font">
@@ -2044,8 +2105,11 @@ selection-color: rgb(151, 30, 30);</string>
              <bold>false</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
+           </property>
            <property name="text">
-            <string>Text size           :</string>
+            <string>Text size              :</string>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -2054,11 +2118,14 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLineEdit" name="lineEdit_TextSize">
            <property name="geometry">
             <rect>
-             <x>190</x>
-             <y>45</y>
+             <x>240</x>
+             <y>30</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -2067,10 +2134,10 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLabel" name="label_5">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>130</y>
-             <width>161</width>
-             <height>20</height>
+             <x>20</x>
+             <y>100</y>
+             <width>175</width>
+             <height>31</height>
             </rect>
            </property>
            <property name="font">
@@ -2081,8 +2148,11 @@ selection-color: rgb(151, 30, 30);</string>
              <bold>false</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
+           </property>
            <property name="text">
-            <string>Random state   :</string>
+            <string>Random state      :</string>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -2091,11 +2161,14 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLineEdit" name="lineEdit_RandomState">
            <property name="geometry">
             <rect>
-             <x>190</x>
-             <y>125</y>
+             <x>240</x>
+             <y>105</y>
              <width>411</width>
              <height>31</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
            </property>
            <property name="frame">
             <bool>false</bool>
@@ -2104,8 +2177,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QPushButton" name="pushButton_TrainModel">
            <property name="geometry">
             <rect>
-             <x>620</x>
-             <y>80</y>
+             <x>760</x>
+             <y>65</y>
              <width>131</width>
              <height>41</height>
             </rect>
@@ -2384,8 +2457,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLabel" name="label_frame">
            <property name="geometry">
             <rect>
-             <x>620</x>
-             <y>80</y>
+             <x>760</x>
+             <y>65</y>
              <width>131</width>
              <height>41</height>
             </rect>
@@ -2412,8 +2485,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLabel" name="label_19">
            <property name="geometry">
             <rect>
-             <x>180</x>
-             <y>120</y>
+             <x>230</x>
+             <y>100</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -2431,8 +2504,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QLabel" name="label_20">
            <property name="geometry">
             <rect>
-             <x>180</x>
-             <y>40</y>
+             <x>230</x>
+             <y>25</y>
              <width>431</width>
              <height>41</height>
             </rect>
@@ -2456,13 +2529,13 @@ selection-color: rgb(151, 30, 30);</string>
           <zorder>lineEdit_RandomState</zorder>
           <zorder>pushButton_TrainModel</zorder>
          </widget>
-         <widget class="QGroupBox" name="groupBox_10">
+         <widget class="QFrame" name="frame_savemodel">
           <property name="geometry">
            <rect>
-            <x>870</x>
-            <y>30</y>
-            <width>1011</width>
-            <height>901</height>
+            <x>40</x>
+            <y>410</y>
+            <width>910</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="font">
@@ -2473,83 +2546,312 @@ selection-color: rgb(151, 30, 30);</string>
             <bold>true</bold>
            </font>
           </property>
-          <property name="title">
-           <string>Prediction:</string>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
-          <widget class="QLabel" name="label_12">
+          <property name="frameShape">
+           <enum>QFrame::WinPanel</enum>
+          </property>
+          <widget class="QLabel" name="label_3">
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>70</y>
-             <width>101</width>
-             <height>16</height>
+             <y>35</y>
+             <width>175</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Segoe UI Semibold</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>Path                     :</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_SaveModel">
+           <property name="geometry">
+            <rect>
+             <x>240</x>
+             <y>40</y>
+             <width>411</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(151, 30, 30);</string>
+           </property>
+           <property name="frame">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButtonSavePath">
+           <property name="geometry">
+            <rect>
+             <x>690</x>
+             <y>40</y>
+             <width>41</width>
+             <height>28</height>
             </rect>
            </property>
            <property name="text">
-            <string>Gender:</string>
+            <string>...</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="lineEditGender">
+          <widget class="QPushButton" name="pushButton_SaveModel">
            <property name="geometry">
             <rect>
-             <x>130</x>
-             <y>70</y>
-             <width>241</width>
-             <height>22</height>
+             <x>760</x>
+             <y>35</y>
+             <width>131</width>
+             <height>41</height>
             </rect>
            </property>
-          </widget>
-          <widget class="QLineEdit" name="lineEditAge">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>100</y>
-             <width>241</width>
-             <height>22</height>
-            </rect>
+           <property name="font">
+            <font>
+             <family>Segoe UI Black</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255, 255);</string>
+           </property>
+           <property name="text">
+            <string>Save</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
-          <widget class="QLabel" name="label_13">
+          <widget class="QLabel" name="label_frame_3">
            <property name="geometry">
             <rect>
-             <x>20</x>
-             <y>100</y>
-             <width>101</width>
-             <height>16</height>
+             <x>760</x>
+             <y>35</y>
+             <width>131</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
+           <property name="midLineWidth">
+            <number>0</number>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../Images/connect_button.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_18">
+           <property name="geometry">
+            <rect>
+             <x>230</x>
+             <y>35</y>
+             <width>431</width>
+             <height>41</height>
             </rect>
            </property>
            <property name="text">
-            <string>Age:</string>
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../Images/text_label.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
           </widget>
-          <widget class="QLineEdit" name="lineEditPaymentMethod">
+          <zorder>label_18</zorder>
+          <zorder>label_frame_3</zorder>
+          <zorder>label_3</zorder>
+          <zorder>lineEdit_SaveModel</zorder>
+          <zorder>pushButtonSavePath</zorder>
+          <zorder>pushButton_SaveModel</zorder>
+         </widget>
+         <widget class="QLabel" name="label_27">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>45</y>
+            <width>151</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Load Model</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_28">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>185</y>
+            <width>151</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Train Model</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_29">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>395</y>
+            <width>151</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Save Model</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_30">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>555</y>
+            <width>151</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>15</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Evaluation</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QFrame" name="frame_prediction">
+          <property name="geometry">
+           <rect>
+            <x>980</x>
+            <y>60</y>
+            <width>910</width>
+            <height>901</height>
+           </rect>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::WinPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <widget class="QLabel" name="label_frame_4">
            <property name="geometry">
             <rect>
              <x>130</x>
-             <y>130</y>
-             <width>241</width>
-             <height>22</height>
+             <y>210</y>
+             <width>131</width>
+             <height>41</height>
             </rect>
            </property>
-          </widget>
-          <widget class="QLabel" name="label_14">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>130</y>
-             <width>101</width>
-             <height>16</height>
-            </rect>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
+           <property name="midLineWidth">
+            <number>0</number>
            </property>
            <property name="text">
-            <string>Payment Method:</string>
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../Images/connect_button.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QPushButton" name="pushButtonPredict">
            <property name="geometry">
             <rect>
-             <x>130</x>
-             <y>160</y>
+             <x>140</x>
+             <y>210</y>
              <width>111</width>
              <height>41</height>
             </rect>
@@ -2578,216 +2880,6 @@ selection-color: rgb(151, 30, 30);</string>
             <bool>true</bool>
            </property>
           </widget>
-          <widget class="QLineEdit" name="lineEditPredictedPrice">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>210</y>
-             <width>241</width>
-             <height>22</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_15">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>210</y>
-             <width>101</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Predicted Price:</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_frame_4">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>160</y>
-             <width>131</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>0</number>
-           </property>
-           <property name="midLineWidth">
-            <number>0</number>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>../Images/connect_button.png</pixmap>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <zorder>label_frame_4</zorder>
-          <zorder>label_12</zorder>
-          <zorder>lineEditGender</zorder>
-          <zorder>lineEditAge</zorder>
-          <zorder>label_13</zorder>
-          <zorder>lineEditPaymentMethod</zorder>
-          <zorder>label_14</zorder>
-          <zorder>pushButtonPredict</zorder>
-          <zorder>lineEditPredictedPrice</zorder>
-          <zorder>label_15</zorder>
-         </widget>
-         <widget class="QGroupBox" name="groupBox_7">
-          <property name="geometry">
-           <rect>
-            <x>50</x>
-            <y>380</y>
-            <width>781</width>
-            <height>101</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>15</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="title">
-           <string>Save model</string>
-          </property>
-          <widget class="QLabel" name="label_3">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>40</y>
-             <width>131</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Segoe UI Semibold</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Save model   :</string>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="lineEdit_SaveModel">
-           <property name="geometry">
-            <rect>
-             <x>160</x>
-             <y>45</y>
-             <width>411</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="frame">
-            <bool>false</bool>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButtonSavePath">
-           <property name="geometry">
-            <rect>
-             <x>590</x>
-             <y>50</y>
-             <width>41</width>
-             <height>28</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_SaveModel">
-           <property name="geometry">
-            <rect>
-             <x>640</x>
-             <y>40</y>
-             <width>131</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Segoe UI Black</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(255, 255, 255);</string>
-           </property>
-           <property name="text">
-            <string>Save</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_frame_3">
-           <property name="geometry">
-            <rect>
-             <x>640</x>
-             <y>40</y>
-             <width>131</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>0</number>
-           </property>
-           <property name="midLineWidth">
-            <number>0</number>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>../Images/connect_button.png</pixmap>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_18">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>40</y>
-             <width>431</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>../Images/text_label.png</pixmap>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <zorder>label_18</zorder>
-          <zorder>label_frame_3</zorder>
-          <zorder>label_3</zorder>
-          <zorder>lineEdit_SaveModel</zorder>
-          <zorder>pushButtonSavePath</zorder>
-          <zorder>pushButton_SaveModel</zorder>
          </widget>
         </widget>
        </item>
@@ -3385,11 +3477,7 @@ background-color: rgb(151, 30, 30);</string>
   <tabstop>pushButton_TrainModel</tabstop>
   <tabstop>pushButtonLoadPath</tabstop>
   <tabstop>pushButtonSavePath</tabstop>
-  <tabstop>lineEditGender</tabstop>
-  <tabstop>lineEditAge</tabstop>
-  <tabstop>lineEditPaymentMethod</tabstop>
   <tabstop>pushButtonPredict</tabstop>
-  <tabstop>lineEditPredictedPrice</tabstop>
  </tabstops>
  <resources/>
  <connections>
