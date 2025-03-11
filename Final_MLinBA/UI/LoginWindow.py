@@ -10,6 +10,10 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_LoginWindow(object):
+    def __init__(self):
+        self.LoginWindow = None
+        self.LoginWindow = self.LoginWindow
+
     def setupUi(self, LoginWindow):
         LoginWindow.setObjectName("LoginWindow")
         LoginWindow.setWindowModality(QtCore.Qt.WindowModality.NonModal)
@@ -447,3 +451,6 @@ class Ui_LoginWindow(object):
         self.lineEditDatabase.setText(_translate("LoginWindow", "Final_MLinBA"))
         self.lineEditUser.setText(_translate("LoginWindow", "root"))
         self.lineEditPassword.setText(_translate("LoginWindow", "Minhtan0410@"))
+
+    def showWindow(self):
+        self.LoginWindow.show()

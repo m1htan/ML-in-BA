@@ -10,7 +10,7 @@ class MainWindowExt(Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.initUI()
-        self.LoginWindow=LoginWindow
+        self.MainWindow=MainWindow
 
     def initUI(self):
         # Kết nối sự kiện với các button
@@ -52,4 +52,4 @@ class MainWindowExt(Ui_MainWindow):
         print("Saving model...")
 
     def showWindow(self):
-        self.LoginWindow.showWindow()
+        self.MainWindow.showWindow()

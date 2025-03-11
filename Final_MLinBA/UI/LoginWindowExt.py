@@ -71,4 +71,8 @@ class LoginWindowExt(Ui_LoginWindow):
             self.msg.show()
 
     def showWindow(self):
-        self.LoginWindow.showWindow()
+        self.LoginWindow.show()
+
+
+
+
