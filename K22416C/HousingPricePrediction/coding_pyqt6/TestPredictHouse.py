@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
-from K22416C.HousingPricePrediction.coding_pyqt6.HousingPricePredictionMainWindowExt import \
+from MLinBA.K22416C.HousingPricePrediction.coding_pyqt6.HousingPricePredictionMainWindowExt import \
     HousingPricePredictionMainWindowExt
 
 app=QApplication([])

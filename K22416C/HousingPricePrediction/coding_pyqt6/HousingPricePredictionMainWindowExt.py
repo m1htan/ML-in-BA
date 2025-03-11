@@ -1,4 +1,4 @@
-from K22416C.HousingPricePrediction.coding_pyqt6.HousingPricePredictionMainWindow import Ui_MainWindow
+from MLinBA.K22416C.HousingPricePrediction.coding_pyqt6.HousingPricePredictionMainWindow import Ui_MainWindow
 import pickle
 import os
 

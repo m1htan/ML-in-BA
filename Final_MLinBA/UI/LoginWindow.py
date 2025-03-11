@@ -71,7 +71,7 @@ class Ui_MainWindow(object):
         self.frame_connection = QtWidgets.QLabel(parent=self.centralwidget)
         self.frame_connection.setGeometry(QtCore.QRect(273, 136, 989, 600))
         self.frame_connection.setText("")
-        self.frame_connection.setPixmap(QtGui.QPixmap("/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/UI/../../../../Test QtEdu/images/Frame connection.png"))
+        self.frame_connection.setPixmap(QtGui.QPixmap("Images/Frame connection.png"))
         self.frame_connection.setScaledContents(True)
         self.frame_connection.setObjectName("frame_connection")
         self.label_connection = QtWidgets.QLabel(parent=self.centralwidget)
