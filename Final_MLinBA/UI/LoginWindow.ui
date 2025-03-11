@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1408</width>
-    <height>1022</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="palette">
@@ -180,8 +180,8 @@
    <widget class="QLabel" name="frame_connection">
     <property name="geometry">
      <rect>
-      <x>273</x>
-      <y>136</y>
+      <x>463</x>
+      <y>256</y>
       <width>989</width>
       <height>600</height>
      </rect>
@@ -199,8 +199,8 @@
    <widget class="QLabel" name="label_connection">
     <property name="geometry">
      <rect>
-      <x>326</x>
-      <y>109</y>
+      <x>516</x>
+      <y>229</y>
       <width>651</width>
       <height>51</height>
      </rect>
@@ -269,8 +269,8 @@
    <widget class="QLabel" name="label_server">
     <property name="geometry">
      <rect>
-      <x>353</x>
-      <y>194</y>
+      <x>543</x>
+      <y>314</y>
       <width>203</width>
       <height>46</height>
      </rect>
@@ -290,8 +290,8 @@
    <widget class="QLabel" name="label_port">
     <property name="geometry">
      <rect>
-      <x>353</x>
-      <y>286</y>
+      <x>543</x>
+      <y>406</y>
       <width>203</width>
       <height>46</height>
      </rect>
@@ -311,8 +311,8 @@
    <widget class="QLabel" name="label_database">
     <property name="geometry">
      <rect>
-      <x>353</x>
-      <y>378</y>
+      <x>543</x>
+      <y>498</y>
       <width>261</width>
       <height>46</height>
      </rect>
@@ -332,8 +332,8 @@
    <widget class="QLabel" name="label_user">
     <property name="geometry">
      <rect>
-      <x>353</x>
-      <y>470</y>
+      <x>543</x>
+      <y>590</y>
       <width>261</width>
       <height>46</height>
      </rect>
@@ -353,8 +353,8 @@
    <widget class="QLabel" name="label_password">
     <property name="geometry">
      <rect>
-      <x>353</x>
-      <y>562</y>
+      <x>543</x>
+      <y>682</y>
       <width>261</width>
       <height>46</height>
      </rect>
@@ -374,8 +374,8 @@
    <widget class="QLabel" name="label_2cham">
     <property name="geometry">
      <rect>
-      <x>588</x>
-      <y>194</y>
+      <x>778</x>
+      <y>314</y>
       <width>21</width>
       <height>46</height>
      </rect>
@@ -395,8 +395,8 @@
    <widget class="QLabel" name="label_2cham_2">
     <property name="geometry">
      <rect>
-      <x>588</x>
-      <y>286</y>
+      <x>778</x>
+      <y>406</y>
       <width>21</width>
       <height>46</height>
      </rect>
@@ -416,8 +416,8 @@
    <widget class="QLabel" name="label_2cham_3">
     <property name="geometry">
      <rect>
-      <x>588</x>
-      <y>378</y>
+      <x>778</x>
+      <y>498</y>
       <width>21</width>
       <height>46</height>
      </rect>
@@ -437,8 +437,8 @@
    <widget class="QLabel" name="label_2cham_4">
     <property name="geometry">
      <rect>
-      <x>588</x>
-      <y>470</y>
+      <x>778</x>
+      <y>590</y>
       <width>21</width>
       <height>46</height>
      </rect>
@@ -458,8 +458,8 @@
    <widget class="QLabel" name="label_2cham_5">
     <property name="geometry">
      <rect>
-      <x>588</x>
-      <y>562</y>
+      <x>778</x>
+      <y>682</y>
       <width>21</width>
       <height>46</height>
      </rect>
@@ -479,8 +479,8 @@
    <widget class="QLabel" name="frame_portinput">
     <property name="geometry">
      <rect>
-      <x>648</x>
-      <y>286</y>
+      <x>838</x>
+      <y>406</y>
       <width>516</width>
       <height>56</height>
      </rect>
@@ -498,8 +498,8 @@
    <widget class="QLabel" name="frame_databaseinput">
     <property name="geometry">
      <rect>
-      <x>648</x>
-      <y>378</y>
+      <x>838</x>
+      <y>498</y>
       <width>516</width>
       <height>56</height>
      </rect>
@@ -517,8 +517,8 @@
    <widget class="QLabel" name="frame_userinput">
     <property name="geometry">
      <rect>
-      <x>648</x>
-      <y>470</y>
+      <x>838</x>
+      <y>590</y>
       <width>516</width>
       <height>56</height>
      </rect>
@@ -536,8 +536,8 @@
    <widget class="QLabel" name="frame_passwordinput">
     <property name="geometry">
      <rect>
-      <x>648</x>
-      <y>562</y>
+      <x>838</x>
+      <y>682</y>
       <width>516</width>
       <height>56</height>
      </rect>
@@ -558,8 +558,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>658</x>
-      <y>644</y>
+      <x>848</x>
+      <y>764</y>
       <width>200</width>
       <height>51</height>
      </rect>
@@ -685,8 +685,8 @@
    <widget class="QLabel" name="frame_connectbutton">
     <property name="geometry">
      <rect>
-      <x>648</x>
-      <y>644</y>
+      <x>838</x>
+      <y>764</y>
       <width>221</width>
       <height>51</height>
      </rect>
@@ -704,8 +704,8 @@
    <widget class="QLabel" name="frame_connectbutton_2">
     <property name="geometry">
      <rect>
-      <x>938</x>
-      <y>644</y>
+      <x>1128</x>
+      <y>764</y>
       <width>221</width>
       <height>51</height>
      </rect>
@@ -726,8 +726,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>948</x>
-      <y>644</y>
+      <x>1138</x>
+      <y>764</y>
       <width>200</width>
       <height>51</height>
      </rect>
@@ -853,8 +853,8 @@
    <widget class="QLabel" name="frame_serverinput">
     <property name="geometry">
      <rect>
-      <x>648</x>
-      <y>194</y>
+      <x>838</x>
+      <y>314</y>
       <width>516</width>
       <height>56</height>
      </rect>
@@ -872,8 +872,8 @@
    <widget class="QLineEdit" name="lineEditServer">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>202</y>
+      <x>870</x>
+      <y>322</y>
       <width>471</width>
       <height>41</height>
      </rect>
@@ -897,8 +897,8 @@
    <widget class="QLineEdit" name="lineEditPort">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>294</y>
+      <x>870</x>
+      <y>414</y>
       <width>471</width>
       <height>41</height>
      </rect>
@@ -928,8 +928,8 @@
    <widget class="QLineEdit" name="lineEditDatabase">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>387</y>
+      <x>870</x>
+      <y>507</y>
       <width>471</width>
       <height>41</height>
      </rect>
@@ -959,8 +959,8 @@
    <widget class="QLineEdit" name="lineEditUser">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>478</y>
+      <x>870</x>
+      <y>598</y>
       <width>471</width>
       <height>41</height>
      </rect>
@@ -990,8 +990,8 @@
    <widget class="QLineEdit" name="lineEditPassword">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>570</y>
+      <x>870</x>
+      <y>690</y>
       <width>471</width>
       <height>41</height>
      </rect>
