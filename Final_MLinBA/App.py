@@ -1,10 +1,11 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
+from matplotlib.backends.backend_qt import MainWindow
 from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 
-qApp=QApplication([])
-QMainWindow=QMainWindow()
-window=LoginWindowExt()
-window.setupUi(QMainWindow)
-window.showWindow()
-qApp.exec()
+app=QApplication([])
+QMainWindow = QMainWindow()
+myui = LoginWindowExt()
+myui.setupUi(QMainWindow)
+myui.showWindow()
+app.exec()
