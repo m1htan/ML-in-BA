@@ -3,8 +3,8 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 
 qApp=QApplication([])
-qmainWindow=QMainWindow()
+QMainWindow=QMainWindow()
 window=LoginWindowExt()
-window.setupUi(qmainWindow)
-window.show()
+window.setupUi(QMainWindow)
+window.showWindow()
 qApp.exec()

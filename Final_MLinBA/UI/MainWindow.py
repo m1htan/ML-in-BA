@@ -1333,3 +1333,4 @@ class Ui_MainWindow(object):
         self.actionSaved_trained_ML_model.setText(_translate("MainWindow", "Save trained ML Model "))
         self.actionLoad_trained_ML_model.setText(_translate("MainWindow", "Load trained ML Model"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
+

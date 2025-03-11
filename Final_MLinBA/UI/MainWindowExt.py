@@ -1,136 +1,55 @@
-from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
+from MLinBA.Final_MLinBA.UI import MainWindow, LoginWindow
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 
-class MainWindowEx(Ui_MainWindow):
+class MainWindowExt(Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.LoginWindowExt = LoginWindowExt()
-        self.LoginWindowExt.parent = self
-        self.chartHandle = ChartHandle()
+        self.setupUi(self)
+        self.initUI()
+        self.LoginWindow=LoginWindow
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
-        self.MainWindow = MainWindow
-        self.verticalLayout_ChartVisualization.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
-        self.setupPlot()
+    def initUI(self):
+        # Kết nối sự kiện với các button
+        self.pushButtonCustomerAge.clicked.connect(self.on_customer_age_clicked)
+        self.pushButtonAnnualPremium.clicked.connect(self.on_annual_premium_clicked)
+        self.pushButtonByGenderAndVehicleDamage.clicked.connect(self.on_gender_vehicle_damage_clicked)
+        self.pushButtonByAgeGroup.clicked.connect(self.on_age_group_clicked)
+        self.pushButtonByVehicleAge.clicked.connect(self.on_vehicle_age_clicked)
+        self.pushButton_LoadModel.clicked.connect(self.on_load_model_clicked)
+        self.pushButton_TrainModel.clicked.connect(self.on_train_model_clicked)
+        self.pushButtonPredict.clicked.connect(self.on_predict_clicked)
+        self.pushButton_SaveModel.clicked.connect(self.on_save_model_clicked)
 
-        self.actionConnect_Database.triggered.connect(self.openDatabaseConnectUI)
-        self.actionSaved_trained_ML_model.triggered.connect(self.processSaveTrainedModel)
-        self.actionLoad_trained_ML_model.triggered.connect(self.processLoadTrainedModel)
-        self.actionExit.triggered.connect(self.MainWindow.close)
+    def on_customer_age_clicked(self):
+        print("Button 'Customer Age' clicked")
 
-        self.pushButtonCustomerAge.clicked.connect(self.showCustomerAge)
-        self.pushButtonAnnualPremium.clicked.connect(self.showAnnualPremium)
-        self.pushButtonByGenderAndVehicleDamage.clicked.connect(self.showByGenderAndVehicleDamage)
-        self.pushButtonByAgeGroup.clicked.connect(self.showByAgeGroup)
-        self.pushButtonByVehicleAge.clicked.connect(self.showByVehicleAge)
+    def on_annual_premium_clicked(self):
+        print("Button 'Annual Premium' clicked")
 
-        self.pushButton_LoadModel.clicked.connect(self.processLoadTrainedModel)
-        self.pushButton_SaveModel.clicked.connect(self.processSaveTrainedModel)
-        self.pushButton_TrainModel.clicked.connect(self.processTrainModel)
-        self.pushButtonPredict.clicked.connect(self.processPrediction)
+    def on_gender_vehicle_damage_clicked(self):
+        print("Button 'By Gender and Vehicle Damage' clicked")
 
-        self.checkEnableWidget(False)
+    def on_age_group_clicked(self):
+        print("Button 'By Age Group' clicked")
 
-    def show(self):
-        self.MainWindow.show()
+    def on_vehicle_age_clicked(self):
+        print("Button 'By Vehicle Age' clicked")
 
-    def checkEnableWidget(self, flag=True):
-        self.pushButtonCustomerAge.setEnabled(flag)
-        self.pushButtonAnnualPremium.setEnabled(flag)
-        self.pushButtonByGenderAndVehicleDamage.setEnabled(flag)
-        self.pushButtonByAgeGroup.setEnabled(flag)
-        self.pushButtonByVehicleAge.setEnabled(flag)
+    def on_load_model_clicked(self):
+        print("Loading model...")
 
-    def setupPlot(self):
-        self.figure = plt.figure()
-        self.canvas = FigureCanvas(self.figure)
-        self.toolbar = NavigationToolbar(self.canvas, self.MainWindow)
+    def on_train_model_clicked(self):
+        print("Training model...")
 
-        self.verticalLayout_ChartVisualization.addWidget(self.toolbar)
-        self.verticalLayout_ChartVisualization.addWidget(self.canvas)
+    def on_predict_clicked(self):
+        print("Predicting...")
 
-    def openDatabaseConnectUI(self):
-        dbwindow = QMainWindow()
-        self.databaseConnectEx.setupUi(dbwindow)
-        self.databaseConnectEx.show()
+    def on_save_model_clicked(self):
+        print("Saving model...")
 
-    def showDataIntoTableWidget(self, df):
-        self.tableWidget_ListOfData.setRowCount(0)
-        self.tableWidget_ListOfData.setColumnCount(len(df.columns))
-        for i in range(len(df.columns)):
-            columnHeader = df.columns[i]
-            self.tableWidget_ListOfData.setHorizontalHeaderItem(i, QTableWidgetItem(columnHeader))
-        row = 0
-        for item in df.iloc:
-            arr = item.values.tolist()
-            self.tableWidget_ListOfData.insertRow(row)
-            j = 0
-            for data in arr:
-                self.tableWidget_ListOfData.setItem(row, j, QTableWidgetItem(str(data)))
-                j += 1
-            row += 1
-
-    def showCustomerAge(self):
-        df = self.purchaseLinearRegression.processCustomerAge()
-        self.showDataIntoTableWidget(df)
-        self.chartHandle.visualizeBarChart(self.figure, self.canvas, df, "age", "count", "Customer Age Distribution")
-
-    def showAnnualPremium(self):
-        df = self.purchaseLinearRegression.processAnnualPremium()
-        self.showDataIntoTableWidget(df)
-        self.chartHandle.visualizeBarChart(self.figure, self.canvas, df, "annual_premium", "count", "Annual Premium Distribution")
-
-    def showByGenderAndVehicleDamage(self):
-        df = self.purchaseLinearRegression.processGenderAndVehicleDamage()
-        self.showDataIntoTableWidget(df)
-        self.chartHandle.visualizeMultiBarChart(self.figure, self.canvas, df, "gender", "count", "vehicle_damage", "Gender and Vehicle Damage Distribution")
-
-    def showByAgeGroup(self):
-        df = self.purchaseLinearRegression.processAgeGroup()
-        self.showDataIntoTableWidget(df)
-        self.chartHandle.visualizeBarChart(self.figure, self.canvas, df, "age_group", "count", "Age Group Distribution")
-
-    def showByVehicleAge(self):
-        df = self.purchaseLinearRegression.processVehicleAge()
-        self.showDataIntoTableWidget(df)
-        self.chartHandle.visualizeBarChart(self.figure, self.canvas, df, "vehicle_age", "count", "Vehicle Age Distribution")
-
-    def processTrainModel(self):
-        test_size = float(self.lineEdit_TextSize.text()) / 100
-        random_state = int(self.lineEdit_RandomState.text())
-        self.purchaseLinearRegression.processTrain(test_size, random_state)
-        QMessageBox.information(self.MainWindow, "Info", "Train machine learning model successful!")
-
-    def processEvaluateTrainedModel(self):
-        result = self.purchaseLinearRegression.evaluate()
-        self.lineEdit_MAE.setText(str(result.MAE))
-        self.lineEdit_MSE.setText(str(result.MSE))
-        self.lineEdit_RMSE.setText(str(result.RMSE))
-        self.lineEdit_RSquare.setText(str(result.R2_SCORE))
-        self.lineEdit_ROC_AUC.setText(str(result.ROC_AUC))
-
-    def processSaveTrainedModel(self):
-        filters = "trained model file (*.zip);;All files(*)"
-        filename, _ = QFileDialog.getSaveFileName(self.MainWindow, filter=filters)
-        if filename:
-            self.purchaseLinearRegression.saveModel(filename)
-            QMessageBox.information(self.MainWindow, "Info", f"Saved Trained machine learning model successful at [{filename}]!")
-
-    def processLoadTrainedModel(self):
-        filters = "trained model file (*.zip);;All files(*)"
-        filename, _ = QFileDialog.getOpenFileName(self.MainWindow, filter=filters)
-        if filename:
-            self.purchaseLinearRegression.loadModel(filename)
-            QMessageBox.information(self.MainWindow, "Info", f"Load Trained machine learning model successful from [{filename}]!")
-
-    def processPrediction(self):
-        gender = self.lineEditGender.text()
-        age = int(self.lineEditAge.text())
-        payment_method = self.lineEditPaymentMethod.text()
-        predicted_price = self.purchaseLinearRegression.predict(gender, age, payment_method)
-        self.lineEditPredictedPrice.setText(str(predicted_price[0]))
+    def showWindow(self):
+        self.LoginWindow.showWindow()

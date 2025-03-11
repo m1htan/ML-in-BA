@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1124</width>
+    <height>917</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Quản lý sản phẩm - Danh mục</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QListWidget" name="listWidgetDanhMuc">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>DM1-LAPTOP</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>DM2-DIEN THOAI</string>
+             </property>
+             <property name="foreground">
+              <brush brushstyle="NoBrush">
+               <color alpha="255">
+                <red>255</red>
+                <green>0</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>DM3-PHU KIEN LAPTOP</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QTableWidget" name="tableWidgetSanPham">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>200</height>
+               </size>
+              </property>
+              <column>
+               <property name="text">
+                <string>Id</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Mã</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Tên</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Số lượng</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>New Column</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Id DM</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QGroupBox" name="groupBox">
+                <property name="title">
+                 <string>Thông tin chi tiết sản phẩm:</string>
+                </property>
+                <widget class="QLabel" name="lineEditId_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>20</y>
+                   <width>47</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Id:</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="lineEditId">
+                 <property name="geometry">
+                  <rect>
+                   <x>90</x>
+                   <y>20</y>
+                   <width>241</width>
+                   <height>20</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="lineEditMa">
+                 <property name="geometry">
+                  <rect>
+                   <x>90</x>
+                   <y>50</y>
+                   <width>241</width>
+                   <height>20</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="lineEditMa_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>50</y>
+                   <width>47</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Mã:</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="lineEditSoLuong">
+                 <property name="geometry">
+                  <rect>
+                   <x>90</x>
+                   <y>110</y>
+                   <width>241</width>
+                   <height>20</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="lineEditSoLuong_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>110</y>
+                   <width>71</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Số lượng:</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="lineEditDonGia">
+                 <property name="geometry">
+                  <rect>
+                   <x>90</x>
+                   <y>140</y>
+                   <width>241</width>
+                   <height>20</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_5">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>140</y>
+                   <width>47</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Đơn giá:</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="lineEditIdDM">
+                 <property name="geometry">
+                  <rect>
+                   <x>90</x>
+                   <y>170</y>
+                   <width>241</width>
+                   <height>20</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_6">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>170</y>
+                   <width>47</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Id DM:</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="pushButtonThemMoi">
+                 <property name="geometry">
+                  <rect>
+                   <x>70</x>
+                   <y>200</y>
+                   <width>75</width>
+                   <height>23</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Thêm mới</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="pushButtonLuu">
+                 <property name="geometry">
+                  <rect>
+                   <x>160</x>
+                   <y>200</y>
+                   <width>75</width>
+                   <height>23</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Lưu</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="pushButtonXoa">
+                 <property name="geometry">
+                  <rect>
+                   <x>250</x>
+                   <y>200</y>
+                   <width>75</width>
+                   <height>23</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Xóa</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="lineEditTen">
+                 <property name="geometry">
+                  <rect>
+                   <x>90</x>
+                   <y>80</y>
+                   <width>241</width>
+                   <height>20</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="lineEditTen_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>80</y>
+                   <width>47</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="text">
+                  <string>Tên:</string>
+                 </property>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1124</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <tabstops>
+  <tabstop>listWidgetDanhMuc</tabstop>
+  <tabstop>tableWidgetSanPham</tabstop>
+  <tabstop>lineEditId</tabstop>
+  <tabstop>lineEditMa</tabstop>
+  <tabstop>lineEditTen</tabstop>
+  <tabstop>lineEditSoLuong</tabstop>
+  <tabstop>lineEditDonGia</tabstop>
+  <tabstop>lineEditIdDM</tabstop>
+  <tabstop>pushButtonThemMoi</tabstop>
+  <tabstop>pushButtonLuu</tabstop>
+  <tabstop>pushButtonXoa</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

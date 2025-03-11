@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -720,7 +720,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtoExit">
+   <widget class="QPushButton" name="pushButtonExit">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -977,6 +977,12 @@
       <pointsize>23</pointsize>
      </font>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
     <property name="text">
      <string>mhe</string>
     </property>
@@ -1043,7 +1049,7 @@
    <zorder>frame_passwordinput</zorder>
    <zorder>pushButtonConnect</zorder>
    <zorder>frame_connectbutton_2</zorder>
-   <zorder>pushButtoExit</zorder>
+   <zorder>pushButtonExit</zorder>
    <zorder>frame_serverinput</zorder>
    <zorder>lineEditServer</zorder>
    <zorder>lineEditPort</zorder>
@@ -1055,9 +1061,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButtoExit</sender>
+   <sender>pushButtonExit</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>LoginWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

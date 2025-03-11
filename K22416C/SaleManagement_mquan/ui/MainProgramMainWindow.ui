@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>601</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>170</y>
+      <width>461</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Đây là màn hình chính</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuH_th_ng">
+    <property name="title">
+     <string>Hệ thống</string>
+    </property>
+    <addaction name="actionthongtintaikhoan"/>
+    <addaction name="actiondoimatkhau"/>
+    <addaction name="actioncauhinhtaikhoan"/>
+    <addaction name="actionthoatphanmen"/>
+   </widget>
+   <widget class="QMenu" name="menuQu_n_l">
+    <property name="title">
+     <string>Quản lý</string>
+    </property>
+    <addaction name="actionquan_ly_san_pham"/>
+    <addaction name="actionquan_ly_don_hang"/>
+    <addaction name="actionquan_ly_nhan_vien"/>
+   </widget>
+   <addaction name="menuH_th_ng"/>
+   <addaction name="menuQu_n_l"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionthongtintaikhoan">
+   <property name="icon">
+    <iconset>
+     <normaloff>C:/Users/DELL/.designer/images/ic_info.png</normaloff>C:/Users/DELL/.designer/images/ic_info.png</iconset>
+   </property>
+   <property name="text">
+    <string>Thong tin tai khoan</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actiondoimatkhau">
+   <property name="icon">
+    <iconset>
+     <normaloff>C:/Users/DELL/.designer/images/ic_password.png</normaloff>C:/Users/DELL/.designer/images/ic_password.png</iconset>
+   </property>
+   <property name="text">
+    <string>Doi mat khau</string>
+   </property>
+  </action>
+  <action name="actioncauhinhtaikhoan">
+   <property name="icon">
+    <iconset>
+     <normaloff>C:/Users/DELL/.designer/images/ic_system.png</normaloff>C:/Users/DELL/.designer/images/ic_system.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cau hinh tai khoan</string>
+   </property>
+  </action>
+  <action name="actionthoatphanmen">
+   <property name="icon">
+    <iconset>
+     <normaloff>C:/Users/DELL/.designer/images/7623201_arrow_right_login_ui_login icon_icon.png</normaloff>C:/Users/DELL/.designer/images/7623201_arrow_right_login_ui_login icon_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Thoat phan mem</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
+  <action name="actionquan_ly_san_pham">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/product.png</normaloff>../images/product.png</iconset>
+   </property>
+   <property name="text">
+    <string>quan ly san pham</string>
+   </property>
+  </action>
+  <action name="actionquan_ly_don_hang">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/5452459_arrow_direction_door_emergency_exit_icon.png</normaloff>../images/5452459_arrow_direction_door_emergency_exit_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>quan ly don hang</string>
+   </property>
+  </action>
+  <action name="actionquan_ly_nhan_vien">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/2620525_conversation_employee_job_seeker_unemployee_icon.png</normaloff>../images/2620525_conversation_employee_job_seeker_unemployee_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>quan ly nhan vien</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
