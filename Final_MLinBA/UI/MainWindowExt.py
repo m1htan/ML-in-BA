@@ -1,9 +1,6 @@
-from MLinBA.Final_MLinBA.UI import MainWindow, LoginWindow
+from MLinBA.Final_MLinBA.UI import MainWindow
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
-from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-import matplotlib.pyplot as plt
+from PyQt6.QtWidgets import QMainWindow
 
 class MainWindowExt(Ui_MainWindow):
     def __init__(self):
@@ -51,5 +48,8 @@ class MainWindowExt(Ui_MainWindow):
     def on_save_model_clicked(self):
         print("Saving model...")
 
-    def showWindow(self):
-        self.MainWindow.showWindow()
+    def xuly_momanhinh_qlspdm(self):
+        self.mainwindow = QMainWindow()
+        self.myui = MainWindowExt()
+        self.myui.setupUi(self.mainwindow)
+        self.myui.showWindow()

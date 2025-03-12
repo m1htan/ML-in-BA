@@ -1,8 +1,6 @@
-import traceback
-
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMessageBox, QMainWindow
 
+from MLinBA.Final_MLinBA.UI import LoginWindow
 from MLinBA.Final_MLinBA.UI.LoginWindow import Ui_LoginWindow
 from MLinBA.Final_MLinBA.Connectors.Connector import Connector
 from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
@@ -11,6 +9,8 @@ from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
 class LoginWindowExt(Ui_LoginWindow):
     def __init__(self):
         self.parent = None
+        super().setupUi(LoginWindow)
+        self.MainWindow = LoginWindow
 
     def setupUi(self, LoginWindow):
         super().setupUi(LoginWindow)

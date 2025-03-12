@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
-from matplotlib.backends.backend_qt import MainWindow
 from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 
 app=QApplication([])

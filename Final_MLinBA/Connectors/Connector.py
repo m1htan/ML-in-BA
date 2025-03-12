@@ -2,6 +2,7 @@
 import mysql.connector
 import traceback
 import pandas as pd
+
 class Connector:
     def __init__(self, server=None, port=None, database=None, username=None, password=None):
         if server==None:
