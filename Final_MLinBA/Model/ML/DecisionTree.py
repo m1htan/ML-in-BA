@@ -1,8 +1,7 @@
 import numpy as np
-from imblearn.over_sampling import BorderlineSMOTE
 from sklearn import metrics
 from sklearn.metrics import classification_report
-from MLinBA.Final_MLinBA.Model.LogisticRegression import X, y, X_test, y_test, X_train_os, y_train_os, y_pred
+from MLinBA.Final_MLinBA.Model.ML.LogisticRegression import X_test, y_test, X_train_os, y_train_os, y_pred
 from sklearn.tree import DecisionTreeClassifier
 
 

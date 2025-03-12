@@ -4,7 +4,7 @@ from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 from MLinBA.Final_MLinBA.Dataset.PrepareData import DataProcessor
-from MLinBA.Final_MLinBA.Model.LogisticRegression import X, y
+from MLinBA.Final_MLinBA.Model.ML.LogisticRegression import X, y
 
 
 class TestRandomForestModel(unittest.TestCase):

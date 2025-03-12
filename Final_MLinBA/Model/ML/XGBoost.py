@@ -1,12 +1,10 @@
 import xgboost as xgb
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import classification_report
 from sklearn import metrics
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 from MLinBA.Final_MLinBA.Dataset.PrepareData import X_train_os, y_train_os, X_test, y_test
-from MLinBA.Final_MLinBA.Model.LogisticRegression import y_pred
+from MLinBA.Final_MLinBA.Model.ML.LogisticRegression import y_pred
 
 model_xgb = xgb.XGBClassifier(random_state=42, n_estimators=100)
 model_xgb.fit(X_train_os, y_train_os)

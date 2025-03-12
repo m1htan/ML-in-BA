@@ -5,7 +5,7 @@ from sklearn.metrics import classification_report
 from sklearn.tree import DecisionTreeClassifier
 
 from MLinBA.Final_MLinBA.Dataset.PrepareData import DataProcessor
-from MLinBA.Final_MLinBA.Model.LogisticRegression import X, y, X_test, y_test, X_train_os, y_train_os
+from MLinBA.Final_MLinBA.Model.ML.LogisticRegression import X, y
 
 
 class TestDecisionTreeModel(unittest.TestCase):
