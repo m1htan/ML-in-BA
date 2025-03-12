@@ -19,14 +19,10 @@ class Connector:
             self.password = password
 
     def connect(self):
-        self.conn = mysql.connector.connect(
-        host=self.server,
-        port=self.port,
-        database=self.database,
-        user=self.username,
-        password=self.password
-        )
-        return self.conn
+        try:
+            self.conn = mysql.connector.connect(host=self.server, port=self.port, database=self.database, user=self.username, password=self.password)
+        except mysql.connector.Error as err:
+            print(f"Lỗi kết nối CSDL: {err}")
 
     def disConnect(self):
         if self.conn != None:

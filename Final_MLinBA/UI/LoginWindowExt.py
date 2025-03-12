@@ -1,21 +1,24 @@
 from PyQt6.QtWidgets import QMessageBox, QMainWindow
 
-from MLinBA.Final_MLinBA.UI import LoginWindow
 from MLinBA.Final_MLinBA.UI.LoginWindow import Ui_LoginWindow
 from MLinBA.Final_MLinBA.Connectors.Connector import Connector
-from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
 
 
 class LoginWindowExt(Ui_LoginWindow):
-    def __init__(self):
-        self.parent = None
-        super().setupUi(LoginWindow)
-        self.MainWindow = LoginWindow
+    def __init__(self, parent=None):
+        super().__init__()
+        self.LoginWindow = QMainWindow()
+        self.setupUi(self.LoginWindow)
+        self.parent=None
 
     def setupUi(self, LoginWindow):
         super().setupUi(LoginWindow)
         self.LoginWindow=LoginWindow
         self.pushButtonConnect.clicked.connect(self.connectDatabase)
+
+    def get_main_window_ext(self):
+        from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
+        return MainWindowExt()
 
     def connectDatabase(self):
         try:
@@ -48,10 +51,9 @@ class LoginWindowExt(Ui_LoginWindow):
                 self.msg.show()
 
                 # Chuyển đến MainWindow nếu đang ở trang Login
-                if self.connector is not None:
+                if self.connector != None:
                     self.LoginWindow.hide()
-                    self.mainwindow = QMainWindow()
-                    self.mainwindow = MainWindowExt()
+                    self.mainwindow = self.get_main_window_ext()
                     self.mainwindow.show()
 
             else:

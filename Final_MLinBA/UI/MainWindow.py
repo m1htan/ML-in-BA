@@ -8,17 +8,16 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
-
 
 class Ui_MainWindow(object):
-    def __init__(self):
-        self.MainWindow = MainWindowExt
+    def get_main_window_ext(self):
+        from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
+        return MainWindowExt()
 
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setEnabled(True)
-        MainWindow.resize(1920, 1080)
+        self.get_main_window_ext().setObjectName("MainWindow")
+        self.get_main_window_ext().setEnabled(True)
+        self.get_main_window_ext().resize(1920, 1080)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1373,4 +1372,4 @@ class Ui_MainWindow(object):
         self.actionExit.setText(_translate("MainWindow", "Exit"))
 
     def showWindow(self):
-        self.MainWindow.show()
+        self.get_main_window_ext().show()

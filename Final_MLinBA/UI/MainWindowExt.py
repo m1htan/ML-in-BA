@@ -1,13 +1,10 @@
-from MLinBA.Final_MLinBA.UI import MainWindow
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow
 
-class MainWindowExt(Ui_MainWindow):
+class MainWindowExt(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.initUI()
-        self.MainWindow=MainWindow
 
     def initUI(self):
         # Kết nối sự kiện với các button
@@ -48,8 +45,6 @@ class MainWindowExt(Ui_MainWindow):
     def on_save_model_clicked(self):
         print("Saving model...")
 
-    def xuly_momanhinh_qlspdm(self):
-        self.mainwindow = QMainWindow()
-        self.myui = MainWindowExt()
-        self.myui.setupUi(self.mainwindow)
-        self.myui.showWindow()
+    def showWindow(self):
+        self.get_main_window_ext().show()
+
