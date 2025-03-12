@@ -1,12 +1,9 @@
 import unittest
 import numpy as np
-from imblearn.over_sampling import BorderlineSMOTE
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, mean_squared_error
 
-from MLinBA.Final_MLinBA.Dataset.PrepareData import X, y, DataProcessor
+from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import X, y, DataProcessor
 
 
 class TestLogisticModel(unittest.TestCase):

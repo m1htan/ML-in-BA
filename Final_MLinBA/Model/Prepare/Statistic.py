@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-class PurchaseStatistic:
+class Statistic:
     def __init__(self,connector=None):
         self.connector = connector
         self.lasted_df=None
@@ -20,7 +20,7 @@ class PurchaseStatistic:
         print(self.df.tail(row))
     def printInfo(self):
         print(self.df.info())
-    def printDecsribe(self):
+    def printDescribe(self):
         print(self.df.describe())
     def dateProcessing(self):
         self.df['invoice_date'] = pd.to_datetime(self.df['invoice_date'] , format = '%d/%m/%Y')

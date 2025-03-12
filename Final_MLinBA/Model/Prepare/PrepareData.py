@@ -7,10 +7,10 @@ from imblearn.over_sampling import BorderlineSMOTE
 from MLinBA.Final_MLinBA.Utils.FileUtil import FileUtil
 
 import os
-path = "/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Dataset/train.csv"
+path = "/MLinBA/Final_MLinBA/Dataset/train.csv"
 if not os.path.exists(path):
     raise FileNotFoundError(f"Không tìm thấy file {path}")
-df = pd.read_csv('/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Dataset/train.csv')
+df = pd.read_csv('/MLinBA/Final_MLinBA/Dataset/train.csv')
 
 X = df.drop('Response', axis=1)
 y = df['Response']

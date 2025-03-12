@@ -5,9 +5,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn import metrics
 import numpy as np
-import matplotlib.pyplot as plt
 
-from MLinBA.Final_MLinBA.Dataset.PrepareData import X, y
+from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import X, y
 
 # Chia tập train-test với stratify
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)

@@ -1,6 +1,6 @@
 import unittest
 
-from MLinBA.Final_MLinBA.Dataset.PrepareData import DataProcessor
+from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 class TestLoadModel(unittest.TestCase):
     @classmethod
