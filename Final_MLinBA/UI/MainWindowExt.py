@@ -46,5 +46,5 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         print("Saving model...")
 
     def showWindow(self):
-        self.get_main_window_ext().show()
+        self.show()
 

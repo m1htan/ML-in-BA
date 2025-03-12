@@ -8,17 +8,8 @@ class LoginWindowExt(Ui_LoginWindow):
     def __init__(self, parent=None):
         super().__init__()
         self.LoginWindow = QMainWindow()
-        self.setupUi(self.LoginWindow)
-        self.parent=None
-
-    def setupUi(self, LoginWindow):
-        super().setupUi(LoginWindow)
-        self.LoginWindow=LoginWindow
+        Ui_LoginWindow.setupUi(self, self.LoginWindow)
         self.pushButtonConnect.clicked.connect(self.connectDatabase)
-
-    def get_main_window_ext(self):
-        from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
-        return MainWindowExt()
 
     def connectDatabase(self):
         try:
@@ -53,7 +44,8 @@ class LoginWindowExt(Ui_LoginWindow):
                 # Chuyển đến MainWindow nếu đang ở trang Login
                 if self.connector != None:
                     self.LoginWindow.hide()
-                    self.mainwindow = self.get_main_window_ext()
+                    from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt  # Import tại đây
+                    self.mainwindow = MainWindowExt()
                     self.mainwindow.show()
 
             else:

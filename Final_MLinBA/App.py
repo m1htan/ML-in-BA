@@ -5,6 +5,5 @@ from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 app=QApplication([])
 qmainWindow = QMainWindow()
 myui = LoginWindowExt()
-myui.setupUi(qmainWindow)
 myui.showWindow()
 app.exec()
