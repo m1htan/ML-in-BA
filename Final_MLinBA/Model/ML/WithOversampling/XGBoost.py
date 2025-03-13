@@ -4,7 +4,7 @@ from sklearn import metrics
 import numpy as np
 
 from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import X_train_os, y_train_os, X_test, y_test
-from MLinBA.Final_MLinBA.Model.ML.LogisticRegression import y_pred
+from MLinBA.Final_MLinBA.Model.ML.WithOversampling.LogisticRegression import y_pred
 
 model_xgb = xgb.XGBClassifier(random_state=42, n_estimators=100)
 model_xgb.fit(X_train_os, y_train_os)
