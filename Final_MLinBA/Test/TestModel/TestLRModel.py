@@ -52,5 +52,5 @@ class TestLogisticModel(unittest.TestCase):
     def test_save_model(self):
         """Kiểm tra việc lưu mô hình"""
         # Lưu mô hình
-        ret = self.processor.saveModel("../Assets/LogisticRegression_model.zip")
+        ret = self.processor.saveModel("/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Assets/WithOversampling/LogisticRegression_model.zip")
         self.assertTrue(ret, "Lưu mô hình không thành công")

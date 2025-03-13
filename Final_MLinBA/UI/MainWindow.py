@@ -188,10 +188,10 @@ class Ui_MainWindow(object):
         self.tabWidget.setAcceptDrops(False)
         self.tabWidget.setAutoFillBackground(False)
         self.tabWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"alternate-background-color: rgb(177, 51, 51);\n"
-"selection-color: rgb(151, 30, 30);\n"
-"selection-background-color: rgb(255, 255, 255);\n"
-"color: rgb(177, 51, 51);")
+                                    "alternate-background-color: rgb(177, 51, 51);\n"
+                                    "selection-color: rgb(151, 30, 30);\n"
+                                    "selection-background-color: rgb(255, 255, 255);\n"
+                                    "color: rgb(177, 51, 51);")
         self.tabWidget.setTabPosition(QtWidgets.QTabWidget.TabPosition.North)
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.TabShape.Rounded)
         self.tabWidget.setIconSize(QtCore.QSize(25, 25))
@@ -294,7 +294,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.tab_Statistics.setFont(font)
         self.tab_Statistics.setStyleSheet("selection-background-color: rgb(255, 255, 255);\n"
-"selection-color: rgb(151, 30, 30);")
+                                          "selection-color: rgb(151, 30, 30);")
         self.tab_Statistics.setObjectName("tab_Statistics")
         self.gridLayoutWidget = QtWidgets.QWidget(parent=self.tab_Statistics)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(0, -10, 1941, 1041))
@@ -518,8 +518,8 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.tabWidget_choosemodel.setFont(font)
         self.tabWidget_choosemodel.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"alternate-background-color: rgb(177, 51, 51);\n"
-"color: rgb(177, 51, 51);")
+                                                "alternate-background-color: rgb(177, 51, 51);\n"
+                                                "color: rgb(177, 51, 51);")
         self.tabWidget_choosemodel.setTabPosition(QtWidgets.QTabWidget.TabPosition.West)
         self.tabWidget_choosemodel.setTabShape(QtWidgets.QTabWidget.TabShape.Triangular)
         self.tabWidget_choosemodel.setMovable(True)
@@ -3099,7 +3099,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.tabWidget_choosemodel.setCurrentIndex(0)
         self.tabWidget.tabBarClicked['int'].connect(self.tabWidget.repaint) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

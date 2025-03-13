@@ -53,5 +53,5 @@ class TestXGBoostModel(unittest.TestCase):
     def test_save_and_load_model(self):
         """Kiểm tra việc lưu và tải mô hình"""
         # Lưu mô hình
-        ret = self.processor.saveModel("../Assets/XGBoost_model.zip")
+        ret = self.processor.saveModel("/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Assets/WithOversampling/XGBoost_model.zip")
         self.assertTrue(ret, "Lưu mô hình không thành công")
