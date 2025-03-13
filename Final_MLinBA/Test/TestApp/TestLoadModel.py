@@ -1,6 +1,7 @@
 # from MLinBA.Final_MLinBA.Model.ML.LogisticRegression import LogisticRegressionModel
+from sklearn.linear_model import LogisticRegression
 
-pm=PurchaseLinearRegression()
+pm=LogisticRegressionModel()
 pm.loadModel("../Assets/TrainedModel_GenderAgePayment.zip")
 
 gender="Female"

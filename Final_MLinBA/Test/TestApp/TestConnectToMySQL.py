@@ -6,12 +6,7 @@ database="Final_MLinBA"
 username="root"
 password="Minhtan0410@"
 
-conn = mysql.connector.connect(
-                host=server,
-                port=port,
-                database=database,
-                user=username,
-                password=password)
+conn = mysql.connector.connect(host=server, port=port, database=database, user=username, password=password)
 
 cursor = conn.cursor()
 

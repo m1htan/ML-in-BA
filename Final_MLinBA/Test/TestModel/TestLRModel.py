@@ -1,24 +1,14 @@
 import unittest
 import numpy as np
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, mean_squared_error
 
-from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import X, y, DataProcessor
+from MLinBA.Final_MLinBA.Model.ML.WithOversampling.LogisticRegression import LogisticRegressionModel
 
 
 class TestLogisticModel(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        """Chuẩn bị dữ liệu và huấn luyện mô hình trước khi chạy test"""
-        # Khởi tạo đối tượng DataProcessor
-        cls.processor = DataProcessor()
-
-        # Chuẩn bị dữ liệu
-        cls.processor.prepare_data(X, y)
-
-        # Huấn luyện mô hình Logistic Regression
-        cls.processor.model = LogisticRegression(C=0.1, solver='liblinear', max_iter=500)
-        cls.processor.model.fit(cls.processor.X_train, cls.processor.y_train)
+        cls.processor = LogisticRegressionModel()
 
     def test_prediction_shape(self):
         """Kiểm tra kích thước đầu ra của y_pred"""

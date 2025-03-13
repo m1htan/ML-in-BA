@@ -7,18 +7,13 @@ from imblearn.over_sampling import BorderlineSMOTE
 from MLinBA.Final_MLinBA.Utils.FileUtil import FileUtil
 
 import os
-path = "/MLinBA/Final_MLinBA/Dataset/train.csv"
+path = "/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Dataset/train.csv"
 if not os.path.exists(path):
     raise FileNotFoundError(f"Không tìm thấy file {path}")
-df = pd.read_csv('/MLinBA/Final_MLinBA/Dataset/train.csv')
+df = pd.read_csv('/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Dataset/train.csv')
 
 X = df.drop('Response', axis=1)
 y = df['Response']
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42)
-
-sm = SMOTE()
-X_train_os, y_train_os = sm.fit_resample(X_train, y_train)
 
 class DataProcessor:
     def __init__(self, test_size=0.2, sampling_strategy=0.5, random_state=42):
@@ -28,7 +23,7 @@ class DataProcessor:
         self.scaler = StandardScaler()
         self.sm = BorderlineSMOTE(sampling_strategy=sampling_strategy, random_state=random_state)
         self.X_train = self.X_test = self.y_train = self.y_test = None
-        self.model = None
+        self.model = FileUtil()
         self.trainedmodel = None
 
     def prepare_data(self, X, y):
@@ -49,10 +44,6 @@ class DataProcessor:
     def transform_input(self, X_input):
         X_input_scaled = self.scaler.transform([X_input])
         return X_input_scaled
-
-    def predict(self,columns_input):
-        pred = self.model.predict(columns_input)
-        return pred
 
     def saveModel(self,fileName):
         ret=FileUtil.saveModel(self.trainedmodel,fileName)

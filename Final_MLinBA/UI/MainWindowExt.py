@@ -3,6 +3,8 @@ from PyQt6.uic.properties import QtWidgets
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
 
+from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import X, y
+from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 
@@ -12,6 +14,9 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.initUI()
+        self.LoginWindowExt=LoginWindowExt()
+        self.LoginWindowExt.parent=self
+        self.LogisticRegressionModel= self.LogisticRegressionModel()
 
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
@@ -20,14 +25,26 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.pushButtonByGenderAndVehicleDamage.clicked.connect(self.show_gender_vehicle_damage)
         self.pushButtonByAgeGroup.clicked.connect(self.show_age_group)
         self.pushButtonByVehicleAge.clicked.connect(self.show_vehicle_age)
-        self.pushButton_LoadModel.clicked.connect(self.load_model)
-        self.pushButton_TrainModel.clicked.connect(self.train_model)
-        self.pushButtonPredict.clicked.connect(self.predict)
-        self.pushButton_SaveModel.clicked.connect(self.save_model)
 
         # Load dữ liệu ban đầu
         self.data = None
         self.model = None
+
+    def show_customer_age(self):
+        pass
+
+    def show_annual_premium(self):
+        pass
+
+    def show_gender_vehicle_damage(self):
+        pass
+
+    def show_age_group(self):
+        pass
+
+    def show_vehicle_age(self):
+        pass
+
 
     def load_data(self, file_path):
         try:
@@ -43,6 +60,11 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Lỗi", f"Không thể tải dữ liệu: {e}")
 
+    def openDatabaseConnectUI(self):
+        dbwindow = QMainWindow()
+        self.LoginWindowExt.setupUi(dbwindow)
+        self.LoginWindowExt.showWindow()
+
     def show_chart(self, title, x, y):
         fig, ax = plt.subplots()
         ax.bar(x, y)
@@ -56,57 +78,82 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
         self.verticalLayout_ChartVisualization.addWidget(canvas)
 
-    def show_customer_age(self):
-        if self.data is not None:
-            age_counts = self.data['Customer_Age'].value_counts()
-            self.show_chart("Customer Age Distribution", age_counts.index, age_counts.values)
+    def processTrainModel_LR(self):
+        columns_input=X
+        column_target=y
+
+        test_size_lr=float(self.lineEdit_TextSize_LR.text())/100
+        regularization_lr=int(self.lineEdit_C_LR.text())
+        max_iter_lr=int(self.lineEdit_MaxIter_LR.text())
+
+        self.LogisticRegressionModel = self.LogisticRegressionModel()
+        self.LogisticRegressionModel.connector = self.LoginWindowExt.connector
+        self.LogisticRegressionModel.processTrain(columns_input, column_target, test_size_lr, regularization_lr,max_iter_lr)
+
+        dlg = QMessageBox(self.LoginWindowExt)
+        dlg.setWindowTitle("Info")
+        dlg.setIcon(QMessageBox.Icon.Information)
+        dlg.setText("Train machine learning model successful!")
+        buttons = QMessageBox.StandardButton.Yes
+        dlg.setStandardButtons(buttons)
+        button = dlg.exec()
+
+    def processEvaluateTrainedModel_LR(self):
+        result = self.LogisticRegressionModel.evaluate()
+        self.lineEdit_MAE_LR.setText(str(result.MAE))
+        self.lineEdit_MSE_LR.setText(str(result.MSE))
+        self.lineEdit_RMSE_LR.setText(str(result.RMSE))
+        self.lineEdit_ROC_LR.setText(str(result.ROC_SCORE))
+
+    def processPickSavePath(self):
+        filters = "trained model file (*.zip);;All files(*)"
+        filename, selected_filter = QFileDialog.getSaveFileName(
+            self.MainWindow,
+            filter=filters,
+        )
+        self.lineEditPath.setText(filename)
+    def processSaveTrainedModel(self):
+        trainedModelPath=self.lineEditPath.text()
+        if trainedModelPath=="":
+            return
+        ret = self.purchaseLinearRegression.saveModel(trainedModelPath)
+        dlg = QMessageBox(self.MainWindow)
+        dlg.setWindowTitle("Info")
+        dlg.setIcon(QMessageBox.Icon.Information)
+        dlg.setText(f"Saved Trained machine learning model successful at [{trainedModelPath}]!")
+        buttons = QMessageBox.StandardButton.Yes
+        dlg.setStandardButtons(buttons)
+        button = dlg.exec()
+    def processLoadTrainedModel(self):
+        # setup for QFileDialog
+        filters = "trained model file (*.zip);;All files(*)"
+        filename, selected_filter = QFileDialog.getOpenFileName(
+            self.MainWindow,
+            filter=filters,
+        )
+        if filename=="":
+            return
+        self.lineEditLocationLoadTrainedModel.setText(filename)
+        self.purchaseLinearRegression.loadModel(filename)
+        dlg = QMessageBox(self.MainWindow)
+        dlg.setWindowTitle("Info")
+        dlg.setIcon(QMessageBox.Icon.Information)
+        dlg.setText(f"Load Trained machine learning model successful from [{filename}]!")
+        buttons = QMessageBox.StandardButton.Yes
+        dlg.setStandardButtons(buttons)
+        button = dlg.exec()
+    def processPrediction(self):
+        gender = self.lineEditGender.text()
+        age = int(self.lineEditAge.text())
+        payment = self.lineEditPaymentMethod.text()
+        if len(self.purchaseLinearRegression.trainedmodel.columns_input)==3:
+            predicted_price = self.purchaseLinearRegression.predictPriceFromGenderAndAgeAndPayment(gender, age, payment)
         else:
-            QMessageBox.warning(self, "Cảnh báo", "Chưa có dữ liệu để hiển thị!")
-
-    def show_annual_premium(self):
-        if self.data is not None:
-            premium_counts = self.data['Annual_Premium'].value_counts()
-            self.show_chart("Annual Premium Distribution", premium_counts.index, premium_counts.values)
-
-    def show_gender_vehicle_damage(self):
-        if self.data is not None:
-            grouped_data = self.data.groupby(['Gender', 'Vehicle_Damage']).size().unstack()
-            grouped_data.plot(kind='bar', stacked=True)
-            plt.title("Gender vs Vehicle Damage")
-            plt.xlabel("Gender")
-            plt.ylabel("Count")
-            plt.legend(title="Vehicle Damage")
-            plt.show()
-
-    def show_age_group(self):
-        pass  # Tương tự show_customer_age
-
-    def show_vehicle_age(self):
-        pass  # Tương tự show_annual_premium
-
-    def load_model(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Chọn mô hình", "", "Model Files (*.pkl)")
-        if file_path:
-            self.model = pd.read_pickle(file_path)
-            QMessageBox.information(self, "Thành công", "Mô hình đã được tải thành công!")
-
-    def train_model(self):
-        if self.data is not None:
-            QMessageBox.information(self, "Đang huấn luyện", "Huấn luyện mô hình... (chưa triển khai)")
-        else:
-            QMessageBox.warning(self, "Cảnh báo", "Chưa có dữ liệu để train!")
-
-    def predict(self):
-        if self.model is not None:
-            QMessageBox.information(self, "Dự đoán", "Đang thực hiện dự đoán... (chưa triển khai)")
-        else:
-            QMessageBox.warning(self, "Cảnh báo", "Chưa tải mô hình!")
-
-    def save_model(self):
-        file_path, _ = QFileDialog.getSaveFileName(self, "Lưu mô hình", "", "Model Files (*.pkl)")
-        if file_path:
-            pd.to_pickle(self.model, file_path)
-            QMessageBox.information(self, "Thành công", "Mô hình đã được lưu thành công!")
+            predicted_price = self.purchaseLinearRegression.predictPriceFromGenderAndAge(gender, age)
+        self.lineEditPredictedPrice.setText(str(predicted_price[0]))
 
     def showWindow(self):
         self.show()
+
+    def LogisticRegressionModel(self):
+        pass
