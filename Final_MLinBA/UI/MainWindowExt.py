@@ -3,6 +3,16 @@ from PyQt6.uic.properties import QtWidgets
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
 
+from MLinBA.Final_MLinBA.Model.ML.WithOversampling.DecisionTree import DecisionTreeModelOversampling
+from MLinBA.Final_MLinBA.Model.ML.WithOversampling.LogisticRegression import LogisticRegressionModelOversampling
+from MLinBA.Final_MLinBA.Model.ML.WithOversampling.RandomForest import RandomForestModelOversampling
+from MLinBA.Final_MLinBA.Model.ML.WithOversampling.XGBoost import XGBoostModelOversampling
+
+from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.DecisionTree import DecisionTreeModel
+from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.LogisticRegression import LogisticRegressionModel
+from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.RandomForest import RandomForestModel
+from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.XGBoost import XGBoostModel
+
 from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import X, y
 from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
@@ -18,11 +28,20 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.initUI()
         self.LoginWindowExt=LoginWindowExt()
         self.LoginWindowExt.parent=self
-        self.LogisticRegressionModel= self.LogisticRegressionModel()
+
+        self.DecisionTreeModelOversampling = DecisionTreeModelOversampling()
+        self.LogisticRegressionModelOversampling = LogisticRegressionModelOversampling()
+        self.RandomForestModelOversampling = RandomForestModelOversampling()
+        self.XGBoostModelOversampling = XGBoostModelOversampling()
+
+        self.DecisionTreeModel = DecisionTreeModel()
+        self.LogisticRegression = LogisticRegressionModel()
+        self.RandomForest = RandomForestModel()
+        self.XGBoost = XGBoostModel()
 
     def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
-        self.LoginWindowExt=LoginWindowExt
+        Ui_MainWindow.setupUi(self, MainWindow)
+        self.LoginWindowExt = LoginWindowExt()
 
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
@@ -84,7 +103,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
         self.verticalLayout_ChartVisualization.addWidget(canvas)
 
-    def processTrainModel_LR(self):
+    def processTrainModel_LR_withO(self):
         columns_input=X
         column_target=y
 
@@ -92,9 +111,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         regularization_lr=int(self.lineEdit_C_LR.text())
         max_iter_lr=int(self.lineEdit_MaxIter_LR.text())
 
-        self.LogisticRegressionModel = self.LogisticRegressionModel()
-        self.LogisticRegressionModel.connector = self.LoginWindowExt.connector
-        self.LogisticRegressionModel.processTrain(columns_input, column_target, test_size_lr, regularization_lr,max_iter_lr)
+        self.LogisticRegressionModelOversampling.evaluate(columns_input, column_target, test_size_lr, regularization_lr,max_iter_lr)
 
         dlg = QMessageBox(self.LoginWindowExt)
         dlg.setWindowTitle("Info")
@@ -102,10 +119,10 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         dlg.setText("Train machine learning model successful!")
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
-        button = dlg.exec()
+        buttons = dlg.exec()
 
     def processEvaluateTrainedModel_LR(self):
-        result = self.LogisticRegressionModel.evaluate()
+        result = self.LogisticRegressionModelOversampling.evaluate()
         self.lineEdit_MAE_LR.setText(str(result.MAE))
         self.lineEdit_MSE_LR.setText(str(result.MSE))
         self.lineEdit_RMSE_LR.setText(str(result.RMSE))
@@ -123,14 +140,14 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         trainedModelPath=self.lineEdit_SaveModel_LR.text()
         if trainedModelPath=="":
             return
-        ret = self.LogisticRegressionModel.saveModel(trainedModelPath)
-        dlg = QMessageBox(self.Ui_MainWindow)
+        ret = self.LogisticRegressionModelOversampling.saveModel(trainedModelPath)
+        dlg = QMessageBox(self)
         dlg.setWindowTitle("Info")
         dlg.setIcon(QMessageBox.Icon.Information)
         dlg.setText(f"Saved Trained machine learning model successful at [{trainedModelPath}]!")
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
-        button = dlg.exec()
+        buttons = dlg.exec()
 
     def processLoadTrainedModel(self):
         # setup for QFileDialog
@@ -141,8 +158,8 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         )
         if filename=="":
             return
-        self.pushButtonLoadPath_LR.set(filename)
-        self.LogisticRegressionModel.loadModel(filename)
+        self.pushButtonLoadPath_LR.setText(filename)
+        self.LogisticRegressionModelOversampling.loadModel(filename)
         dlg = QMessageBox(self.QMainWindow)
         dlg.setWindowTitle("Info")
         dlg.setIcon(QMessageBox.Icon.Information)
@@ -163,6 +180,3 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
     def showWindow(self):
         self.show()
-
-    def LogisticRegressionModel(self):
-        pass
