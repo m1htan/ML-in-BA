@@ -37,6 +37,7 @@ class MainWindowEx(Ui_MainWindow):
         self.databaseConnectEx=DatabaseConnectEx()
         self.databaseConnectEx.parent=self
         self.chartHandle= ChartHandle()
+
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         self.MainWindow=MainWindow
@@ -65,8 +66,10 @@ class MainWindowEx(Ui_MainWindow):
         self.pushButtonSaveModel.clicked.connect(self.processSaveTrainedModel)
         self.pushButtonLoadModel.clicked.connect(self.processLoadTrainedModel)
         self.pushButtonPredict.clicked.connect(self.processPrediction)
+
     def show(self):
         self.MainWindow.show()
+
     def checkEnableWidget(self,flag=True):
         self.pushButtonPurchaseRatesByGender.setEnabled(flag)
         self.pushButtonPurchaseRatesByAgeGroup.setEnabled(flag)
@@ -90,10 +93,12 @@ class MainWindowEx(Ui_MainWindow):
         self.verticalLayoutPlot.addWidget(self.toolbar)
         # adding canvas to the layout
         self.verticalLayoutPlot.addWidget(self.canvas)
+
     def openDatabaseConnectUI(self):
         dbwindow = QMainWindow()
         self.databaseConnectEx.setupUi(dbwindow)
         self.databaseConnectEx.show()
+
     def showDataIntoTableWidget(self,df):
         self.tableWidgetStatistic.setRowCount(0)
         self.tableWidgetStatistic.setColumnCount(len(df.columns))
@@ -172,6 +177,7 @@ class MainWindowEx(Ui_MainWindow):
         hue = None
         self.chartHandle.visualizeLinePlotChart(self.figure,self.canvas,df, columnLabel, columnStatistic,title, hue)
         #self.visualizeLinePlotChart(df, columnLabel, columnStatistic,title, hue)
+
     def showPurchaseCountingByCategory(self):
         self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
         self.purchaseLinearRegression.execPurchaseHistory()
@@ -184,6 +190,7 @@ class MainWindowEx(Ui_MainWindow):
         hue=None
         self.chartHandle.visualizeLinePlotChart(self.figure,self.canvas,df, columnLabel, columnStatistic, title, hue)
         #self.visualizePieChart(df, columnLabel, columnStatistic, title, legend)
+
     def showPurchaseValueByCategory(self):
         # self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
         # self.purchaseLinearRegression.execPurchaseHistory()
@@ -194,6 +201,7 @@ class MainWindowEx(Ui_MainWindow):
         title = "Distribution category and Spending"
         self.chartHandle.visualizeBarChart(self.figure,self.canvas,df,columnLabel,columnStatistic,title)
         #self.visualizeBarChart(df,columnLabel,columnStatistic,title)
+
     def showPurchaseByCategoryAndGender(self):
         # self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
         # self.purchaseLinearRegression.execPurchaseHistory()
@@ -206,6 +214,7 @@ class MainWindowEx(Ui_MainWindow):
         title = "Distribution gender and category"
         self.chartHandle.visualizeMultiBarChart(self.figure,self.canvas,df, columnLabel, columnStatistic,hue, title)
         #self.visualizeMultiBarChart(df, columnLabel, columnStatistic,hue, title)
+
     def showPaymentMethod(self):
         # self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
         # self.purchaseLinearRegression.execPurchaseHistory()
@@ -217,6 +226,7 @@ class MainWindowEx(Ui_MainWindow):
         legend = False
         self.chartHandle.visualizePieChart(self.figure,self.canvas,df, columnLabel, columnStatistic, title, legend)
         #self.visualizePieChart(df, columnLabel, columnStatistic, title, legend)
+
     def showPurchaseRatesByShoppingMall(self):
         # self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
         # self.purchaseLinearRegression.execPurchaseHistory()
@@ -265,6 +275,7 @@ class MainWindowEx(Ui_MainWindow):
         title = "Monthly Variation in Sales Amount"
         hue = None
         self.chartHandle.visualizeLinePlotChart(self.figure,self.canvas,df, columnLabel, columnStatistic, title, hue)
+
     def processTrainModel(self):
         columns_input=["gender","age"]
         column_target="price"
@@ -286,12 +297,14 @@ class MainWindowEx(Ui_MainWindow):
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
         button = dlg.exec()
+
     def processEvaluateTrainedModel(self):
         result = self.purchaseLinearRegression.evaluate()
         self.lineEditMAE.setText(str(result.MAE))
         self.lineEditMSE.setText(str(result.MSE))
         self.lineEditRMSE.setText(str(result.RMSE))
         self.lineEditR2SCore.setText(str(result.R2_SCORE))
+
     def processPickSavePath(self):
         filters = "trained model file (*.zip);;All files(*)"
         filename, selected_filter = QFileDialog.getSaveFileName(
@@ -311,6 +324,7 @@ class MainWindowEx(Ui_MainWindow):
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
         button = dlg.exec()
+
     def processLoadTrainedModel(self):
         # setup for QFileDialog
         filters = "trained model file (*.zip);;All files(*)"
@@ -329,6 +343,7 @@ class MainWindowEx(Ui_MainWindow):
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
         button = dlg.exec()
+
     def processPrediction(self):
         gender = self.lineEditGender.text()
         age = int(self.lineEditAge.text())

@@ -12,11 +12,17 @@ from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 class MainWindowExt(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.Ui_MainWindow = Ui_MainWindow()
+        self.QMainWindow=QMainWindow()
         self.setupUi(self)
         self.initUI()
         self.LoginWindowExt=LoginWindowExt()
         self.LoginWindowExt.parent=self
         self.LogisticRegressionModel= self.LogisticRegressionModel()
+
+    def setupUi(self, MainWindow):
+        super().setupUi(MainWindow)
+        self.LoginWindowExt=LoginWindowExt
 
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
@@ -108,40 +114,43 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
     def processPickSavePath(self):
         filters = "trained model file (*.zip);;All files(*)"
         filename, selected_filter = QFileDialog.getSaveFileName(
-            self.MainWindow,
+            self.QMainWindow,
             filter=filters,
         )
-        self.lineEditPath.setText(filename)
+        self.lineEdit_SaveModel_LR.setText(filename)
+
     def processSaveTrainedModel(self):
-        trainedModelPath=self.lineEditPath.text()
+        trainedModelPath=self.lineEdit_SaveModel_LR.text()
         if trainedModelPath=="":
             return
-        ret = self.purchaseLinearRegression.saveModel(trainedModelPath)
-        dlg = QMessageBox(self.MainWindow)
+        ret = self.LogisticRegressionModel.saveModel(trainedModelPath)
+        dlg = QMessageBox(self.Ui_MainWindow)
         dlg.setWindowTitle("Info")
         dlg.setIcon(QMessageBox.Icon.Information)
         dlg.setText(f"Saved Trained machine learning model successful at [{trainedModelPath}]!")
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
         button = dlg.exec()
+
     def processLoadTrainedModel(self):
         # setup for QFileDialog
         filters = "trained model file (*.zip);;All files(*)"
         filename, selected_filter = QFileDialog.getOpenFileName(
-            self.MainWindow,
+            self.QMainWindow,
             filter=filters,
         )
         if filename=="":
             return
-        self.lineEditLocationLoadTrainedModel.setText(filename)
-        self.purchaseLinearRegression.loadModel(filename)
-        dlg = QMessageBox(self.MainWindow)
+        self.pushButtonLoadPath_LR.set(filename)
+        self.LogisticRegressionModel.loadModel(filename)
+        dlg = QMessageBox(self.QMainWindow)
         dlg.setWindowTitle("Info")
         dlg.setIcon(QMessageBox.Icon.Information)
         dlg.setText(f"Load Trained machine learning model successful from [{filename}]!")
         buttons = QMessageBox.StandardButton.Yes
         dlg.setStandardButtons(buttons)
         button = dlg.exec()
+
     def processPrediction(self):
         gender = self.lineEditGender.text()
         age = int(self.lineEditAge.text())

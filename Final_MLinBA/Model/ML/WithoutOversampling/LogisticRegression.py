@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
-class LogisticRegressionModelOversampling(DataProcessor):
+class LogisticRegressionModel(DataProcessor):
     def __init__(self, C=0.1, max_iter=500):
         super().__init__()
         self.prepare_data()
         self.model = LogisticRegression(C=C, max_iter=max_iter)
 
     def train(self):
-        self.model.fit(self.X_train_os, self.y_train_os)
+        self.model.fit(self.X_train, self.y_train)
         self.trained_model = self.model
 
     def evaluate(self, X_test, y_test):
