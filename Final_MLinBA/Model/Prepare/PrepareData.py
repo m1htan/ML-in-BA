@@ -63,7 +63,7 @@ class DataProcessor(Statistic):
             self.df[['Age', 'Annual_Premium', 'Vintage']]
         )
 
-    def prepare_data(self):
+    def prepare_data(self, test_size=None):
         """Chia dữ liệu và cân bằng bằng BorderlineSMOTE"""
         if self.df is None:
             raise ValueError("Dữ liệu chưa được tiền xử lý. Gọi preprocess() trước.")
@@ -71,12 +71,14 @@ class DataProcessor(Statistic):
         X = self.df.drop('Response', axis=1)
         y = self.df['Response']
 
+        test_size = test_size if test_size is not None else self.test_size
+
         # Chia tập train-test
         X_train, X_test, y_train, y_test = train_test_split(
             X, y,
-            test_size=self.test_size,
+            test_size=test_size,
             stratify=y,
-            random_state=self.random_state
+            random_state=self.random_state,
         )
 
         # **Lưu lại dữ liệu gốc trước khi áp dụng SMOTE**

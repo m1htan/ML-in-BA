@@ -1,5 +1,7 @@
+import numpy as np
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, mean_absolute_error, mean_squared_error, \
+    roc_auc_score
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -7,10 +9,10 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
 class LogisticRegressionModelOversampling(DataProcessor):
-    def __init__(self, C=0.1, max_iter=500):
-        super().__init__()
+    def __init__(self, C=0.1, max_iter_lr=500):
+        super().__init__(C, max_iter_lr)
         self.prepare_data()
-        self.model = LogisticRegression(C=C, max_iter=max_iter)
+        self.model = LogisticRegression(C=C, max_iter=max_iter_lr)
 
     def train(self):
         self.model.fit(self.X_train_os, self.y_train_os)
@@ -18,6 +20,8 @@ class LogisticRegressionModelOversampling(DataProcessor):
 
     def evaluate(self, X_test, y_test):
         y_pred = self.model.predict(X_test)
+        y_probs = self.model.predict_proba(X_test)[:, 1]  # Lấy xác suất của lớp 1
+
         print(classification_report(y_test, y_pred))
 
         cm = confusion_matrix(y_test, y_pred)
@@ -27,3 +31,16 @@ class LogisticRegressionModelOversampling(DataProcessor):
         plt.ylabel("True Label")
         plt.title("Confusion Matrix - Logistic Regression")
         plt.show()
+
+        mae = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        rmse = np.sqrt(mse)
+        roc_auc = roc_auc_score(y_test, y_probs)
+
+        # Trả về kết quả dưới dạng dictionary
+        return {
+            "MAE": mae,
+            "MSE": mse,
+            "RMSE": rmse,
+            "ROC_SCORE": roc_auc
+        }

@@ -1,5 +1,7 @@
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, mean_absolute_error, mean_squared_error, \
+    roc_auc_score
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -7,10 +9,10 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
 class RandomForestModelOversampling(DataProcessor):
-    def __init__(self, n_estimators=100, random_state=42):
-        super().__init__(random_state)
+    def __init__(self, N=100, random_state_rf=42):
+        super().__init__(random_state_rf, N)
         self.prepare_data()
-        self.model = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
+        self.model = RandomForestClassifier(N=N, random_state=random_state_rf)
 
     def train(self):
         self.model.fit(self.X_train_os, self.y_train_os)
@@ -18,6 +20,8 @@ class RandomForestModelOversampling(DataProcessor):
 
     def evaluate(self, X_test, y_test):
         y_pred = self.model.predict(X_test)
+        y_probs = self.model.predict_proba(X_test)[:, 1]  # Lấy xác suất của lớp 1
+
         print(classification_report(y_test, y_pred))
 
         cm = confusion_matrix(y_test, y_pred)
@@ -27,3 +31,16 @@ class RandomForestModelOversampling(DataProcessor):
         plt.ylabel("True Label")
         plt.title("Confusion Matrix - Random Forest")
         plt.show()
+
+        mae = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        rmse = np.sqrt(mse)
+        roc_auc = roc_auc_score(y_test, y_probs)
+
+        # Trả về kết quả dưới dạng dictionary
+        return {
+            "MAE": mae,
+            "MSE": mse,
+            "RMSE": rmse,
+            "ROC_SCORE": roc_auc
+        }
