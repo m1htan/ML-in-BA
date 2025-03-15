@@ -24,7 +24,7 @@ class Connector:
                 print("Đã kết nối trước đó, không cần kết nối lại.")
                 return
             self.conn = mysql.connector.connect(host=self.server, port=self.port, database=self.database,
-                                                user=self.username, password=self.password)
+                                                user=self.username, password=self.password, auth_plugin='mysql_native_password')
         except mysql.connector.Error as err:
             print(f"Lỗi kết nối CSDL: {err}")
 
