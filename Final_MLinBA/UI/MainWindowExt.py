@@ -177,14 +177,13 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
         # Lấy dữ liệu từ giao diện người dùng
         test_size_dt = float(self.lineEdit_TestSize_LR.text()) / 100
-        estimators_dt = float(self.lineEdit_NEstimators_DT.text())
         random_state_dt = int(self.lineEdit_RandomState_DT.text())
 
         # Khởi tạo mô hình phù hợp
         if selected_model == "With Oversampling":
-            self.DecisionTreeModel = DecisionTreeModelOversampling(N = estimators_dt, random_state_dt=random_state_dt)
+            self.DecisionTreeModel = DecisionTreeModelOversampling(random_state_dt=random_state_dt)
         else:
-            self.DecisionTreeModel = DecisionTreeModel(N = estimators_dt, random_state_dt=random_state_dt)
+            self.DecisionTreeModel = DecisionTreeModel(random_state_dt=random_state_dt)
 
         # Gọi prepare_data để tạo tập train/test theo test_size_lr
         self.DecisionTreeModel.prepare_data(test_size=test_size_dt)
@@ -287,6 +286,13 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
     def processPickSavePath_LR(self):
         filters = "trained model file (*.zip);;All files(*)"
+        # Mở hộp thoại chọn vị trí lưu file
+        filename, _ = QFileDialog.getSaveFileName(
+            self,  # ✅ Dùng self để đảm bảo hộp thoại mở đúng
+            "Chọn nơi lưu mô hình",  # ✅ Tiêu đề hộp thoại
+            "",  # ✅ Thư mục mặc định (có thể đặt đường dẫn khác nếu muốn)
+            filters  # ✅ Bộ lọc file
+        )
         filename, selected_filter = QFileDialog.getSaveFileName(
             self.QMainWindow,
             filter=filters,

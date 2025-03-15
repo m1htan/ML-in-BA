@@ -529,7 +529,7 @@ color: rgb(177, 51, 51);</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1807,7 +1807,7 @@ color: rgb(177, 51, 51);</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="movable">
        <bool>true</bool>
@@ -1898,19 +1898,6 @@ color: rgb(177, 51, 51);</string>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="pushButtonLoadPath_LR">
-             <property name="geometry">
-              <rect>
-               <x>690</x>
-               <y>38</y>
-               <width>41</width>
-               <height>28</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>...</string>
              </property>
             </widget>
             <widget class="QComboBox" name="comboBox_LoadModel_LR">
@@ -2273,7 +2260,6 @@ color: rgb(177, 51, 51);</string>
             <zorder>label_frame_5</zorder>
             <zorder>label_31</zorder>
             <zorder>label_12</zorder>
-            <zorder>pushButtonLoadPath_LR</zorder>
             <zorder>comboBox_LoadModel_LR</zorder>
             <zorder>pushButton_LoadModel_LR</zorder>
            </widget>
@@ -4317,19 +4303,6 @@ color: rgb(177, 51, 51);</string>
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonLoadPath_XGBoost">
-          <property name="geometry">
-           <rect>
-            <x>690</x>
-            <y>38</y>
-            <width>41</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
          <widget class="QComboBox" name="comboBox_LoadModel_XGBoost">
           <property name="geometry">
            <rect>
@@ -4690,7 +4663,6 @@ color: rgb(177, 51, 51);</string>
          <zorder>label_70</zorder>
          <zorder>label_frame_13</zorder>
          <zorder>label_69</zorder>
-         <zorder>pushButtonLoadPath_XGBoost</zorder>
          <zorder>comboBox_LoadModel_XGBoost</zorder>
          <zorder>pushButton_LoadModel_XGBoost</zorder>
         </widget>
@@ -6687,19 +6659,6 @@ color: rgb(177, 51, 51);</string>
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonLoadPath_DT">
-          <property name="geometry">
-           <rect>
-            <x>690</x>
-            <y>38</y>
-            <width>41</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
          <widget class="QComboBox" name="comboBox_LoadModel_DT">
           <property name="geometry">
            <rect>
@@ -7060,7 +7019,6 @@ color: rgb(177, 51, 51);</string>
          <zorder>label_frame_25</zorder>
          <zorder>label_136</zorder>
          <zorder>label_135</zorder>
-         <zorder>pushButtonLoadPath_DT</zorder>
          <zorder>comboBox_LoadModel_DT</zorder>
          <zorder>pushButton_LoadModel_DT</zorder>
         </widget>
@@ -7414,49 +7372,6 @@ color: rgb(177, 51, 51);</string>
            <bool>false</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_146">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>106</y>
-            <width>175</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI Semibold</family>
-            <pointsize>12</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(0, 0, 0);</string>
-          </property>
-          <property name="text">
-           <string>N Estimators        :</string>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="lineEdit_NEstimators_DT">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>106</y>
-            <width>411</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(151, 30, 30);</string>
-          </property>
-          <property name="frame">
-           <bool>false</bool>
-          </property>
-         </widget>
          <widget class="QPushButton" name="pushButton_TrainModel_DT">
           <property name="geometry">
            <rect>
@@ -7765,25 +7680,6 @@ color: rgb(177, 51, 51);</string>
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QLabel" name="label_147">
-          <property name="geometry">
-           <rect>
-            <x>230</x>
-            <y>101</y>
-            <width>431</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>../Images/text_label.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_148">
           <property name="geometry">
            <rect>
@@ -7869,11 +7765,8 @@ color: rgb(177, 51, 51);</string>
          <zorder>label_frame_26</zorder>
          <zorder>lineEdit_RandomState_DT</zorder>
          <zorder>label_148</zorder>
-         <zorder>label_147</zorder>
          <zorder>label_145</zorder>
          <zorder>lineEdit_TestSize_DT</zorder>
-         <zorder>label_146</zorder>
-         <zorder>lineEdit_NEstimators_DT</zorder>
          <zorder>pushButton_TrainModel_DT</zorder>
          <zorder>label_150</zorder>
         </widget>
@@ -9057,19 +8950,6 @@ color: rgb(177, 51, 51);</string>
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonLoadPath_RF">
-          <property name="geometry">
-           <rect>
-            <x>690</x>
-            <y>38</y>
-            <width>41</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
          <widget class="QComboBox" name="comboBox_LoadModel_RF">
           <property name="geometry">
            <rect>
@@ -9085,8 +8965,17 @@ color: rgb(177, 51, 51);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::DefaultContextMenu</enum>
+          </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(151, 30, 30);</string>
+          </property>
+          <property name="currentIndex">
+           <number>1</number>
           </property>
           <property name="frame">
            <bool>false</bool>
@@ -9430,7 +9319,6 @@ color: rgb(177, 51, 51);</string>
          <zorder>label_frame_21</zorder>
          <zorder>label_114</zorder>
          <zorder>label_113</zorder>
-         <zorder>pushButtonLoadPath_RF</zorder>
          <zorder>comboBox_LoadModel_RF</zorder>
          <zorder>pushButton_LoadModel_RF</zorder>
         </widget>

@@ -9,10 +9,10 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
 class DecisionTreeModel(DataProcessor):
-    def __init__(self, random_state_dt=42, N=100):
-        super().__init__(random_state_dt, N)
+    def __init__(self, random_state_dt=42):
+        super().__init__(random_state_dt)
         self.prepare_data()
-        self.model = DecisionTreeClassifier(random_state=random_state_dt, N=N)
+        self.model = DecisionTreeClassifier(random_state=random_state_dt)
 
     def train(self):
         self.model.fit(self.X_train, self.y_train)

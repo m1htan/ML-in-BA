@@ -12,7 +12,7 @@ class RandomForestModel(DataProcessor):
     def __init__(self, N=100, random_state_rf=42):
         super().__init__(random_state_rf, N)
         self.prepare_data()
-        self.model = RandomForestClassifier(N=N, random_state=random_state_rf)
+        self.model = RandomForestClassifier(n_estimators=N, random_state=random_state_rf)
 
     def train(self):
         self.model.fit(self.X_train, self.y_train)
