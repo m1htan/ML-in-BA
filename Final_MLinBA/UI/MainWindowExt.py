@@ -57,7 +57,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
         self.actionConnect_Database.triggered.connect(self.openDatabaseConnectUI)
-        self.actionExit.triggered.connect(self.processExit)
+        # self.actionExit.triggered.connect(self.processExit)
 
         self.checkEnableWidget(False)
 
