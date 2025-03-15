@@ -422,12 +422,12 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
     def processPrediction_LR(self):
         try:
-            # 🔥 Mã hóa giá trị categorical
+            # Mã hóa giá trị categorical
             gender_mapping = {"Male": 0, "Female": 1}
             vehicle_age_mapping = {"< 1 Year": 0, "1-2 Year": 1, "> 2 Years": 2}
             vehicle_damage_mapping = {"Yes": 1, "No": 0}
 
-            # 🛠 Lấy dữ liệu từ giao diện và loại bỏ khoảng trắng
+            # Lấy dữ liệu từ giao diện và loại bỏ khoảng trắng
             data_fields = {
                 "Giới tính": self.lineEdit_Gender_LR.text().strip(),
                 "Tuổi": self.lineEdit_Age_LR.text().strip(),
@@ -442,13 +442,13 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
                 "Phí bảo hiểm điều chỉnh": self.lineEdit_AnnualPremiumAdjusted_LR.text().strip()
             }
 
-            # ✅ Kiểm tra dữ liệu rỗng
+            # Kiểm tra dữ liệu rỗng
             for field_name, value in data_fields.items():
                 if not value:
                     QMessageBox.warning(self, "Lỗi", f"Trường '{field_name}' không được để trống! Vui lòng nhập dữ liệu.")
                     return
 
-            # ✅ Chuyển đổi kiểu số
+            # Chuyển đổi kiểu số
             try:
                 age_LR = int(data_fields["Tuổi"])
                 previously_insured_LR = int(data_fields["Bảo hiểm trước đó"])
@@ -461,7 +461,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Lỗi", f"Dữ liệu nhập sai kiểu số: {e}")
                 return
 
-            # ✅ Mã hóa categorical
+            # Mã hóa categorical
             gender_LR = gender_mapping.get(data_fields["Giới tính"])
             vehicle_age_LR = vehicle_age_mapping.get(data_fields["Tuổi xe"])
             vehicle_damage_LR = vehicle_damage_mapping.get(data_fields["Thiệt hại xe"])
@@ -470,7 +470,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Lỗi", "Một số trường nhập sai giá trị! Kiểm tra lại.")
                 return
 
-            # 🔥 Chuyển đổi thành numpy array để tránh lỗi dtype='numeric'
+            # Chuyển đổi thành numpy array để tránh lỗi dtype='numeric'
             input_data = np.array([[
                 gender_LR, age_LR, data_fields["Bằng lái xe"], region_code_LR,
                 previously_insured_LR, vehicle_age_LR, vehicle_damage_LR,
@@ -478,24 +478,24 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
                 annual_premium_adjusted_LR
             ]], dtype=np.float64)  # ⚠ Chuyển tất cả về số thực
 
-            # 🛠 Kiểm tra model trước khi dự đoán
+            # Kiểm tra model trước khi dự đoán
             if self.LogisticRegressionModel.trained_model is None:
                 QMessageBox.warning(self, "Lỗi", "Mô hình chưa được train! Vui lòng train trước khi dự đoán.")
                 return
 
-            # 🔥 Kiểm tra mô hình có tồn tại không
+            # Kiểm tra mô hình có tồn tại không
             if not hasattr(self.LogisticRegressionModel, 'model'):
                 QMessageBox.warning(self, "Lỗi", "Mô hình LogisticRegression chưa được khởi tạo.")
                 return
 
-            # 🛠 Kiểm tra lỗi khi predict
+            # Kiểm tra lỗi khi predict
             try:
                 response_lr = self.LogisticRegressionModel.model.predict(input_data)
             except Exception as e:
                 QMessageBox.warning(self, "Lỗi", f"Lỗi khi dự đoán: {e}")
                 return
 
-            # ✅ Hiển thị kết quả dự đoán lên giao diện
+            # Hiển thị kết quả dự đoán lên giao diện
             self.lineEdit_Response_LR.setText(str(response_lr[0]))
 
         except Exception as e:
