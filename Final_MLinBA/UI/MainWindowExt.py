@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from PyQt6.uic.properties import QtWidgets
 from matplotlib import pyplot as plt
@@ -35,14 +36,17 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.XGBoostModelOversampling = XGBoostModelOversampling()
 
         self.DecisionTreeModel = DecisionTreeModel()
-        self.LogisticRegression = LogisticRegressionModel()
-        self.RandomForest = RandomForestModel()
-        self.XGBoost = XGBoostModel()
+        self.LogisticRegressionModel = LogisticRegressionModel()
+        self.RandomForestModel = RandomForestModel()
+        self.XGBoostModel = XGBoostModel()
 
     def setupUi(self, MainWindow):
         Ui_MainWindow.setupUi(self, MainWindow)
 
         self.pushButtonSavePath_LR.clicked.connect(self.processPickSavePath)
+        self.pushButtonSavePath_DT.clicked.connect(self.processPickSavePath)
+        self.pushButtonSavePath_RF.clicked.connect(self.processPickSavePath)
+        self.pushButtonSavePath_XGBoost.clicked.connect(self.processPickSavePath)
 
         self.pushButton_SaveModel_LR.clicked.connect(self.processSaveTrainedModel)
         self.pushButton_SaveModel_DT.clicked.connect(self.processSaveTrainedModel)
@@ -54,10 +58,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.pushButton_TrainModel_RF.clicked.connect(self.processTrainModel_and_Evaluate_RF)
         self.pushButton_TrainModel_XGBoost.clicked.connect(self.processTrainModel_and_Evaluate_XG)
 
+        self.pushButtonPredict_DT.clicked.connect(self.processPrediction_DT)
+        self.pushButtonPredict_LR.clicked.connect(self.processPrediction_LR)
+        #self.pushButtonPredict_RF.clicked.connect(self.processPrediction_RF)
+        #self.pushButtonPredict_XGBoost.clicked.connect(self.processPrediction_XG)
+
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
         self.actionConnect_Database.triggered.connect(self.openDatabaseConnectUI)
-        # self.actionExit.triggered.connect(self.processExit)
+        self.actionExit.triggered.connect(self.processExit)
 
         self.checkEnableWidget(False)
 
@@ -205,7 +214,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         selected_model = self.comboBox_LoadModel_DT.currentText()
 
         # Lấy dữ liệu từ giao diện người dùng
-        test_size_dt = float(self.lineEdit_TestSize_LR.text()) / 100
+        test_size_dt = float(self.lineEdit_TestSize_DT.text()) / 100
         random_state_dt = int(self.lineEdit_RandomState_DT.text())
 
         # Khởi tạo mô hình phù hợp
@@ -320,25 +329,49 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
             filter=filters,
         )
         self.lineEdit_SaveModel_LR.setText(filename)
+        self.lineEdit_SaveModel_DT.setText(filename)
+        self.lineEdit_SaveModel_RF.setText(filename)
+        self.lineEdit_SaveModel_XGBoost.setText(filename)
 
     def processSaveTrainedModel(self):
-        trainedModelPath=self.lineEdit_SaveModel_LR.text()
-        if trainedModelPath=="":
+        trainedModelPath = self.lineEdit_SaveModel_LR.text()
+
+        if trainedModelPath == "":
+            QMessageBox.warning(self, "Lỗi", "Vui lòng chọn đường dẫn lưu trước khi lưu mô hình!")
             return
 
-        ret=self.LogisticRegressionModelOversampling.saveModel(trainedModelPath)
+        # Danh sách model có thể lưu
+        models = {
+            "LogisticRegressionModelOversampling": self.LogisticRegressionModelOversampling,
+            "DecisionTreeModelOversampling": self.DecisionTreeModelOversampling,
+            "RandomForestModelOversampling": self.RandomForestModelOversampling,
+            "XGBoostModelOversampling": self.XGBoostModelOversampling,
+            "LogisticRegressionModel": self.LogisticRegressionModel,
+            "DecisionTreeModel": self.DecisionTreeModel,
+            "RandomForestModel": self.RandomForestModel,
+            "XGBoostModel": self.XGBoostModel,
+        }
 
-        if self.LogisticRegressionModelOversampling.trained_model is None:
-            QMessageBox.warning(self, "Lỗi", "Mô hình chưa được huấn luyện! Vui lòng train trước khi lưu.")
+        # Chỉ lọc các model đã train
+        trained_models = {name: model for name, model in models.items() if model.trained_model is not None}
+
+        # Nếu không có model nào được train, báo lỗi và dừng
+        if not trained_models:
+            QMessageBox.warning(self, "Lỗi", "Không có mô hình nào được train! Vui lòng train trước khi lưu.")
             return
 
-        dlg = QMessageBox(self)
-        dlg.setWindowTitle("Info")
-        dlg.setIcon(QMessageBox.Icon.Information)
-        dlg.setText(f"Saved Trained machine learning model successful at [{trainedModelPath}]!")
-        buttons = QMessageBox.StandardButton.Yes
-        dlg.setStandardButtons(buttons)
-        buttons = dlg.exec()
+        # Lưu các model đã train
+        saved_models = []
+        for model_name, model in trained_models.items():
+            model.saveModel(f"{trainedModelPath}")
+            saved_models.append(model_name)
+
+        # Thông báo chỉ khi có ít nhất một model đã lưu
+        QMessageBox.information(
+            self,
+            "Thành công",
+            f"Đã lưu các mô hình: {', '.join(saved_models)}!"
+        )
 
     def checkEnableWidget(self,flag=True):
         self.pushButtonTotalNumberOfCustomer.setEnabled(flag)
@@ -354,29 +387,131 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.pushButtonTopCusRegions.setEnabled(flag)
         self.pushButtonTopResponsiveRegions.setEnabled(flag)
 
-    def processPrediction(self):
-        gender = self.lineEditGender.text()
-        age = int(self.lineEditAge.text())
-        payment = self.lineEditPaymentMethod.text()
-        if len(self.purchaseLinearRegression.trainedmodel.columns_input)==3:
-            predicted_price = self.purchaseLinearRegression.predictPriceFromGenderAndAgeAndPayment(gender, age, payment)
-        else:
-            predicted_price = self.purchaseLinearRegression.predictPriceFromGenderAndAge(gender, age)
-        self.lineEditPredictedPrice.setText(str(predicted_price[0]))
+    def processPrediction_DT(self):
+        try:
+            gender_DT = self.lineEdit_Gender_DT.text()
+            age_DT = int(self.lineEdit_Age_DT.text())
+            driving_license_DT = self.lineEdit_DrivingLicense_DT.text()
+            region_code_DT = self.lineEdit_RegionCode_DT.text()
+            previously_insured_DT = int(self.lineEdit_PreviouslyInsured_DT.text())
+            vehicle_age_DT = self.lineEdit_VehicleAge_DT.text()
+            vehicle_damage_DT = self.lineEdit_VehicleDamege_DT.text()
+            annual_premium_DT = int(self.lineEdit_AnnualPremiun_DT.text())
+            policy_sales_channel_DT = self.lineEdit_PolicySalesChannel_DT.text()
+            vintage_DT = self.lineEdit_Vintage_DT.text()
+            annual_premium_adjusted_DT = int(self.lineEdit_AnnualPremiumAdjusted_DT.text())
+
+            if not all([gender_DT, age_DT, driving_license_DT, region_code_DT, previously_insured_DT,
+                        vehicle_age_DT, vehicle_damage_DT, annual_premium_DT, policy_sales_channel_DT,
+                        vintage_DT, annual_premium_adjusted_DT]):
+                QMessageBox.warning(self, "Lỗi", "Vui lòng nhập đầy đủ thông tin trước khi dự đoán!")
+                return
+
+            input_data = [[
+                gender_DT, age_DT, driving_license_DT, region_code_DT,
+                previously_insured_DT, vehicle_age_DT, vehicle_damage_DT,
+                annual_premium_DT, policy_sales_channel_DT, vintage_DT, annual_premium_adjusted_DT
+            ]]
+
+            response_dt = self.DecisionTreeModel.model.predict(input_data)
+
+            self.lineEdit_Response_DT.setText(str(response_dt[0]))
+
+        except ValueError:
+            QMessageBox.warning(self, "Lỗi", "Dữ liệu đầu vào không hợp lệ! Vui lòng kiểm tra lại.")
+
+    def processPrediction_LR(self):
+        try:
+            # 🔥 Mã hóa giá trị categorical
+            gender_mapping = {"Male": 0, "Female": 1}
+            vehicle_age_mapping = {"< 1 Year": 0, "1-2 Year": 1, "> 2 Years": 2}
+            vehicle_damage_mapping = {"Yes": 1, "No": 0}
+
+            # 🛠 Lấy dữ liệu từ giao diện và loại bỏ khoảng trắng
+            data_fields = {
+                "Giới tính": self.lineEdit_Gender_LR.text().strip(),
+                "Tuổi": self.lineEdit_Age_LR.text().strip(),
+                "Bằng lái xe": self.lineEdit_DrivingLicense_LR.text().strip(),
+                "Mã vùng": self.lineEdit_RegionCode_LR.text().strip(),
+                "Bảo hiểm trước đó": self.lineEdit_PreviouslyInsured_LR.text().strip(),
+                "Tuổi xe": self.lineEdit_VehicleAge_LR.text().strip(),
+                "Thiệt hại xe": self.lineEdit_VehicleDamege_LR.text().strip(),
+                "Phí bảo hiểm hàng năm": self.lineEdit_AnnualPremiun_LR.text().strip(),
+                "Kênh bán hàng": self.lineEdit_PolicySalesChannel_LR.text().strip(),
+                "Thời gian sử dụng": self.lineEdit_Vintage_LR.text().strip(),
+                "Phí bảo hiểm điều chỉnh": self.lineEdit_AnnualPremiumAdjusted_LR.text().strip()
+            }
+
+            # ✅ Kiểm tra dữ liệu rỗng
+            for field_name, value in data_fields.items():
+                if not value:
+                    QMessageBox.warning(self, "Lỗi", f"Trường '{field_name}' không được để trống! Vui lòng nhập dữ liệu.")
+                    return
+
+            # ✅ Chuyển đổi kiểu số
+            try:
+                age_LR = int(data_fields["Tuổi"])
+                previously_insured_LR = int(data_fields["Bảo hiểm trước đó"])
+                annual_premium_LR = int(data_fields["Phí bảo hiểm hàng năm"])
+                annual_premium_adjusted_LR = int(data_fields["Phí bảo hiểm điều chỉnh"])
+                region_code_LR = int(data_fields["Mã vùng"])
+                policy_sales_channel_LR = int(data_fields["Kênh bán hàng"])
+                vintage_LR = int(data_fields["Thời gian sử dụng"])
+            except ValueError as e:
+                QMessageBox.warning(self, "Lỗi", f"Dữ liệu nhập sai kiểu số: {e}")
+                return
+
+            # ✅ Mã hóa categorical
+            gender_LR = gender_mapping.get(data_fields["Giới tính"])
+            vehicle_age_LR = vehicle_age_mapping.get(data_fields["Tuổi xe"])
+            vehicle_damage_LR = vehicle_damage_mapping.get(data_fields["Thiệt hại xe"])
+
+            if gender_LR is None or vehicle_age_LR is None or vehicle_damage_LR is None:
+                QMessageBox.warning(self, "Lỗi", "Một số trường nhập sai giá trị! Kiểm tra lại.")
+                return
+
+            # 🔥 Chuyển đổi thành numpy array để tránh lỗi dtype='numeric'
+            input_data = np.array([[
+                gender_LR, age_LR, data_fields["Bằng lái xe"], region_code_LR,
+                previously_insured_LR, vehicle_age_LR, vehicle_damage_LR,
+                annual_premium_LR, policy_sales_channel_LR, vintage_LR,
+                annual_premium_adjusted_LR
+            ]], dtype=np.float64)  # ⚠ Chuyển tất cả về số thực
+
+            # 🛠 Kiểm tra model trước khi dự đoán
+            if self.LogisticRegressionModel.trained_model is None:
+                QMessageBox.warning(self, "Lỗi", "Mô hình chưa được train! Vui lòng train trước khi dự đoán.")
+                return
+
+            # 🔥 Kiểm tra mô hình có tồn tại không
+            if not hasattr(self.LogisticRegressionModel, 'model'):
+                QMessageBox.warning(self, "Lỗi", "Mô hình LogisticRegression chưa được khởi tạo.")
+                return
+
+            # 🛠 Kiểm tra lỗi khi predict
+            try:
+                response_lr = self.LogisticRegressionModel.model.predict(input_data)
+            except Exception as e:
+                QMessageBox.warning(self, "Lỗi", f"Lỗi khi dự đoán: {e}")
+                return
+
+            # ✅ Hiển thị kết quả dự đoán lên giao diện
+            self.lineEdit_Response_LR.setText(str(response_lr[0]))
+
+        except Exception as e:
+            QMessageBox.warning(self, "Lỗi", f"Lỗi không xác định: {e}")
 
     def showWindow(self):
         self.showWindow()
 
     def processExit(self):
-        # ✅ Hiển thị hộp thoại xác nhận
         reply = QMessageBox.question(
             self,
             "Xác nhận thoát",
             "Bạn có chắc chắn muốn thoát chương trình?",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-            QMessageBox.StandardButton.No  # Mặc định là "No"
+            QMessageBox.StandardButton.No
         )
 
-        # ✅ Nếu chọn "Yes", thoát chương trình
         if reply == QMessageBox.StandardButton.Yes:
             QApplication.quit()

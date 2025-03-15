@@ -9,7 +9,7 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
 class LogisticRegressionModelOversampling(DataProcessor):
-    def __init__(self, C=0.1, max_iter_lr=500):
+    def __init__(self, C=None, max_iter_lr=None):
         super().__init__()
         self.prepare_data()
         self.model = LogisticRegression(C=C, max_iter=max_iter_lr)

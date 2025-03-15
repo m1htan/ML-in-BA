@@ -9,7 +9,7 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
 class RandomForestModelOversampling(DataProcessor):
-    def __init__(self, N=100, random_state_rf=42):
+    def __init__(self, N=None, random_state_rf=None):
         super().__init__()
         self.prepare_data()
         self.model = RandomForestClassifier(n_estimators=N, random_state=random_state_rf)

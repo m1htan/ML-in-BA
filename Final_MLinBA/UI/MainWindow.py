@@ -4002,7 +4002,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.tabWidget_choosemodel.setCurrentIndex(0)
         self.comboBox_LoadModel_RF.setCurrentIndex(1)
         self.tabWidget.tabBarClicked['int'].connect(self.tabWidget.repaint) # type: ignore

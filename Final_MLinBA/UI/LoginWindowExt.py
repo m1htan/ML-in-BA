@@ -44,7 +44,7 @@ class LoginWindowExt(Ui_LoginWindow):
                 # Chuyển đến MainWindow nếu đang ở trang Login
             if self.connector != None:
                 self.LoginWindow.hide()
-                from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt  # Import tại đây
+                from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
                 self.mainwindow = MainWindowExt()
                 self.mainwindow.show()
 

@@ -9,7 +9,7 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 
 class XGBoostModel(DataProcessor):
-    def __init__(self, N=100, random_state_XG=42):
+    def __init__(self, N=None, random_state_XG=None):
         super().__init__()
         self.prepare_data()
         self.model = xgb.XGBClassifier(N=N, random_state=random_state_XG)
