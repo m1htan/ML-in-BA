@@ -42,11 +42,11 @@ class LoginWindowExt(Ui_LoginWindow):
                 self.msg.show()
 
                 # Chuyển đến MainWindow nếu đang ở trang Login
-                if self.connector != None:
-                    self.LoginWindow.hide()
-                    from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt  # Import tại đây
-                    self.mainwindow = MainWindowExt()
-                    self.mainwindow.show()
+            if self.connector != None:
+                self.LoginWindow.hide()
+                from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt  # Import tại đây
+                self.mainwindow = MainWindowExt()
+                self.mainwindow.show()
 
             else:
                 # Hiển thị thông báo lỗi nếu thông tin không khớp

@@ -16,7 +16,7 @@ from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.XGBoost import XGBoostMode
 from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import df
 from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
-from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog
+from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QApplication
 
 
 class MainWindowExt(QMainWindow, Ui_MainWindow):
@@ -41,10 +41,26 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
     def setupUi(self, MainWindow):
         Ui_MainWindow.setupUi(self, MainWindow)
-        self.LoginWindowExt = LoginWindowExt()
+
+        self.pushButtonSavePath_LR.clicked.connect(self.processPickSavePath)
+
+        self.pushButton_SaveModel_LR.clicked.connect(self.processSaveTrainedModel)
+        self.pushButton_SaveModel_DT.clicked.connect(self.processSaveTrainedModel)
+        self.pushButton_SaveModel_RF.clicked.connect(self.processSaveTrainedModel)
+        self.pushButton_SaveModel_XGBoost.clicked.connect(self.processSaveTrainedModel)
+
+        self.pushButton_TrainModel_LR.clicked.connect(self.processTrainModel_and_Evaluate_LR)
+        self.pushButton_TrainModel_DT.clicked.connect(self.processTrainModel_and_Evaluate_DT)
+        self.pushButton_TrainModel_RF.clicked.connect(self.processTrainModel_and_Evaluate_RF)
+        self.pushButton_TrainModel_XGBoost.clicked.connect(self.processTrainModel_and_Evaluate_XG)
 
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
+        self.actionConnect_Database.triggered.connect(self.openDatabaseConnectUI)
+        self.actionExit.triggered.connect(self.processExit)
+
+        self.checkEnableWidget(False)
+
         # Overview Statistics
         self.pushButtonTotalNumberOfCustomer.clicked.connect(self.TotalNumberOfCustomer)
         self.pushButtonMaleFemaleRatio.clicked.connect(self.MaleFemaleRatio)
@@ -117,6 +133,22 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.LoginWindowExt.setupUi(self.dbwindow)
         self.dbwindow.show()
 
+    def showDataIntoTableWidget(self,df):
+        self.tableWidget_ListOfData.setRowCount(0)
+        self.tableWidget_ListOfData.setColumnCount(len(df.columns))
+        for i in range(len(df.columns)):
+            columnHeader = df.columns[i]
+            self.tableWidget_ListOfData.setHorizontalHeaderItem(i, QTableWidgetItem(columnHeader))
+        row = 0
+        for item in df.iloc:
+            arr = item.values.tolist()
+            self.tableWidget_ListOfData.insertRow(row)
+            j=0
+            for data in arr:
+                self.tableWidget_ListOfData.setItem(row, j, QTableWidgetItem(str(data)))
+                j=j+1
+            row = row + 1
+
     def show_chart(self, title, x, y):
         fig, ax = plt.subplots()
         ax.bar(x, y)
@@ -130,10 +162,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
         self.verticalLayout_ChartVisualization.addWidget(canvas)
 
-    def combobox_choose_model(self):
-        pass
-
-    def processTrainModel_and_Evaluate_LR(self, X_test, y_test):
+    def processTrainModel_and_Evaluate_LR(self):
         # Lấy lựa chọn từ comboBox
         selected_model = self.comboBox_LoadModel_RF.currentText()
 
@@ -155,7 +184,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.LogisticRegressionModel.train()
 
         # Đánh giá mô hình
-        result = self.LogisticRegressionModel.evaluate(X_test, y_test)
+        result = self.LogisticRegressionModel.evaluate()
 
         # Hiển thị kết quả trên giao diện
         self.lineEdit_MAE_LR.setText(str(round(result["MAE"], 4)))
@@ -171,7 +200,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         dlg.setStandardButtons(QMessageBox.StandardButton.Ok)
         dlg.exec()
 
-    def processTrainModel_and_Evaluate_DT(self, X_test, y_test):
+    def processTrainModel_and_Evaluate_DT(self):
         # Lấy lựa chọn từ comboBox
         selected_model = self.comboBox_LoadModel_DT.currentText()
 
@@ -192,7 +221,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.DecisionTreeModel.train()
 
         # Đánh giá mô hình
-        result = self.DecisionTreeModel.evaluate(X_test, y_test)
+        result = self.DecisionTreeModel.evaluate()
 
         # Hiển thị kết quả trên giao diện
         self.lineEdit_MAE_DT.setText(str(round(result["MAE"], 4)))
@@ -208,7 +237,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         dlg.setStandardButtons(QMessageBox.StandardButton.Ok)
         dlg.exec()
 
-    def processTrainModel_and_Evaluate_RF(self, X_test, y_test):
+    def processTrainModel_and_Evaluate_RF(self):
         # Lấy lựa chọn từ comboBox
         selected_model = self.comboBox_LoadModel_RF.currentText()
 
@@ -230,7 +259,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.RandomForestModel.train()
 
         # Đánh giá mô hình
-        result = self.RandomForestModel.evaluate(X_test, y_test)
+        result = self.RandomForestModel.evaluate()
 
         # Hiển thị kết quả trên giao diện
         self.lineEdit_MAE_RF.setText(str(round(result["MAE"], 4)))
@@ -246,7 +275,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         dlg.setStandardButtons(QMessageBox.StandardButton.Ok)
         dlg.exec()
 
-    def processTrainModel_and_Evaluate_XG(self, X_test, y_test):
+    def processTrainModel_and_Evaluate_XG(self):
         # Lấy lựa chọn từ comboBox
         selected_model = self.comboBox_LoadModel_XGBoost.currentText()
 
@@ -268,7 +297,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.XGBoostModel.train()
 
         # Đánh giá mô hình
-        result = self.XGBoostModel.evaluate(X_test, y_test)
+        result = self.XGBoostModel.evaluate()
 
         # Hiển thị kết quả trên giao diện
         self.lineEdit_MAE_XGBoost.setText(str(round(result["MAE"], 4)))
@@ -284,27 +313,25 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         dlg.setStandardButtons(QMessageBox.StandardButton.Ok)
         dlg.exec()
 
-    def processPickSavePath_LR(self):
+    def processPickSavePath(self):
         filters = "trained model file (*.zip);;All files(*)"
-        # Mở hộp thoại chọn vị trí lưu file
-        filename, _ = QFileDialog.getSaveFileName(
-            self,  # ✅ Dùng self để đảm bảo hộp thoại mở đúng
-            "Chọn nơi lưu mô hình",  # ✅ Tiêu đề hộp thoại
-            "",  # ✅ Thư mục mặc định (có thể đặt đường dẫn khác nếu muốn)
-            filters  # ✅ Bộ lọc file
-        )
         filename, selected_filter = QFileDialog.getSaveFileName(
             self.QMainWindow,
             filter=filters,
         )
         self.lineEdit_SaveModel_LR.setText(filename)
-        self.pushButtonSavePath_LR.clicked.connect(self.processLoadTrainedModel)
 
     def processSaveTrainedModel(self):
         trainedModelPath=self.lineEdit_SaveModel_LR.text()
         if trainedModelPath=="":
             return
-        ret = self.LogisticRegressionModelOversampling.saveModel(trainedModelPath)
+
+        ret=self.LogisticRegressionModelOversampling.saveModel(trainedModelPath)
+
+        if self.LogisticRegressionModelOversampling.trained_model is None:
+            QMessageBox.warning(self, "Lỗi", "Mô hình chưa được huấn luyện! Vui lòng train trước khi lưu.")
+            return
+
         dlg = QMessageBox(self)
         dlg.setWindowTitle("Info")
         dlg.setIcon(QMessageBox.Icon.Information)
@@ -313,24 +340,19 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         dlg.setStandardButtons(buttons)
         buttons = dlg.exec()
 
-    def processLoadTrainedModel(self):
-        # setup for QFileDialog
-        filters = "trained model file (*.zip);;All files(*)"
-        filename, selected_filter = QFileDialog.getOpenFileName(
-            self.QMainWindow,
-            filter=filters,
-        )
-        if filename=="":
-            return
-        self.pushButtonLoadPath_LR.setText(filename)
-        self.LogisticRegressionModelOversampling.loadModel(filename)
-        dlg = QMessageBox(self.QMainWindow)
-        dlg.setWindowTitle("Info")
-        dlg.setIcon(QMessageBox.Icon.Information)
-        dlg.setText(f"Load Trained machine learning model successful from [{filename}]!")
-        buttons = QMessageBox.StandardButton.Yes
-        dlg.setStandardButtons(buttons)
-        button = dlg.exec()
+    def checkEnableWidget(self,flag=True):
+        self.pushButtonTotalNumberOfCustomer.setEnabled(flag)
+        self.pushButtonMaleFemaleRatio.setEnabled(flag)
+        self.pushButtonAverageCustomerAge.setEnabled(flag)
+        self.pushButtonCusWithLicense.setEnabled(flag)
+        self.pushButtonInsuaranceBuyers.setEnabled(flag)
+
+        self.pushButtonDistributionOfVehicleAge.setEnabled(flag)
+        self.pushButtonCusWithVehicleDamage.setEnabled(flag)
+        self.pushButtonApprovalRate.setEnabled(flag)
+
+        self.pushButtonTopCusRegions.setEnabled(flag)
+        self.pushButtonTopResponsiveRegions.setEnabled(flag)
 
     def processPrediction(self):
         gender = self.lineEditGender.text()
@@ -343,4 +365,18 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.lineEditPredictedPrice.setText(str(predicted_price[0]))
 
     def showWindow(self):
-        self.show()
+        self.showWindow()
+
+    def processExit(self):
+        # ✅ Hiển thị hộp thoại xác nhận
+        reply = QMessageBox.question(
+            self,
+            "Xác nhận thoát",
+            "Bạn có chắc chắn muốn thoát chương trình?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No  # Mặc định là "No"
+        )
+
+        # ✅ Nếu chọn "Yes", thoát chương trình
+        if reply == QMessageBox.StandardButton.Yes:
+            QApplication.quit()

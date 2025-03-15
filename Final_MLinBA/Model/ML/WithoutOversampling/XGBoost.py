@@ -10,7 +10,7 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 class XGBoostModel(DataProcessor):
     def __init__(self, N=100, random_state_XG=42):
-        super().__init__(random_state_XG, N)
+        super().__init__()
         self.prepare_data()
         self.model = xgb.XGBClassifier(N=N, random_state=random_state_XG)
 
@@ -18,7 +18,9 @@ class XGBoostModel(DataProcessor):
         self.model.fit(self.X_train, self.y_train)
         self.trained_model = self.model
 
-    def evaluate(self, X_test, y_test):
+    def evaluate(self):
+        X_test, y_test = self.X_test, self.y_test
+
         y_pred = self.model.predict(X_test)
         y_probs = self.model.predict_proba(X_test)[:, 1]  # Lấy xác suất của lớp 1
 

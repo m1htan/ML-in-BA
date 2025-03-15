@@ -10,7 +10,7 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 class LogisticRegressionModelOversampling(DataProcessor):
     def __init__(self, C=0.1, max_iter_lr=500):
-        super().__init__(C, max_iter_lr)
+        super().__init__()
         self.prepare_data()
         self.model = LogisticRegression(C=C, max_iter=max_iter_lr)
 
@@ -18,7 +18,9 @@ class LogisticRegressionModelOversampling(DataProcessor):
         self.model.fit(self.X_train_os, self.y_train_os)
         self.trained_model = self.model
 
-    def evaluate(self, X_test, y_test):
+    def evaluate(self):
+        X_test, y_test = self.X_test, self.y_test
+
         y_pred = self.model.predict(X_test)
         y_probs = self.model.predict_proba(X_test)[:, 1]  # Lấy xác suất của lớp 1
 

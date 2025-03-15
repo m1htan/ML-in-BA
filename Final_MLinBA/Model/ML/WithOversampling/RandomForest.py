@@ -10,7 +10,7 @@ from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
 
 class RandomForestModelOversampling(DataProcessor):
     def __init__(self, N=100, random_state_rf=42):
-        super().__init__(random_state_rf, N)
+        super().__init__()
         self.prepare_data()
         self.model = RandomForestClassifier(n_estimators=N, random_state=random_state_rf)
 
@@ -18,7 +18,9 @@ class RandomForestModelOversampling(DataProcessor):
         self.model.fit(self.X_train_os, self.y_train_os)
         self.trained_model = self.model
 
-    def evaluate(self, X_test, y_test):
+    def evaluate(self):
+        X_test, y_test = self.X_test, self.y_test
+
         y_pred = self.model.predict(X_test)
         y_probs = self.model.predict_proba(X_test)[:, 1]  # Lấy xác suất của lớp 1
 
