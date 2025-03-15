@@ -1436,12 +1436,12 @@ selection-color: rgb(151, 30, 30);</string>
             <bool>true</bool>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>50</x>
              <y>113</y>
-             <width>343</width>
+             <width>414</width>
              <height>321</height>
             </rect>
            </property>
@@ -1598,12 +1598,12 @@ selection-color: rgb(151, 30, 30);</string>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>60</x>
              <y>530</y>
-             <width>333</width>
+             <width>405</width>
              <height>171</height>
             </rect>
            </property>
@@ -1700,12 +1700,12 @@ selection-color: rgb(151, 30, 30);</string>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>60</x>
              <y>800</y>
-             <width>173</width>
+             <width>207</width>
              <height>101</height>
             </rect>
            </property>
@@ -1772,6 +1772,9 @@ selection-color: rgb(151, 30, 30);</string>
             </item>
            </layout>
           </widget>
+          <zorder>layoutWidget</zorder>
+          <zorder>layoutWidget</zorder>
+          <zorder>layoutWidget</zorder>
           <zorder>pushButtonTopResponsiveRegions</zorder>
           <zorder>pushButtonTopCusRegions</zorder>
           <zorder>pushButtonApprovalRate</zorder>
@@ -1780,21 +1783,11 @@ selection-color: rgb(151, 30, 30);</string>
           <zorder>label_OverviewStatistics</zorder>
           <zorder>pushButtonDistributionOfVehicleAge</zorder>
           <zorder>pushButtonAverageCustomerAge</zorder>
-          <zorder>label</zorder>
-          <zorder>label_11</zorder>
-          <zorder>label_16</zorder>
-          <zorder>label_17</zorder>
           <zorder>label_CustomerBehavior</zorder>
           <zorder>label_RegionalAnalysis</zorder>
           <zorder>pushButtonCusWithLicense</zorder>
-          <zorder>label_18</zorder>
           <zorder>pushButtonInsuaranceBuyers</zorder>
-          <zorder>label_19</zorder>
           <zorder>pushButtonCusWithVehicleDamage</zorder>
-          <zorder>label_20</zorder>
-          <zorder>label_21</zorder>
-          <zorder>label_22</zorder>
-          <zorder>label_23</zorder>
          </widget>
         </widget>
        </item>
@@ -2789,17 +2782,17 @@ color: rgb(177, 51, 51);</string>
               <bool>true</bool>
              </property>
             </widget>
+            <zorder>label_42</zorder>
             <zorder>label_frame_6</zorder>
             <zorder>label_39</zorder>
             <zorder>label_40</zorder>
-            <zorder>pushButton_TrainModel_LR</zorder>
             <zorder>label_41</zorder>
-            <zorder>label_42</zorder>
             <zorder>lineEdit_C_LR</zorder>
             <zorder>lineEdit_TestSize_LR</zorder>
             <zorder>label_67</zorder>
             <zorder>lineEdit_MaxIter_LR</zorder>
             <zorder>label_68</zorder>
+            <zorder>pushButton_TrainModel_LR</zorder>
            </widget>
            <widget class="QFrame" name="frame_savemodel_LR">
             <property name="geometry">
@@ -2961,9 +2954,9 @@ color: rgb(177, 51, 51);</string>
             <zorder>label_frame_7</zorder>
             <zorder>label_43</zorder>
             <zorder>pushButtonSavePath_LR</zorder>
-            <zorder>pushButton_SaveModel_LR</zorder>
             <zorder>label_44</zorder>
             <zorder>lineEdit_SaveModel_LR</zorder>
+            <zorder>pushButton_SaveModel_LR</zorder>
            </widget>
            <widget class="QLabel" name="label_45">
             <property name="geometry">
@@ -10047,7 +10040,7 @@ color: rgb(177, 51, 51);</string>
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="palette">
@@ -10632,6 +10625,22 @@ background-color: rgb(151, 30, 30);</string>
     <hint type="destinationlabel">
      <x>845</x>
      <y>537</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>887</x>
+     <y>625</y>
     </hint>
    </hints>
   </connection>
