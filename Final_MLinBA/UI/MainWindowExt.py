@@ -471,6 +471,12 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         except Exception as e:
             QMessageBox.warning(self, "Lỗi", f"Lỗi không xác định: {e}")
 
+    def processPrediction_RF(self):
+        pass
+
+    def processPrediction_XG(self):
+        pass
+
     def showWindow(self):
         self.showWindow()
 

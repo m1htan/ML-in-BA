@@ -4057,7 +4057,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHome.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(MainWindow).TMU
         self.tabWidget.setCurrentIndex(1)
         self.tabWidget_choosemodel.setCurrentIndex(2)
         self.comboBox_LoadModel_RF.setCurrentIndex(1)
