@@ -123,9 +123,9 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
     def TopResponsiveRegions(self):
         pass
 
-    def load_data(self, file_path):
+    def load_data(self, df):
         try:
-            self.data = pd.read_csv(file_path)
+            self.data = df
             self.tableWidget_ListOfData.setRowCount(len(self.data))
             self.tableWidget_ListOfData.setColumnCount(len(self.data.columns))
             self.tableWidget_ListOfData.setHorizontalHeaderLabels(self.data.columns)
@@ -388,37 +388,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.pushButtonTopResponsiveRegions.setEnabled(flag)
 
     def processPrediction_DT(self):
-        try:
-            gender_DT = self.lineEdit_Gender_DT.text()
-            age_DT = int(self.lineEdit_Age_DT.text())
-            driving_license_DT = self.lineEdit_DrivingLicense_DT.text()
-            region_code_DT = self.lineEdit_RegionCode_DT.text()
-            previously_insured_DT = int(self.lineEdit_PreviouslyInsured_DT.text())
-            vehicle_age_DT = self.lineEdit_VehicleAge_DT.text()
-            vehicle_damage_DT = self.lineEdit_VehicleDamege_DT.text()
-            annual_premium_DT = int(self.lineEdit_AnnualPremiun_DT.text())
-            policy_sales_channel_DT = self.lineEdit_PolicySalesChannel_DT.text()
-            vintage_DT = self.lineEdit_Vintage_DT.text()
-            annual_premium_adjusted_DT = int(self.lineEdit_AnnualPremiumAdjusted_DT.text())
-
-            if not all([gender_DT, age_DT, driving_license_DT, region_code_DT, previously_insured_DT,
-                        vehicle_age_DT, vehicle_damage_DT, annual_premium_DT, policy_sales_channel_DT,
-                        vintage_DT, annual_premium_adjusted_DT]):
-                QMessageBox.warning(self, "Lỗi", "Vui lòng nhập đầy đủ thông tin trước khi dự đoán!")
-                return
-
-            input_data = [[
-                gender_DT, age_DT, driving_license_DT, region_code_DT,
-                previously_insured_DT, vehicle_age_DT, vehicle_damage_DT,
-                annual_premium_DT, policy_sales_channel_DT, vintage_DT, annual_premium_adjusted_DT
-            ]]
-
-            response_dt = self.DecisionTreeModel.model.predict(input_data)
-
-            self.lineEdit_Response_DT.setText(str(response_dt[0]))
-
-        except ValueError:
-            QMessageBox.warning(self, "Lỗi", "Dữ liệu đầu vào không hợp lệ! Vui lòng kiểm tra lại.")
+        pass
 
     def processPrediction_LR(self):
         try:
