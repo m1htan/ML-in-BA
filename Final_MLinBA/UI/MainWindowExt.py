@@ -1,8 +1,10 @@
+import matplotlib
 import numpy as np
-import pandas as pd
+import seaborn as sns
 from PyQt6.uic.properties import QtWidgets
 from matplotlib import pyplot as plt
-from matplotlib.backends.backend_template import FigureCanvas
+matplotlib.use("QtAgg")
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 from MLinBA.Final_MLinBA.Model.ML.WithOversampling.DecisionTree import DecisionTreeModelOversampling
 from MLinBA.Final_MLinBA.Model.ML.WithOversampling.LogisticRegression import LogisticRegressionModelOversampling
@@ -14,13 +16,13 @@ from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.LogisticRegression import 
 from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.RandomForest import RandomForestModel
 from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.XGBoost import XGBoostModel
 
-from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import df
+from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import df, DataProcessor
 from MLinBA.Final_MLinBA.UI.LoginWindowExt import LoginWindowExt
 from MLinBA.Final_MLinBA.UI.MainWindow import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QApplication
 
 
-class MainWindowExt(QMainWindow, Ui_MainWindow):
+class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
     def __init__(self):
         super().__init__()
         self.Ui_MainWindow = Ui_MainWindow()
@@ -39,6 +41,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
         self.LogisticRegressionModel = LogisticRegressionModel()
         self.RandomForestModel = RandomForestModel()
         self.XGBoostModel = XGBoostModel()
+        self.df=df
 
     def setupUi(self, MainWindow):
         Ui_MainWindow.setupUi(self, MainWindow)
@@ -60,15 +63,13 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
 
         self.pushButtonPredict_DT.clicked.connect(self.processPrediction_DT)
         self.pushButtonPredict_LR.clicked.connect(self.processPrediction_LR)
-        #self.pushButtonPredict_RF.clicked.connect(self.processPrediction_RF)
-        #self.pushButtonPredict_XGBoost.clicked.connect(self.processPrediction_XG)
+        self.pushButtonPredict_RF.clicked.connect(self.processPrediction_RF)
+        self.pushButtonPredict_XGBoost.clicked.connect(self.processPrediction_XG)
 
     def initUI(self):
         # Kết nối các nút với hàm xử lý sự kiện
         self.actionConnect_Database.triggered.connect(self.openDatabaseConnectUI)
         self.actionExit.triggered.connect(self.processExit)
-
-        self.checkEnableWidget(False)
 
         # Overview Statistics
         self.pushButtonTotalNumberOfCustomer.clicked.connect(self.TotalNumberOfCustomer)
@@ -94,34 +95,326 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
                       XGBoostModelOversampling, XGBoostModel)
 
     def TotalNumberOfCustomer(self):
-        pass
+        self.check_data_empty()
+        total_customers = len(self.df)
+
+        # Hiển thị biểu đồ cột
+        self.show_chart(title="Tổng số khách hàng", x=["Tổng khách hàng"], y=[total_customers], chart_type="bar")
 
     def MaleFemaleRatio(self):
-        pass
+        self.check_data_empty()
+
+        # Lấy dữ liệu giới tính từ DataFrame
+        gender_counts = self.df['Gender'].value_counts(dropna=True)
+
+        labels = ["Nam" if x == 0 else "Nữ" for x in gender_counts.index.tolist()]
+        sizes = gender_counts.values.tolist()
+
+        # Tạo Figure và vẽ biểu đồ
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=['#66b3ff', '#ff9999'])
+        ax.set_title('Tỷ lệ Nam - Nữ')
+
+        # Xóa biểu đồ cũ nếu có
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Hiển thị biểu đồ trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
 
     def AverageCustomerAge(self):
-        pass
+        self.check_data_empty()
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(8, 6))
+
+        # Lấy giá trị trung bình tuổi khách hàng
+        avg_age = round(self.df['Age'].mean(), 2)
+
+        # Vẽ biểu đồ phân bố tuổi khách hàng
+        sns.histplot(self.df['Age'], bins=20, kde=True, color='blue', ax=ax)
+        ax.axvline(avg_age, color='red', linestyle='dashed', linewidth=2, label=f'Trung bình: {avg_age}')
+        ax.set_title('Phân bố tuổi khách hàng')
+        ax.set_xlabel('Tuổi')
+        ax.set_ylabel('Số lượng')
+        ax.legend()
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return avg_age  # Trả về giá trị tuổi trung bình
 
     def CusWithLicense(self):
-        pass
+        self.check_data_empty()
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Lấy dữ liệu về bằng lái xe
+        license_ratio = self.df['Driving_License'].value_counts(normalize=True) * 100
+        yes_ratio = float(license_ratio.get(1, 0))
+        no_ratio = float(license_ratio.get(0, 0))
+
+        # Dữ liệu để vẽ biểu đồ
+        labels = ["Có bằng lái", "Không có bằng lái"]
+        sizes = [yes_ratio, no_ratio]
+        colors = ['#66b3ff', '#ff9999']
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
+        ax.set_title('Tỷ lệ khách hàng có bằng lái')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return {"Có bằng lái": round(yes_ratio, 2), "Không có bằng lái": round(no_ratio, 2)}
+
 
     def InsuaranceBuyers(self):
-        pass
+        self.check_data_empty()
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Lấy dữ liệu về người từng mua bảo hiểm
+        insured_ratio = self.df['Previously_Insured'].value_counts(normalize=True) * 100
+        yes_ratio = float(insured_ratio.get(1, 0))
+        no_ratio = float(insured_ratio.get(0, 0))
+
+        # Dữ liệu để vẽ biểu đồ
+        labels = ["Đã từng mua", "Chưa từng mua"]
+        sizes = [yes_ratio, no_ratio]
+        colors = ['#66b3ff', '#ff9999']
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
+        ax.set_title('Tỷ lệ khách hàng đã từng mua bảo hiểm')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return {"Đã từng mua": round(yes_ratio, 2), "Chưa từng mua": round(no_ratio, 2)}
 
     def DistributionOfVehicleAge(self):
-        pass
+        self.check_data_empty()  # Kiểm tra dữ liệu rỗng
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Ánh xạ giá trị tuổi xe
+        if 'Mapped_Vehicle_Age' not in self.df.columns:
+            mapping = {0: 'Dưới 1 năm', 1: '1-2 năm', 2: 'Trên 2 năm'}
+            self.df['Mapped_Vehicle_Age'] = self.df['Vehicle_Age'].astype(int).map(mapping)
+
+        # Kiểm tra nếu sau ánh xạ còn NaN
+        if self.df['Mapped_Vehicle_Age'].isna().sum() > 0:
+            QMessageBox.warning(self, "Lỗi", "Dữ liệu tuổi xe không hợp lệ hoặc có giá trị rỗng!")
+            return
+
+        # Tính toán tỷ lệ phần trăm của từng nhóm tuổi xe
+        vehicle_age_counts = self.df['Mapped_Vehicle_Age'].value_counts(normalize=True) * 100
+        age_categories = ['Dưới 1 năm', '1-2 năm', 'Trên 2 năm']
+
+        # Đảm bảo `values` có đúng 3 phần tử
+        values = [round(vehicle_age_counts.get(cat, 0.0), 2) for cat in age_categories]
+
+        # Kiểm tra nếu tất cả giá trị bằng 0
+        if sum(values) == 0:
+            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu hợp lệ để vẽ biểu đồ!")
+            return
+
+        # Kiểm tra kích thước của danh sách
+        if len(age_categories) != len(values):
+            QMessageBox.warning(self, "Lỗi", "Số lượng danh mục không khớp với số lượng giá trị!")
+            return
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(8, 6))
+        bars = ax.bar(age_categories, values, color=['#66b3ff', '#ff9999', '#99ff99'])
+
+        # Thêm tiêu đề & nhãn trục
+        ax.set_title('Phân bố tuổi xe', fontsize=14, fontweight='bold')
+        ax.set_ylabel('Tỷ lệ (%)', fontsize=12)
+
+        # Hiển thị giá trị trên từng cột
+        for bar, value in zip(bars, values):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1, f"{value}%", ha='center', fontsize=10,
+                    fontweight='bold')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return dict(zip(age_categories, values))
 
     def CusWithVehicleDamage(self):
-        pass
+        self.check_data_empty()  # Kiểm tra dữ liệu rỗng
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Chuyển Vehicle_Damage về kiểu số (tránh lỗi khi `.get()`)
+        self.df['Vehicle_Damage'] = self.df['Vehicle_Damage'].astype(int)
+
+        # Lấy dữ liệu về tổn thất xe
+        damage_ratio = self.df['Vehicle_Damage'].value_counts(normalize=True) * 100
+        categories = ["Từng gặp tổn thất", "Chưa gặp tổn thất"]
+        values = [
+            round(float(damage_ratio.get(1, 0.0)), 2),
+            round(float(damage_ratio.get(0, 0.0)), 2)
+        ]
+
+        # Kiểm tra nếu tất cả giá trị bằng 0
+        if sum(values) == 0:
+            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu hợp lệ để vẽ biểu đồ!")
+            return
+
+        # Kiểm tra kích thước danh sách trước khi vẽ
+        if len(categories) != len(values):
+            QMessageBox.warning(self, "Lỗi", "Số lượng danh mục không khớp với số lượng giá trị!")
+            return
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.pie(values, labels=categories, autopct='%1.1f%%', colors=['#ff6666', '#66b3ff'])
+        ax.set_title('Tỷ lệ tổn thất xe')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return dict(zip(categories, values))
 
     def ApprovalRate(self):
-        pass
+        self.check_data_empty()
 
-    def TopCusRegions(self):
-        pass
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
-    def TopResponsiveRegions(self):
-        pass
+        # Lấy dữ liệu về tỷ lệ khách hàng đồng ý mua bảo hiểm
+        response_ratio = self.df['Response'].value_counts(normalize=True) * 100
+        categories = ["Đồng ý mua", "Không đồng ý"]
+        values = [
+            round(float(response_ratio.get(1, 0)), 2),
+            round(float(response_ratio.get(0, 0)), 2)
+        ]
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.pie(values, labels=categories, autopct='%1.1f%%', colors=['#99ff99', '#ff6666'])
+        ax.set_title('Tỷ lệ khách hàng đồng ý mua bảo hiểm')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return dict(zip(categories, values))
+
+    def TopCusRegions(self, top_n=5):
+        self.check_data_empty()  # Kiểm tra dữ liệu rỗng
+        self.data()
+
+        # Kiểm tra dữ liệu cột "Region_Code" có hợp lệ không
+        if 'Region_Code' not in self.df.columns or self.df['Region_Code'].isna().all():
+            QMessageBox.warning(self, "Lỗi", "Dữ liệu khu vực không hợp lệ hoặc trống!")
+            return
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Lấy danh sách top N khu vực có nhiều khách hàng nhất
+        region_counts = self.df['Region_Code'].value_counts()
+
+        # Kiểm tra nếu không có dữ liệu hợp lệ
+        if region_counts.empty:
+            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu khu vực hợp lệ để vẽ biểu đồ!")
+            return
+
+        # Giới hạn `top_n` để tránh lỗi khi số khu vực ít hơn `top_n`
+        top_n = min(len(region_counts), top_n)
+        region_counts = region_counts.head(top_n)  # SỬA LẠI TỪ `.iloc[:top_n]` THÀNH `.head(top_n)`
+
+        region_counts = self.df['Region_Code'].value_counts()
+
+        # Tính tỷ lệ phần trăm
+        total_customers = len(self.df)
+        region_ratios = (region_counts / total_customers * 100).round(2)
+
+        # Chuẩn bị dữ liệu cho biểu đồ
+        labels = [str(k) for k in region_ratios.index]
+        values = [float(v) for v in region_ratios.values]
+
+        # Nếu không có dữ liệu hợp lệ thì dừng
+        if not values:
+            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu hợp lệ để vẽ biểu đồ!")
+            return
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.barplot(x=labels, y=values, palette='viridis', ax=ax)
+
+        ax.set_title(f'Top {top_n} khu vực có nhiều khách hàng nhất', fontsize=14, fontweight='bold')
+        ax.set_xlabel('Mã vùng', fontsize=12)
+        ax.set_ylabel('Tỷ lệ khách hàng (%)', fontsize=12)
+
+        # Thêm giá trị trên từng cột
+        for i, v in enumerate(values):
+            ax.text(i, v + 1, f"{v}%", ha='center', fontsize=10, fontweight='bold')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return dict(zip(labels, values))  # Trả về dữ liệu thống kê
+
+    def TopResponsiveRegions(self, top_n=5):
+        self.check_data_empty()
+
+        # Xóa biểu đồ cũ trước khi vẽ mới
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Tính tỷ lệ phản hồi theo khu vực
+        region_response = self.df.groupby('Region_Code')['Response'].mean() * 100
+        top_regions = region_response.nlargest(top_n)
+
+        # Chuẩn bị dữ liệu cho biểu đồ
+        regions = [str(k) for k in top_regions.index]
+        values = [round(float(v), 2) for v in top_regions.values]
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.bar(regions, values, color='#ff9999')
+        ax.set_title(f'Top {top_n} Khu Vực Có Tỷ Lệ Phản Hồi Cao Nhất')
+        ax.set_xlabel('Mã vùng')
+        ax.set_ylabel('Tỷ lệ phản hồi (%)')
+        ax.set_ylim(0, max(values) + 5)  # Giới hạn trục Y để hiển thị đẹp hơn
+
+        # Thêm giá trị trên từng cột
+        for i, v in enumerate(values):
+            ax.text(i, v + 1, f"{v}%", ha='center', fontsize=10, fontweight='bold')
+
+        # Chuyển Figure thành Canvas để hiển thị trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
+
+        return dict(zip(regions, values))
 
     def load_data(self, df):
         try:
@@ -158,17 +451,22 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
                 j=j+1
             row = row + 1
 
-    def show_chart(self, title, x, y):
+    def show_chart(self, title, x, y, chart_type="bar"):
         fig, ax = plt.subplots()
-        ax.bar(x, y)
-        ax.set_title(title)
-        ax.set_xlabel("Danh mục")
-        ax.set_ylabel("Số lượng")
 
-        canvas = FigureCanvas(fig)
+        if chart_type == "bar":
+            ax.bar(x, y, color=['blue', 'orange'])
+        elif chart_type == "pie":
+            ax.pie(y, labels=x, autopct='%1.1f%%', colors=['blue', 'orange'])
+
+        ax.set_title(title)
+
+        # Xóa biểu đồ cũ trước khi vẽ cái mới
         for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
             self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
+        # Vẽ biểu đồ
+        canvas = FigureCanvas(fig)
         self.verticalLayout_ChartVisualization.addWidget(canvas)
 
     def processTrainModel_and_Evaluate_LR(self):
@@ -373,22 +671,86 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
             f"Đã lưu các mô hình: {', '.join(saved_models)}!"
         )
 
-    def checkEnableWidget(self,flag=True):
-        self.pushButtonTotalNumberOfCustomer.setEnabled(flag)
-        self.pushButtonMaleFemaleRatio.setEnabled(flag)
-        self.pushButtonAverageCustomerAge.setEnabled(flag)
-        self.pushButtonCusWithLicense.setEnabled(flag)
-        self.pushButtonInsuaranceBuyers.setEnabled(flag)
-
-        self.pushButtonDistributionOfVehicleAge.setEnabled(flag)
-        self.pushButtonCusWithVehicleDamage.setEnabled(flag)
-        self.pushButtonApprovalRate.setEnabled(flag)
-
-        self.pushButtonTopCusRegions.setEnabled(flag)
-        self.pushButtonTopResponsiveRegions.setEnabled(flag)
-
     def processPrediction_DT(self):
-        pass
+        try:
+            # Mã hóa giá trị categorical
+            gender_mapping = {"Male": 0, "Female": 1}
+            vehicle_age_mapping = {"< 1 Year": 0, "1-2 Year": 1, "> 2 Years": 2}
+            vehicle_damage_mapping = {"Yes": 1, "No": 0}
+
+            # Lấy dữ liệu từ giao diện và loại bỏ khoảng trắng
+            data_fields = {
+                "Giới tính": self.lineEdit_Gender_DT.text().strip(),
+                "Tuổi": self.lineEdit_Age_DT.text().strip(),
+                "Bằng lái xe": self.lineEdit_DrivingLicense_DT.text().strip(),
+                "Mã vùng": self.lineEdit_RegionCode_DT.text().strip(),
+                "Bảo hiểm trước đó": self.lineEdit_PreviouslyInsured_DT.text().strip(),
+                "Tuổi xe": self.lineEdit_VehicleAge_DT.text().strip(),
+                "Thiệt hại xe": self.lineEdit_VehicleDamege_DT.text().strip(),
+                "Phí bảo hiểm hàng năm": self.lineEdit_AnnualPremiun_DT.text().strip(),
+                "Kênh bán hàng": self.lineEdit_PolicySalesChannel_DT.text().strip(),
+                "Thời gian sử dụng": self.lineEdit_Vintage_DT.text().strip(),
+                "Phí bảo hiểm điều chỉnh": self.lineEdit_AnnualPremiumAdjusted_DT.text().strip()
+            }
+
+            # Kiểm tra dữ liệu rỗng
+            for field_name, value in data_fields.items():
+                if not value:
+                    QMessageBox.warning(self, "Lỗi", f"Trường '{field_name}' không được để trống! Vui lòng nhập dữ liệu.")
+                    return
+
+            # Chuyển đổi kiểu số
+            try:
+                age_DT = int(data_fields["Tuổi"])
+                previously_insured_DT = int(data_fields["Bảo hiểm trước đó"])
+                annual_premium_DT = int(data_fields["Phí bảo hiểm hàng năm"])
+                annual_premium_adjusted_DT = int(data_fields["Phí bảo hiểm điều chỉnh"])
+                region_code_DT = int(data_fields["Mã vùng"])
+                policy_sales_channel_DT = int(data_fields["Kênh bán hàng"])
+                vintage_DT = int(data_fields["Thời gian sử dụng"])
+            except ValueError as e:
+                QMessageBox.warning(self, "Lỗi", f"Dữ liệu nhập sai kiểu số: {e}")
+                return
+
+            # Mã hóa categorical
+            gender_DT = gender_mapping.get(data_fields["Giới tính"])
+            vehicle_age_DT = vehicle_age_mapping.get(data_fields["Tuổi xe"])
+            vehicle_damage_DT = vehicle_damage_mapping.get(data_fields["Thiệt hại xe"])
+
+            if gender_DT is None or vehicle_age_DT is None or vehicle_damage_DT is None:
+                QMessageBox.warning(self, "Lỗi", "Một số trường nhập sai giá trị! Kiểm tra lại.")
+                return
+
+            # Chuyển đổi thành numpy array để tránh lỗi dtype='numeric'
+            input_data = np.array([[
+                gender_DT, age_DT, data_fields["Bằng lái xe"], region_code_DT,
+                previously_insured_DT, vehicle_age_DT, vehicle_damage_DT,
+                annual_premium_DT, policy_sales_channel_DT, vintage_DT,
+                annual_premium_adjusted_DT
+            ]], dtype=np.float64)  # Chuyển tất cả về số thực
+
+            # Kiểm tra model trước khi dự đoán
+            if self.DecisionTreeModel.trained_model is None:
+                QMessageBox.warning(self, "Lỗi", "Mô hình chưa được train! Vui lòng train trước khi dự đoán.")
+                return
+
+            # Kiểm tra mô hình có tồn tại không
+            if not hasattr(self.DecisionTreeModel, 'model'):
+                QMessageBox.warning(self, "Lỗi", "Mô hình DecisionTree chưa được khởi tạo.")
+                return
+
+            # Kiểm tra lỗi khi predict
+            try:
+                response_dt = self.DecisionTreeModel.model.predict(input_data)
+            except Exception as e:
+                QMessageBox.warning(self, "Lỗi", f"Lỗi khi dự đoán: {e}")
+                return
+
+            # Hiển thị kết quả dự đoán lên giao diện
+            self.lineEdit_Response_DT.setText(str(response_dt[0]))
+
+        except Exception as e:
+            QMessageBox.warning(self, "Lỗi", f"Lỗi không xác định: {e}")
 
     def processPrediction_LR(self):
         try:
@@ -472,10 +834,168 @@ class MainWindowExt(QMainWindow, Ui_MainWindow):
             QMessageBox.warning(self, "Lỗi", f"Lỗi không xác định: {e}")
 
     def processPrediction_RF(self):
-        pass
+        try:
+            # Mã hóa giá trị categorical
+            gender_mapping = {"Male": 0, "Female": 1}
+            vehicle_age_mapping = {"< 1 Year": 0, "1-2 Year": 1, "> 2 Years": 2}
+            vehicle_damage_mapping = {"Yes": 1, "No": 0}
+
+            # Lấy dữ liệu từ giao diện và loại bỏ khoảng trắng
+            data_fields = {
+                "Giới tính": self.lineEdit_Gender_RF.text().strip(),
+                "Tuổi": self.lineEdit_Age_RF.text().strip(),
+                "Bằng lái xe": self.lineEdit_DrivingLicense_RF.text().strip(),
+                "Mã vùng": self.lineEdit_RegionCode_RF.text().strip(),
+                "Bảo hiểm trước đó": self.lineEdit_PreviouslyInsured_RF.text().strip(),
+                "Tuổi xe": self.lineEdit_VehicleAge_RF.text().strip(),
+                "Thiệt hại xe": self.lineEdit_VehicleDamege_RF.text().strip(),
+                "Phí bảo hiểm hàng năm": self.lineEdit_AnnualPremiun_RF.text().strip(),
+                "Kênh bán hàng": self.lineEdit_PolicySalesChannel_RF.text().strip(),
+                "Thời gian sử dụng": self.lineEdit_Vintage_RF.text().strip(),
+                "Phí bảo hiểm điều chỉnh": self.lineEdit_AnnualPremiumAdjusted_RF.text().strip()
+            }
+
+            # Kiểm tra dữ liệu rỗng
+            for field_name, value in data_fields.items():
+                if not value:
+                    QMessageBox.warning(self, "Lỗi",
+                                        f"Trường '{field_name}' không được để trống! Vui lòng nhập dữ liệu.")
+                    return
+
+            # Chuyển đổi kiểu số
+            try:
+                age_RF = int(data_fields["Tuổi"])
+                previously_insured_RF = int(data_fields["Bảo hiểm trước đó"])
+                annual_premium_RF = int(data_fields["Phí bảo hiểm hàng năm"])
+                annual_premium_adjusted_RF = int(data_fields["Phí bảo hiểm điều chỉnh"])
+                region_code_RF = int(data_fields["Mã vùng"])
+                policy_sales_channel_RF = int(data_fields["Kênh bán hàng"])
+                vintage_RF = int(data_fields["Thời gian sử dụng"])
+            except ValueError as e:
+                QMessageBox.warning(self, "Lỗi", f"Dữ liệu nhập sai kiểu số: {e}")
+                return
+
+            # Mã hóa categorical
+            gender_RF = gender_mapping.get(data_fields["Giới tính"])
+            vehicle_age_RF = vehicle_age_mapping.get(data_fields["Tuổi xe"])
+            vehicle_damage_RF = vehicle_damage_mapping.get(data_fields["Thiệt hại xe"])
+
+            if gender_RF is None or vehicle_age_RF is None or vehicle_damage_RF is None:
+                QMessageBox.warning(self, "Lỗi", "Một số trường nhập sai giá trị! Kiểm tra lại.")
+                return
+
+            # Chuyển đổi thành numpy array để tránh lỗi dtype='numeric'
+            input_data = np.array([[
+                gender_RF, age_RF, data_fields["Bằng lái xe"], region_code_RF,
+                previously_insured_RF, vehicle_age_RF, vehicle_damage_RF,
+                annual_premium_RF, policy_sales_channel_RF, vintage_RF,
+                annual_premium_adjusted_RF
+            ]], dtype=np.float64)  # Chuyển tất cả về số thực
+
+            # Kiểm tra model trước khi dự đoán
+            if self.RandomForestModel.trained_model is None:
+                QMessageBox.warning(self, "Lỗi", "Mô hình chưa được train! Vui lòng train trước khi dự đoán.")
+                return
+
+            # Kiểm tra mô hình có tồn tại không
+            if not hasattr(self.RandomForestModel, 'model'):
+                QMessageBox.warning(self, "Lỗi", "Mô hình RandomForest chưa được khởi tạo.")
+                return
+
+            # Kiểm tra lỗi khi predict
+            try:
+                response_rf = self.RandomForestModel.model.predict(input_data)
+            except Exception as e:
+                QMessageBox.warning(self, "Lỗi", f"Lỗi khi dự đoán: {e}")
+                return
+
+            # Hiển thị kết quả dự đoán lên giao diện
+            self.lineEdit_Response_RF.setText(str(response_rf[0]))
+
+        except Exception as e:
+            QMessageBox.warning(self, "Lỗi", f"Lỗi không xác định: {e}")
 
     def processPrediction_XG(self):
-        pass
+        try:
+            # Mã hóa giá trị categorical
+            gender_mapping = {"Male": 0, "Female": 1}
+            vehicle_age_mapping = {"< 1 Year": 0, "1-2 Year": 1, "> 2 Years": 2}
+            vehicle_damage_mapping = {"Yes": 1, "No": 0}
+
+            # Lấy dữ liệu từ giao diện và loại bỏ khoảng trắng
+            data_fields = {
+                "Giới tính": self.lineEdit_Gender_XGBoost.text().strip(),
+                "Tuổi": self.lineEdit_Age_XGBoost.text().strip(),
+                "Bằng lái xe": self.lineEdit_DrivingLicense_XGBoost.text().strip(),
+                "Mã vùng": self.lineEdit_RegionCode_XGBoost.text().strip(),
+                "Bảo hiểm trước đó": self.lineEdit_PreviouslyInsured_XGBoost.text().strip(),
+                "Tuổi xe": self.lineEdit_VehicleAge_XGBoost.text().strip(),
+                "Thiệt hại xe": self.lineEdit_VehicleDamege_XGBoost.text().strip(),
+                "Phí bảo hiểm hàng năm": self.lineEdit_AnnualPremiun_XGBoost.text().strip(),
+                "Kênh bán hàng": self.lineEdit_PolicySalesChannel_XGBoost.text().strip(),
+                "Thời gian sử dụng": self.lineEdit_Vintage_XGBoost.text().strip(),
+                "Phí bảo hiểm điều chỉnh": self.lineEdit_AnnualPremiumAdjusted_XGBoost.text().strip()
+            }
+
+            # Kiểm tra dữ liệu rỗng
+            for field_name, value in data_fields.items():
+                if not value:
+                    QMessageBox.warning(self, "Lỗi",
+                                        f"Trường '{field_name}' không được để trống! Vui lòng nhập dữ liệu.")
+                    return
+
+            # Chuyển đổi kiểu số
+            try:
+                age_XG = int(data_fields["Tuổi"])
+                previously_insured_XG = int(data_fields["Bảo hiểm trước đó"])
+                annual_premium_XG = int(data_fields["Phí bảo hiểm hàng năm"])
+                annual_premium_adjusted_XG = int(data_fields["Phí bảo hiểm điều chỉnh"])
+                region_code_XG = int(data_fields["Mã vùng"])
+                policy_sales_channel_XG = int(data_fields["Kênh bán hàng"])
+                vintage_XG = int(data_fields["Thời gian sử dụng"])
+            except ValueError as e:
+                QMessageBox.warning(self, "Lỗi", f"Dữ liệu nhập sai kiểu số: {e}")
+                return
+
+            # Mã hóa categorical
+            gender_XG = gender_mapping.get(data_fields["Giới tính"])
+            vehicle_age_XG = vehicle_age_mapping.get(data_fields["Tuổi xe"])
+            vehicle_damage_XG = vehicle_damage_mapping.get(data_fields["Thiệt hại xe"])
+
+            if gender_XG is None or vehicle_age_XG is None or vehicle_damage_XG is None:
+                QMessageBox.warning(self, "Lỗi", "Một số trường nhập sai giá trị! Kiểm tra lại.")
+                return
+
+            # Chuyển đổi thành numpy array để tránh lỗi dtype='numeric'
+            input_data = np.array([[
+                gender_XG, age_XG, data_fields["Bằng lái xe"], region_code_XG,
+                previously_insured_XG, vehicle_age_XG, vehicle_damage_XG,
+                annual_premium_XG, policy_sales_channel_XG, vintage_XG,
+                annual_premium_adjusted_XG
+            ]], dtype=np.float64)  # Chuyển tất cả về số thực
+
+            # Kiểm tra model trước khi dự đoán
+            if self.XGBoostModel.trained_model is None:
+                QMessageBox.warning(self, "Lỗi", "Mô hình chưa được train! Vui lòng train trước khi dự đoán.")
+                return
+
+            # Kiểm tra mô hình có tồn tại không
+            if not hasattr(self.XGBoostModel, 'model'):
+                QMessageBox.warning(self, "Lỗi", "Mô hình XGBoost chưa được khởi tạo.")
+                return
+
+            # Kiểm tra lỗi khi predict
+            try:
+                response_xg = self.XGBoostModel.model.predict(input_data)
+            except Exception as e:
+                QMessageBox.warning(self, "Lỗi", f"Lỗi khi dự đoán: {e}")
+                return
+
+            # Hiển thị kết quả dự đoán lên giao diện
+            self.lineEdit_Response_XGBoost.setText(str(response_xg[0]))
+
+        except Exception as e:
+            QMessageBox.warning(self, "Lỗi", f"Lỗi không xác định: {e}")
 
     def showWindow(self):
         self.showWindow()

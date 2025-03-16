@@ -2,6 +2,10 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from imblearn.over_sampling import BorderlineSMOTE
+
+from MLinBA.Final_MLinBA.Model.Chart.Statistics.behavior_analyzer import BehaviorAnalyzer
+from MLinBA.Final_MLinBA.Model.Chart.Statistics.overview_analyzer import OverviewAnalyzer
+from MLinBA.Final_MLinBA.Model.Chart.Statistics.region_analyzer import RegionAnalyzer
 from MLinBA.Final_MLinBA.Utils.FileUtil import FileUtil
 from MLinBA.Final_MLinBA.Model.Prepare.Statistic import Statistic
 
@@ -28,7 +32,7 @@ class DataProcessor(Statistic):
         self.trained_model = None
         self.df = df
 
-    def load_data(self, filepath=None):
+    def load_data(self, filepath):
         """Tải dữ liệu từ file CSV hoặc Excel"""
         if filepath:
             self.filepath = filepath
@@ -99,6 +103,30 @@ class DataProcessor(Statistic):
     def transform_input(self, X_input):
         """Chuẩn hóa dữ liệu đầu vào mới"""
         return self.scaler.transform([X_input])
+
+    def statistic(self):
+        self.OverviewAnalyzer = OverviewAnalyzer(df)
+        self.BehaviorAnalyzer = BehaviorAnalyzer(df)
+        self.RegionAnalyzer = RegionAnalyzer(df)
+
+    def map_original_labels(self):
+        if 'Gender' in self.df.columns:
+            self.df['Gender'] = self.df['Gender'].map({0: 'Male', 1: 'Female'}).fillna(self.df['Gender'])
+        if 'Vehicle_Damage' in self.df.columns:
+            self.df['Vehicle_Damage'] = self.df['Vehicle_Damage'].map({0: 'No', 1: 'Yes'}).fillna(self.df['Vehicle_Damage'])
+        if 'Vehicle_Age' in self.df.columns:
+            self.df['Vehicle_Age'] = self.df['Vehicle_Age'].replace({
+                0: '< 1 Year',
+                1: '1-2 Year',
+                2: '> 2 Years'
+            })
+
+    def return_data(self):
+        return self.df
+
+    def check_data_empty(self):
+        if self.df.empty:
+            raise ValueError("Dữ liệu rỗng! Vui lòng kiểm tra lại file CSV.")
 
     def saveModel(self, filename):
         """Lưu model đã train"""

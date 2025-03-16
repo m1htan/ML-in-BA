@@ -178,19 +178,6 @@ class MainWindowEx(Ui_MainWindow):
         self.chartHandle.visualizeLinePlotChart(self.figure,self.canvas,df, columnLabel, columnStatistic,title, hue)
         #self.visualizeLinePlotChart(df, columnLabel, columnStatistic,title, hue)
 
-    def showPurchaseCountingByCategory(self):
-        self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
-        self.purchaseLinearRegression.execPurchaseHistory()
-        df = self.purchaseLinearRegression.processCategoryDistribution()
-        self.showDataIntoTableWidget(df)
-        columnLabel = "category"
-        columnStatistic = "count"
-        title = "Categories Distribution"
-        legend = False
-        hue=None
-        self.chartHandle.visualizeLinePlotChart(self.figure,self.canvas,df, columnLabel, columnStatistic, title, hue)
-        #self.visualizePieChart(df, columnLabel, columnStatistic, title, legend)
-
     def showPurchaseValueByCategory(self):
         # self.purchaseLinearRegression.connector = self.databaseConnectEx.connector
         # self.purchaseLinearRegression.execPurchaseHistory()
