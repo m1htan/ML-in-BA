@@ -10,7 +10,7 @@ conn = mysql.connector.connect(host=server, port=port, database=database, user=u
 
 cursor = conn.cursor()
 
-sql="SELECT * FROM mhehe LIMIT 10;"
+sql="SELECT * FROM final_data LIMIT 10;"
 cursor.execute(sql)
 
 dataset=cursor.fetchall()

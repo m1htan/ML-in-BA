@@ -12,8 +12,6 @@ from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.LogisticRegression import 
 from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.RandomForest import RandomForestModel
 from MLinBA.Final_MLinBA.Model.ML.WithoutOversampling.XGBoost import XGBoostModel
 
-from MLinBA.Final_MLinBA.Model.Prepare.PrepareData import DataProcessor
-
 
 class TestLogisticModel_LG_O(unittest.TestCase):
     @classmethod

@@ -1,14 +1,17 @@
-import pandas as pd
-import self
+def load_data(self, table_name="insurance_data"):
+    try:
+        # Kiểm tra kết nối MySQL trước khi truy vấn
+        if not self.db_connector.conn:
+            self.db_connector.connect()
 
-df = pd.read_csv('/Users/minhtan/Documents/GitHub/MLinBA/Final_MLinBA/Dataset/train.csv')
+        query = f"SELECT * FROM {table_name}"
+        self.df = self.db_connector.queryDataset(query)
 
-print(df.columns)
+        if self.df is None or self.df.empty:
+            raise ValueError("Không có dữ liệu hoặc dữ liệu bị rỗng!")
 
-print(df['Vehicle_Age'].unique())
+        print("Dữ liệu đã tải thành công từ MySQL!")
 
-print("📌 Giá trị gốc của Vehicle_Age:", df['Vehicle_Age'].unique())
-print("📌 Tổng số dòng NaN:", df['Vehicle_Age'].isna().sum())
-
-print(df['Region_Code'].value_counts())  # Kiểm tra dữ liệu đầu vào
-
+    except Exception as e:
+        print(f"Lỗi khi tải dữ liệu từ MySQL: {e}")
+        self.df = None

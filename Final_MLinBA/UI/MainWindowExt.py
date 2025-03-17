@@ -1,5 +1,6 @@
 import matplotlib
 import numpy as np
+import pandas as pd
 import seaborn as sns
 from PyQt6.uic.properties import QtWidgets
 from matplotlib import pyplot as plt
@@ -98,6 +99,12 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         self.check_data_empty()
         total_customers = len(self.df)
 
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({"Tổng khách hàng": [total_customers]})
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
+
         # Hiển thị biểu đồ cột
         self.show_chart(title="Tổng số khách hàng", x=["Tổng khách hàng"], y=[total_customers], chart_type="bar")
 
@@ -106,6 +113,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
 
         # Lấy dữ liệu giới tính từ DataFrame
         gender_counts = self.df['Gender'].value_counts(dropna=True)
+
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({
+            "Giới tính": ["Nam", "Nữ"],
+            "Số lượng": [gender_counts.get(0, 0), gender_counts.get(1, 0)]
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
 
         labels = ["Nam" if x == 0 else "Nữ" for x in gender_counts.index.tolist()]
         sizes = gender_counts.values.tolist()
@@ -130,11 +146,17 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
             self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
-        # Tạo Figure và Axes mới
-        fig, ax = plt.subplots(figsize=(8, 6))
-
         # Lấy giá trị trung bình tuổi khách hàng
         avg_age = round(self.df['Age'].mean(), 2)
+
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({"Tuổi trung bình": [avg_age]})
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(8, 6))
 
         # Vẽ biểu đồ phân bố tuổi khách hàng
         sns.histplot(self.df['Age'], bins=20, kde=True, color='blue', ax=ax)
@@ -161,6 +183,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         license_ratio = self.df['Driving_License'].value_counts(normalize=True) * 100
         yes_ratio = float(license_ratio.get(1, 0))
         no_ratio = float(license_ratio.get(0, 0))
+
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({
+            "Tình trạng bằng lái": ["Có bằng lái", "Không có bằng lái"],
+            "Tỷ lệ (%)": [license_ratio.get(1, 0), license_ratio.get(0, 0)]
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
 
         # Dữ liệu để vẽ biểu đồ
         labels = ["Có bằng lái", "Không có bằng lái"]
@@ -191,6 +222,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         yes_ratio = float(insured_ratio.get(1, 0))
         no_ratio = float(insured_ratio.get(0, 0))
 
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({
+            "Tình trạng bảo hiểm": ["Đã từng mua", "Chưa từng mua"],
+            "Tỷ lệ (%)": [insured_ratio.get(1, 0), insured_ratio.get(0, 0)]
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
+
         # Dữ liệu để vẽ biểu đồ
         labels = ["Đã từng mua", "Chưa từng mua"]
         sizes = [yes_ratio, no_ratio]
@@ -214,18 +254,17 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
             self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
-        # Ánh xạ giá trị tuổi xe
-        if 'Mapped_Vehicle_Age' not in self.df.columns:
-            mapping = {0: 'Dưới 1 năm', 1: '1-2 năm', 2: 'Trên 2 năm'}
-            self.df['Mapped_Vehicle_Age'] = self.df['Vehicle_Age'].astype(int).map(mapping)
+        mapping = {0: 'Dưới 1 năm', 1: '1-2 năm', 2: 'Trên 2 năm'}
+        df_temp = self.df.copy()  # Tạo bản sao để tránh thay đổi dữ liệu gốc
+        df_temp['Vehicle_Age'] = df_temp['Vehicle_Age'].astype(int).map(mapping)
 
         # Kiểm tra nếu sau ánh xạ còn NaN
-        if self.df['Mapped_Vehicle_Age'].isna().sum() > 0:
+        if df_temp['Vehicle_Age'].isna().sum() > 0:
             QMessageBox.warning(self, "Lỗi", "Dữ liệu tuổi xe không hợp lệ hoặc có giá trị rỗng!")
             return
 
         # Tính toán tỷ lệ phần trăm của từng nhóm tuổi xe
-        vehicle_age_counts = self.df['Mapped_Vehicle_Age'].value_counts(normalize=True) * 100
+        vehicle_age_counts = df_temp['Vehicle_Age'].value_counts(normalize=True) * 100
         age_categories = ['Dưới 1 năm', '1-2 năm', 'Trên 2 năm']
 
         # Đảm bảo `values` có đúng 3 phần tử
@@ -240,6 +279,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         if len(age_categories) != len(values):
             QMessageBox.warning(self, "Lỗi", "Số lượng danh mục không khớp với số lượng giá trị!")
             return
+
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({
+            "Tuổi xe": age_categories,
+            "Tỷ lệ (%)": values
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
 
         # Tạo Figure và Axes mới
         fig, ax = plt.subplots(figsize=(8, 6))
@@ -288,6 +336,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
             QMessageBox.warning(self, "Lỗi", "Số lượng danh mục không khớp với số lượng giá trị!")
             return
 
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({
+            "Tình trạng tổn thất": ["Từng gặp tổn thất", "Chưa gặp tổn thất"],
+            "Tỷ lệ (%)": [damage_ratio.get(1, 0.0), damage_ratio.get(0, 0.0)]
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
+
         # Tạo Figure và Axes mới
         fig, ax = plt.subplots(figsize=(6, 6))
         ax.pie(values, labels=categories, autopct='%1.1f%%', colors=['#ff6666', '#66b3ff'])
@@ -314,6 +371,15 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
             round(float(response_ratio.get(0, 0)), 2)
         ]
 
+        # Tạo DataFrame để hiển thị
+        df_display = pd.DataFrame({
+            "Phản hồi": ["Đồng ý mua", "Không đồng ý"],
+            "Tỷ lệ (%)": [response_ratio.get(1, 0), response_ratio.get(0, 0)]
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
+
         # Tạo Figure và Axes mới
         fig, ax = plt.subplots(figsize=(6, 6))
         ax.pie(values, labels=categories, autopct='%1.1f%%', colors=['#99ff99', '#ff6666'])
@@ -327,29 +393,21 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
 
     def TopCusRegions(self, top_n=5):
         self.check_data_empty()  # Kiểm tra dữ liệu rỗng
-        self.data()
+        self.top_n=top_n
 
-        # Kiểm tra dữ liệu cột "Region_Code" có hợp lệ không
+        # Kiểm tra nếu 'Region_Code' không tồn tại hoặc rỗng
         if 'Region_Code' not in self.df.columns or self.df['Region_Code'].isna().all():
             QMessageBox.warning(self, "Lỗi", "Dữ liệu khu vực không hợp lệ hoặc trống!")
             return
+
+        # Đảm bảo `Region_Code` là kiểu số nguyên
+        self.df['Region_Code'] = pd.to_numeric(self.df['Region_Code'], errors='coerce')
 
         # Xóa biểu đồ cũ trước khi vẽ mới
         for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
             self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
         # Lấy danh sách top N khu vực có nhiều khách hàng nhất
-        region_counts = self.df['Region_Code'].value_counts()
-
-        # Kiểm tra nếu không có dữ liệu hợp lệ
-        if region_counts.empty:
-            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu khu vực hợp lệ để vẽ biểu đồ!")
-            return
-
-        # Giới hạn `top_n` để tránh lỗi khi số khu vực ít hơn `top_n`
-        top_n = min(len(region_counts), top_n)
-        region_counts = region_counts.head(top_n)  # SỬA LẠI TỪ `.iloc[:top_n]` THÀNH `.head(top_n)`
-
         region_counts = self.df['Region_Code'].value_counts()
 
         # Tính tỷ lệ phần trăm
@@ -365,17 +423,22 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
             QMessageBox.warning(self, "Lỗi", "Không có dữ liệu hợp lệ để vẽ biểu đồ!")
             return
 
-        # Tạo Figure và Axes mới
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.barplot(x=labels, y=values, palette='viridis', ax=ax)
+        # Dữ liệu hiển thị
+        df_display = pd.DataFrame({
+            "Mã vùng": [str(k) for k in region_ratios.index],
+            "Tỷ lệ khách hàng (%)": [float(v) for v in region_ratios.values]
+        })
 
-        ax.set_title(f'Top {top_n} khu vực có nhiều khách hàng nhất', fontsize=14, fontweight='bold')
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
+
+        # Tạo Figure và Axes mới
+        fig, ax = plt.subplots(figsize=(8, 6))
+        bars = ax.bar(labels, values, color=sns.color_palette("viridis", len(labels)))
+
+        ax.set_title(f'Top khu vực có nhiều khách hàng nhất', fontsize=14, fontweight='bold')
         ax.set_xlabel('Mã vùng', fontsize=12)
         ax.set_ylabel('Tỷ lệ khách hàng (%)', fontsize=12)
-
-        # Thêm giá trị trên từng cột
-        for i, v in enumerate(values):
-            ax.text(i, v + 1, f"{v}%", ha='center', fontsize=10, fontweight='bold')
 
         # Chuyển Figure thành Canvas để hiển thị trên PyQt
         canvas = FigureCanvas(fig)
@@ -384,37 +447,55 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         return dict(zip(labels, values))  # Trả về dữ liệu thống kê
 
     def TopResponsiveRegions(self, top_n=5):
-        self.check_data_empty()
+        self.check_data_empty()  # Kiểm tra dữ liệu rỗng
+        self.top_n=top_n
 
         # Xóa biểu đồ cũ trước khi vẽ mới
         for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
             self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
-        # Tính tỷ lệ phản hồi theo khu vực
+        # Tính tỷ lệ phản hồi của từng khu vực và lấy `top_n` khu vực có phản hồi cao nhất
         region_response = self.df.groupby('Region_Code')['Response'].mean() * 100
-        top_regions = region_response.nlargest(top_n)
+        region_response=region_response.sort_values(ascending=False)
+
+        # Kiểm tra nếu không có dữ liệu hợp lệ
+        if region_response.empty:
+            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu phản hồi hợp lệ để vẽ biểu đồ!")
+            return
 
         # Chuẩn bị dữ liệu cho biểu đồ
-        regions = [str(k) for k in top_regions.index]
-        values = [round(float(v), 2) for v in top_regions.values]
+        labels = [str(k) for k in region_response.index]
+        values = [float(v) for v in region_response.values]
+
+        # Nếu không có dữ liệu hợp lệ thì dừng
+        if not values:
+            QMessageBox.warning(self, "Lỗi", "Không có dữ liệu hợp lệ để vẽ biểu đồ!")
+            return
+
+        # Dữ liệu hiển thị
+        df_display = pd.DataFrame({
+            "Mã vùng": [str(k) for k in region_response.index],
+            "Tỷ lệ phản hồi (%)": [float(v) for v in region_response.values]
+        })
+
+        # Hiển thị dữ liệu trên bảng
+        self.showDataIntoTableWidget(df_display)
 
         # Tạo Figure và Axes mới
-        fig, ax = plt.subplots(figsize=(8, 5))
-        ax.bar(regions, values, color='#ff9999')
-        ax.set_title(f'Top {top_n} Khu Vực Có Tỷ Lệ Phản Hồi Cao Nhất')
-        ax.set_xlabel('Mã vùng')
-        ax.set_ylabel('Tỷ lệ phản hồi (%)')
-        ax.set_ylim(0, max(values) + 5)  # Giới hạn trục Y để hiển thị đẹp hơn
+        fig, ax = plt.subplots(figsize=(8, 6))
+        bars = ax.bar(labels, values, color=sns.color_palette("viridis", len(labels)))
 
-        # Thêm giá trị trên từng cột
-        for i, v in enumerate(values):
-            ax.text(i, v + 1, f"{v}%", ha='center', fontsize=10, fontweight='bold')
+        ax.set_title(f'Top khu vực có tỷ lệ phản hồi cao nhất', fontsize=14, fontweight='bold')
+        ax.set_xlabel('Mã vùng', fontsize=12)
+        ax.set_ylabel('Tỷ lệ phản hồi (%)', fontsize=12)
+        ax.set_ylim(0, max(values) + 5)  # Điều chỉnh trục Y để hiển thị đẹp hơn
 
         # Chuyển Figure thành Canvas để hiển thị trên PyQt
         canvas = FigureCanvas(fig)
         self.verticalLayout_ChartVisualization.addWidget(canvas)
 
-        return dict(zip(regions, values))
+        # Trả về dữ liệu thống kê
+        return dict(zip(labels, values))
 
     def load_data(self, df):
         try:
@@ -435,21 +516,23 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         self.LoginWindowExt.setupUi(self.dbwindow)
         self.dbwindow.show()
 
-    def showDataIntoTableWidget(self,df):
-        self.tableWidget_ListOfData.setRowCount(0)
-        self.tableWidget_ListOfData.setColumnCount(len(df.columns))
-        for i in range(len(df.columns)):
+    def showDataIntoTableWidget(self, df):
+        self.tableWidget_ListOfData.setRowCount(0)  # Xóa dữ liệu cũ
+        self.tableWidget_ListOfData.setColumnCount(len(df.columns))  # Cập nhật số cột
+
+        for i in range(len(df.columns)):  # Gán tên cột
             columnHeader = df.columns[i]
             self.tableWidget_ListOfData.setHorizontalHeaderItem(i, QTableWidgetItem(columnHeader))
+
         row = 0
-        for item in df.iloc:
+        for item in df.iloc:  # Duyệt từng dòng trong DataFrame
             arr = item.values.tolist()
             self.tableWidget_ListOfData.insertRow(row)
-            j=0
+            j = 0
             for data in arr:
                 self.tableWidget_ListOfData.setItem(row, j, QTableWidgetItem(str(data)))
-                j=j+1
-            row = row + 1
+                j += 1
+            row += 1
 
     def show_chart(self, title, x, y, chart_type="bar"):
         fig, ax = plt.subplots()
