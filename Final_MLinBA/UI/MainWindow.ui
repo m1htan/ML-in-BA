@@ -1109,8 +1109,8 @@ selection-color: rgb(151, 30, 30);</string>
           <widget class="QPushButton" name="pushButtonDistributionOfVehicleAge">
            <property name="geometry">
             <rect>
-             <x>0</x>
-             <y>420</y>
+             <x>10</x>
+             <y>510</y>
              <width>461</width>
              <height>70</height>
             </rect>

@@ -418,7 +418,7 @@ class Ui_MainWindow(object):
         self.label_OverviewStatistics.setStyleSheet("color: rgb(255, 255, 255);")
         self.label_OverviewStatistics.setObjectName("label_OverviewStatistics")
         self.pushButtonDistributionOfVehicleAge = QtWidgets.QPushButton(parent=self.groupBox_4)
-        self.pushButtonDistributionOfVehicleAge.setGeometry(QtCore.QRect(0, 420, 461, 70))
+        self.pushButtonDistributionOfVehicleAge.setGeometry(QtCore.QRect(10, 510, 461, 70))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(14)
@@ -4103,7 +4103,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget_choosemodel.setCurrentIndex(0)
-        self.comboBox_LoadModel_RF.setCurrentIndex(0)
+        self.comboBox_LoadModel_RF.setCurrentIndex(1)
         self.tabWidget.tabBarClicked['int'].connect(self.tabWidget.repaint) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.tabWidget, self.pushButtonTotalNumberOfCustomer)

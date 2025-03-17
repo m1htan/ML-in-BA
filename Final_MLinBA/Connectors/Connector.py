@@ -38,7 +38,7 @@ class Connector:
             cursor.execute(sql)
             df = pd.DataFrame(cursor.fetchall())
             if not df.empty:
-                df.columns=cursor.column_names
+                df.columns=cursor.description
             return df
         except:
             traceback.print_exc()

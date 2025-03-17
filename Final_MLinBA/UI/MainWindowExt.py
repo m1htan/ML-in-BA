@@ -254,6 +254,7 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
             self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
 
+        # Mapping chỉ sử dụng trong hàm này
         mapping = {0: 'Dưới 1 năm', 1: '1-2 năm', 2: 'Trên 2 năm'}
         df_temp = self.df.copy()  # Tạo bản sao để tránh thay đổi dữ liệu gốc
         df_temp['Vehicle_Age'] = df_temp['Vehicle_Age'].astype(int).map(mapping)
@@ -296,11 +297,6 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         # Thêm tiêu đề & nhãn trục
         ax.set_title('Phân bố tuổi xe', fontsize=14, fontweight='bold')
         ax.set_ylabel('Tỷ lệ (%)', fontsize=12)
-
-        # Hiển thị giá trị trên từng cột
-        for bar, value in zip(bars, values):
-            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1, f"{value}%", ha='center', fontsize=10,
-                    fontweight='bold')
 
         # Chuyển Figure thành Canvas để hiển thị trên PyQt
         canvas = FigureCanvas(fig)
