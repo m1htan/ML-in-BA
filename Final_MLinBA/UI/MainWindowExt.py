@@ -105,8 +105,19 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
         # Hiển thị dữ liệu trên bảng
         self.showDataIntoTableWidget(df_display)
 
-        # Hiển thị biểu đồ cột
-        self.show_chart(title="Tổng số khách hàng", x=["Tổng khách hàng"], y=[total_customers], chart_type="bar")
+        # Xóa biểu đồ cũ trước khi vẽ
+        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
+            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
+
+        # Vẽ biểu đồ cột
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.bar(["Tổng khách hàng"], [total_customers], color='#66b3ff')  # Sử dụng biểu đồ cột
+        ax.set_title('Tổng số khách hàng', fontsize=14, fontweight='bold')
+        ax.set_ylabel('Số lượng', fontsize=12)
+
+        # Hiển thị biểu đồ trên PyQt
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_ChartVisualization.addWidget(canvas)
 
     def MaleFemaleRatio(self):
         self.check_data_empty()
@@ -529,24 +540,6 @@ class MainWindowExt(QMainWindow, Ui_MainWindow, DataProcessor):
                 self.tableWidget_ListOfData.setItem(row, j, QTableWidgetItem(str(data)))
                 j += 1
             row += 1
-
-    def show_chart(self, title, x, y, chart_type="bar"):
-        fig, ax = plt.subplots()
-
-        if chart_type == "bar":
-            ax.bar(x, y, color=['blue', 'orange'])
-        elif chart_type == "pie":
-            ax.pie(y, labels=x, autopct='%1.1f%%', colors=['blue', 'orange'])
-
-        ax.set_title(title)
-
-        # Xóa biểu đồ cũ trước khi vẽ cái mới
-        for i in reversed(range(self.verticalLayout_ChartVisualization.count())):
-            self.verticalLayout_ChartVisualization.itemAt(i).widget().setParent(None)
-
-        # Vẽ biểu đồ
-        canvas = FigureCanvas(fig)
-        self.verticalLayout_ChartVisualization.addWidget(canvas)
 
     def processTrainModel_and_Evaluate_LR(self):
         # Lấy lựa chọn từ comboBox
