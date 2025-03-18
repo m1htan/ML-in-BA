@@ -525,7 +525,7 @@
     <property name="font">
      <font>
       <family>Segoe UI</family>
-      <pointsize>9</pointsize>
+      <pointsize>16</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -556,7 +556,7 @@ color: rgb(177, 51, 51);</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -910,19 +910,35 @@ selection-color: rgb(151, 30, 30);</string>
            </property>
            <property name="font">
             <font>
-             <pointsize>9</pointsize>
+             <pointsize>20</pointsize>
              <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
+           <property name="autoScrollMargin">
+            <number>16</number>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>155</number>
+           </attribute>
            <column>
             <property name="text">
              <string>New Column</string>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>30</pointsize>
+             </font>
             </property>
            </column>
            <column>
             <property name="text">
              <string>New Column</string>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
             </property>
            </column>
           </widget>
@@ -10242,7 +10258,7 @@ color: rgb(177, 51, 51);</string>
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>24</height>
+     <height>23</height>
     </rect>
    </property>
    <property name="palette">
@@ -10716,7 +10732,7 @@ color: rgb(177, 51, 51);</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>9</pointsize>
+     <pointsize>15</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -10738,6 +10754,7 @@ background-color: rgb(151, 30, 30);</string>
     <property name="font">
      <font>
       <family>Segoe UI</family>
+      <pointsize>15</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -10754,9 +10771,14 @@ background-color: rgb(151, 30, 30);</string>
    <widget class="QMenu" name="menuHelp">
     <property name="font">
      <font>
+      <pointsize>15</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(146, 0, 17);
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="title">
      <string>Help</string>
