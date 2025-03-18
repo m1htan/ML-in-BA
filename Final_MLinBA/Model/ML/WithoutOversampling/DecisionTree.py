@@ -26,14 +26,6 @@ class DecisionTreeModel(DataProcessor):
 
         print(classification_report(y_test, y_pred))
 
-        cm = confusion_matrix(y_test, y_pred)
-
-        sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-        plt.xlabel("Predicted Label")
-        plt.ylabel("True Label")
-        plt.title("Confusion Matrix - Decision Tree")
-        plt.show()
-
         mae = mean_absolute_error(y_test, y_pred)
         mse = mean_squared_error(y_test, y_pred)
         rmse = np.sqrt(mse)
