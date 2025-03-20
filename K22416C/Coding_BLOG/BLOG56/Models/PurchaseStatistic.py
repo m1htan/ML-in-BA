@@ -22,6 +22,8 @@ class PurchaseStatistic:
         print(self.df.info())
     def printDecsribe(self):
         print(self.df.describe())
+
+
     def dateProcessing(self):
         self.df['invoice_date'] = pd.to_datetime(self.df['invoice_date'] , format = '%d/%m/%Y')
         self.df['month'] = self.df['invoice_date'].dt.month
@@ -41,6 +43,8 @@ class PurchaseStatistic:
         self.dfAges.sort_values(by=['age'], ascending=True,inplace=True)
         self.lasted_df = self.dfAges
         return self.dfAges
+
+
     def visualizePieChart(self,df,columnLabel,columnStatistic,title,legend=True):
         explode=[0.1]
         for i in range(len(df[columnLabel])-1):
@@ -60,6 +64,7 @@ class PurchaseStatistic:
         plt.ylabel(columnY)
         plt.grid()
         plt.show()
+
     def processCategoryDistribution(self):
         self.dfCategory = self.df.category.value_counts().reset_index()
         self.lasted_df = self.dfCategory
