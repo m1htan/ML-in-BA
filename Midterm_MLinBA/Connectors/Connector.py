@@ -8,7 +8,7 @@ class Connector:
         if server==None:
             self.server = "localhost"
             self.port = 3306
-            self.database = "Final_MLinBA"
+            self.database = "retails"
             self.username = "root"
             self.password = "Minhtan0410@"
         else:
@@ -17,6 +17,8 @@ class Connector:
             self.database = database
             self.username = username
             self.password = password
+
+        self.cursor = self.conn.cursor(dictionary=True)  # Trả về danh sách từ điển
 
     def connect(self):
         try:
@@ -33,16 +35,8 @@ class Connector:
             self.conn.close()
 
     def queryDataset(self, sql):
-        try:
-            cursor = self.conn.cursor()
-            cursor.execute(sql)
-            df = pd.DataFrame(cursor.fetchall())
-            if not df.empty:
-                df.columns=cursor.description
-            return df
-        except:
-            traceback.print_exc()
-        return None
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()  # Trả về danh sách từ điển chuẩn
 
     def getTablesName(self):
         cursor = self.conn.cursor()

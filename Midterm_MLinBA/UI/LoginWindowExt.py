@@ -1,24 +1,26 @@
 from PyQt6.QtWidgets import QMessageBox, QMainWindow
 
-from MLinBA.Final_MLinBA.UI.LoginWindow import Ui_LoginWindow
-from MLinBA.Final_MLinBA.Connectors.Connector import Connector
+from UI.LoginWindow import Ui_LoginWindow
+from Connectors.Connector import Connector
 
 
-class LoginWindowExt(Ui_LoginWindow):
+class LoginWindowExt(QMainWindow):
     def __init__(self, parent=None):
-        super().__init__()
-        self.LoginWindow = QMainWindow()
-        Ui_LoginWindow.setupUi(self, self.LoginWindow)
-        self.pushButtonConnect.clicked.connect(self.connectDatabase)
+        super().__init__(parent)
+        self.ui = Ui_LoginWindow()
+        self.ui.setupUi(self)
+        self.connector = None
+
+        self.ui.pushButtonConnect.clicked.connect(self.connectDatabase)
 
     def connectDatabase(self):
         try:
             # Lấy thông tin từ các ô nhập liệu
-            server = self.lineEditServer.text()
-            port = int(self.lineEditPort.text())
-            database = self.lineEditDatabase.text()
-            username = self.lineEditUser.text()
-            password = self.lineEditPassword.text()
+            server = self.ui.lineEditServer.text()
+            port = int(self.ui.lineEditPort.text())
+            database = self.ui.lineEditDatabase.text()
+            username = self.ui.lineEditUser.text()
+            password = self.ui.lineEditPassword.text()
 
             # Tạo đối tượng Connector với thông tin mặc định
             default_connector = Connector()
@@ -43,8 +45,8 @@ class LoginWindowExt(Ui_LoginWindow):
 
                 # Chuyển đến MainWindow nếu đang ở trang Login
             if self.connector != None:
-                self.LoginWindow.hide()
-                from MLinBA.Final_MLinBA.UI.MainWindowExt import MainWindowExt
+                self.hide()
+                from MLinBA.Midterm_MLinBA.UI.MainWindowExt import MainWindowExt
                 self.mainwindow = MainWindowExt()
                 self.mainwindow.show()
 
@@ -65,7 +67,7 @@ class LoginWindowExt(Ui_LoginWindow):
             self.msg.show()
 
     def showWindow(self):
-        self.LoginWindow.show()
+        self.show()
 
 
 
